@@ -14,26 +14,26 @@
 <body>
 	<div class="background-image">
 	  <div class= "header">
-		  <a href="index.html"><img src='https://raw.githubusercontent.com/juamedi/SSW/main/tradeemall.png' alt= "Trade Em All Logo"></a>
+		  <a href="index.jsp"><img src='https://raw.githubusercontent.com/juamedi/SSW/main/tradeemall.png' alt= "Trade Em All Logo"></a>
     </div>
     <form class = "panel col">
       <fieldset>
         <legend>Register</legend>
         <div>
           <label for="login">Username</label>
-          <input type="text" id="login" aria-describedby="login-help" placeholder="Username">
+          <input type="text" id="username" name = "username" aria-describedby="login-help" placeholder="Username">
         </div>
         <div>
           <label for="password">Password</label>
-          <input type="password" id="password" placeholder="Password">
+          <input type="password" id="password" name = "password" placeholder="Password">
         </div>
         <div>
           <label for="password">Repeat password</label>
-          <input type="password" id="repeat password" placeholder="Repeat password">
+          <input type="password" id="repeat-password" name = "repeat-password" placeholder="Repeat password">
         </div>
         <div>
           <label for="login">E-mail</label>
-          <input type="text" id="e-mail" aria-describedby="email-help" placeholder="E-mail">
+          <input type="text" id="e-mail" name = "e-mail" aria-describedby="email-help" placeholder="E-mail">
         </div>
         <div class = "form-group">
           <button type="submit" class="boton-red">Register</button>

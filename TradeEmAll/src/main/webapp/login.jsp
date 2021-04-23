@@ -16,12 +16,12 @@
 	  <div class= "header">
             <a href="index.jsp"><img src='https://raw.githubusercontent.com/juamedi/SSW/main/tradeemall.png' alt= "Trade Em All Logo"></a>
       </div>
-    <form class = "panel" action = "../LoginServlet" method = "post">
+    <form class = "panel" action = "LoginServlet" method = "post">
       <fieldset>
         <legend>Login</legend>
         <div>
           <label for="login">Username / E-mail</label>
-          <input type="text" id="login" name = "username" aria-describedby="login-help" placeholder="Username / E-mail">
+          <input type="text" id="username" name = "username" aria-describedby="login-help" placeholder="Username / E-mail">
         </div>
         <div>
           <label for="password">Password</label>

@@ -11,19 +11,23 @@ package model;
  * @author juanm
  */
 public class Users {
+    private static int number = 0;
     private int id;
     private String username;
     private String password;
     private String email;
 
     public Users () {
-        
+        this.id = number;
+        number++;
     }
 
     public Users (String username, String password, String email) {
+        this.id = number;
         this.username = username;
         this.password = password;
         this.email = email;
+        number++;
     }
 
     public void setUsername (String username) {
