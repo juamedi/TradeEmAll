@@ -16,7 +16,7 @@
 	  <div class= "header">
             <a href="index.jsp"><img src='https://raw.githubusercontent.com/juamedi/SSW/main/tradeemall.png' alt= "Trade Em All Logo"></a>
       </div>
-    <form class = "panel" action = "RegisterServlet" method = "post">
+    <form class = "panel" action = "LoginServlet" method = "post">
       <fieldset>
         <legend>Login</legend>
         <div>

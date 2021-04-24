@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import = "com.model.User"%>
 <html>
 
 <head>
@@ -6,13 +7,19 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="style-common.css">
 	<link rel="stylesheet" href="style-grid.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.1/css/all.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.1/css/all.css">
 
 	<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/juamedi/SSW/main/favicon.png" sizes="16x16">
 	<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/juamedi/SSW/main/favicon.png" sizes="32x32">
 	<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/juamedi/SSW/main/favicon.pngg" sizes="64x64">
 </head>
 
+
+<%
+    User user = (User) session.getAttribute("user");
+    session.invalidate();
+    String username = user.getUsername();
+%>
 <body>
 	<div class="background-image">
 		<div class="header">
@@ -25,7 +32,7 @@
           <a class="boton-white" href="create.jsp">Create offer</a>
         </form>
         <form class="form-inline dropdown">    
-          <button class="dropbtn">Juamedi 
+          <button class="dropbtn"><%=username%>
             <img src="https://raw.githubusercontent.com/juamedi/SSW/main/cejaperro.png" class = "img-icon">
           </button>
           <div class="dropdown-content">

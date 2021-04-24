@@ -64,7 +64,8 @@ public class RegisterServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
         catch (Exception ex){
-            response.sendRedirect("search.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+            dispatcher.forward(request, response);
         }
 
     }

@@ -44,4 +44,36 @@ public class DBUsers{
             return 0;
         }
     }
+
+    public static User login(String username, String password) throws Exception {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM user WHERE username = ? AND password = ?";
+
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            rs = ps.executeQuery();
+            User user = new User();
+            
+            if (rs.next()) {
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setEmail(rs.getString("email"));
+                user.setProfilePicture(rs.getString("profile_picture"));
+            }
+            rs.close();
+            ps.close();
+            pool.freeConnection(connection);
+            return user;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

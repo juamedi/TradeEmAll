@@ -6,15 +6,13 @@
 
 package com.controller;
 
-import com.model.User;
-import com.model.DBUsers;
+import com.model.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.*;
+import javax.servlet.http.*;
 
 /**
  *
@@ -34,21 +32,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        User user = new User();
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        
-        user.setUsername(username);
-        user.setPassword(password);
-        DBUsers register = new DBUsers();
-        
-        try {
-            register.register(user);
-        }
-        catch (Exception e) {
-            response.sendRedirect("search.jsp");
-        }
-        response.sendRedirect("profile.jsp");
+
     } 
 
     /** 
@@ -62,7 +46,18 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        response.sendRedirect("login.jsp");
+        User user = null;
+        try {
+            user = DBUsers.login(username, password);
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/profile.jsp");
+            dispatcher.forward(request, response);
+        }
+        catch (Exception ex){
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+            dispatcher.forward(request, response); 
+        }
     }
 
     /** 
