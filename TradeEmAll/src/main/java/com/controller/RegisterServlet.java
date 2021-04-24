@@ -4,15 +4,15 @@
  * and open the template in the editor.
  */
 
-package controller;
+package com.controller;
 
+import com.model.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.*;
+import javax.servlet.http.*;
 
 /**
  *
@@ -47,9 +47,29 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        Users user = new Users();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String email = request.getParameter("e-mail");
+        
+        user.setUsername(username);
+        user.setPassword(password);
+        //DBUsers register = new DBUsers();
+        
+        try {
+            DBUsers.register(user);
+            response.sendRedirect("profile.jsp");
+        }
+        catch (Exception ex){
+            response.sendRedirect("search.jsp");
+        }
+        
+        /*HttpSession session = request.getSession();
+        session.setAttribute("user", user);
+
+
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("search.jsp");
+        dispatcher.forward(request, response);*/
+
     }
 
     /** 

@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 
-//package controller;
+package com.controller;
 
+import com.model.Users;
+import com.model.DBUsers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -32,9 +34,21 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        Users user = new Users();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        response.sendRedirect("login.jsp");
+        
+        user.setUsername(username);
+        user.setPassword(password);
+        DBUsers register = new DBUsers();
+        
+        try {
+            register.register(user);
+        }
+        catch (Exception e) {
+            response.sendRedirect("search.jsp");
+        }
+        response.sendRedirect("profile.jsp");
     } 
 
     /** 

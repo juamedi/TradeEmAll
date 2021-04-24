@@ -16,7 +16,7 @@
 	  <div class= "header">
             <a href="index.jsp"><img src='https://raw.githubusercontent.com/juamedi/SSW/main/tradeemall.png' alt= "Trade Em All Logo"></a>
       </div>
-    <form class = "panel" action = "LoginServlet" method = "post">
+    <form class = "panel" action = "RegisterServlet" method = "post">
       <fieldset>
         <legend>Login</legend>
         <div>
@@ -25,7 +25,7 @@
         </div>
         <div>
           <label for="password">Password</label>
-          <input type="password" id="password" name = "username" placeholder="Password">
+          <input type="password" id="password" name = "password" placeholder="Password">
         </div>
         <div class = "form-group">
           <button type="submit" class="boton-red">Login</button>
