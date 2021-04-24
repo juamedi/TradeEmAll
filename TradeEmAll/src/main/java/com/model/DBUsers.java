@@ -17,20 +17,27 @@ import java.sql.*;
  */
 public class DBUsers{
     
-    public static int register(Users users) throws Exception {
+    public static int register(User user) throws Exception {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
-        String sql = "INSERT INTO users (username, password) VALUES (?,?)";
+        String sql = "INSERT INTO user (username, password, email, profile_picture) VALUES (?,?,?,?)";
 
         try {
-            ps = connection.prepareStatement(sql);
-            ps.setString(1, users.getUsername());
-            ps.setString(2, users.getPassword());
-            int rowCount = ps.executeUpdate();
+            ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getEmail());
+            ps.setString(4, user.getProfilePicture());
+            int id = 0;
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
             ps.close();
             pool.freeConnection(connection);
-            return rowCount;
+            return id;
         }
         catch (Exception e) {
             e.printStackTrace();

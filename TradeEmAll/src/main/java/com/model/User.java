@@ -4,14 +4,13 @@
  * and open the template in the editor.
  */
 
-package model;
+package com.model;
 
 /**
  *
  * @author juanm
  */
 public class User {
-    private static int number = 0;
     private int id;
     private String username;
     private String password;
@@ -19,17 +18,22 @@ public class User {
     private String profile_picture;
 
     public User () {
-        this.id = number;
-        number++;
+
     }
 
     public User (String username, String password, String email, String profile_picture) {
-        this.id = number;
         this.username = username;
         this.password = password;
         this.email = email;
         this.profile_picture = profile_picture;
-        number++;
+    }
+
+    public int getId () {
+        return id;
+    }
+
+    public void setId (int id) {
+        this.id = id;
     }
 
     public String getUsername () {

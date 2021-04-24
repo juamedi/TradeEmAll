@@ -6,7 +6,7 @@
 
 package com.controller;
 
-import com.model.Users;
+import com.model.User;
 import com.model.DBUsers;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        Users user = new Users();
+        User user = new User();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         

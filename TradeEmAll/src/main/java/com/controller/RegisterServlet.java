@@ -32,9 +32,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String email = request.getParameter("e-mail");
+
     } 
 
     /** 
@@ -47,28 +45,27 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        Users user = new Users();
+        User user = new User();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String email = request.getParameter("e-mail");
         
         user.setUsername(username);
         user.setPassword(password);
-        //DBUsers register = new DBUsers();
+        user.setEmail(email);
+        user.setProfilePicture(null);
         
         try {
-            DBUsers.register(user);
-            response.sendRedirect("profile.jsp");
+            int id = DBUsers.register(user);
+            user.setId(id);
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/profile.jsp");
+            dispatcher.forward(request, response);
         }
         catch (Exception ex){
             response.sendRedirect("search.jsp");
         }
-        
-        /*HttpSession session = request.getSession();
-        session.setAttribute("user", user);
-
-
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("search.jsp");
-        dispatcher.forward(request, response);*/
 
     }
 
