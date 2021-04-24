@@ -18,21 +18,22 @@ public class User {
     private String profile_picture;
 
     public User () {
-
+        
     }
 
-    public User (String username, String password, String email, String profile_picture) {
+    public User (   String username, String password, String email,
+                    String profile_picture  ) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.profile_picture = profile_picture;
     }
-
-    public int getId () {
+    
+    public int getId() {
         return id;
     }
-
-    public void setId (int id) {
+    
+    public void setId(int id) {
         this.id = id;
     }
 
