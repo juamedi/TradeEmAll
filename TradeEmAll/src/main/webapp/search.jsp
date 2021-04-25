@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@page import = "com.model.User"%>
+<%@page import = "com.model.*, java.util.*"%>
 <html>
   <head>
     <title>Trade Em All</title>
@@ -17,6 +17,11 @@
     String username = user.getUsername();
     String password = user.getPassword();
     String email = user.getEmail();
+    ArrayList<Offer> list_offer = new ArrayList<Offer>();
+    if ((ArrayList<Offer>) request.getAttribute("list_offer") != null) {
+        list_offer = (ArrayList<Offer>) request.getAttribute("list_offer");
+    }
+    int size = list_offer.size();
 %>
   
   <body>
@@ -214,8 +219,14 @@
       </form>
 
       <div class = "panel-fluid">
-        <div class = "row-card">
+        <div class = "row-card">    
           <div class = "col-card">
+          <%
+            for (int i = 0; i < size; i = i+2) {
+              Offer offer = new Offer();
+              offer = list_offer.get(i);
+              
+          %>
             <div class="card">
               <div class = "row">
                 <div class = "col-3">
@@ -247,7 +258,7 @@
                     </div>
                     <div class = "col-2">
                       <label>Shiny</label>
-                      <label class = "text-muted">No</label>
+                      <label class = "text-muted"></label>
                     </div>
                   </div>
                   <div class = "row-blank"></div>
@@ -258,7 +269,7 @@
                     </div>
                     <div class = "col-2">
                       <label class = "bold">ATK</label>
-                      <label>31</label>
+                      <label><%=offer.getAttackIVs()%></label>
                     </div>
                     <div class = "col-2">
                       <label class = "bold">DEF</label>
@@ -280,72 +291,17 @@
                 </div>
               </div>
             </div>
-            <div class="card">
-              <div class = "row">
-                <div class = "col-3">
-                  <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "card-img">
-                </div>
-                <div class = "col-card-stats">
-                  <div class = "row justify-content-between">
-                    <div class = "col-6">
-                      <label class = "big bold">Bulbasaur</label>
-                    </div>
-                    <div class = "col-6">
-                      <label>Owner</label>
-                      <label class = "text-muted">Choscar</label>
-                    </div>
-                  </div>
-                  <div class = "row-blank"></div>
-                  <div class = "row justify-content-between">
-                    <div class = "col-4">
-                      <label>Nature</label>
-                      <label class = "text-muted">Adamant</label>
-                    </div>
-                    <div class = "col-3">
-                      <label>Level</label>
-                      <label class = "text-muted">100</label>
-                    </div>
-                    <div class = "col-3">
-                      <label>Gender</label>
-                      <label class = "text-muted">Male</label>
-                    </div>
-                    <div class = "col-2">
-                      <label>Shiny</label>
-                      <label class = "text-muted">No</label>
-                    </div>
-                  </div>
-                  <div class = "row-blank"></div>
-                  <div class = "row justify-content-between">
-                    <div class = "col-2">
-                      <label class = "bold">HP</label>
-                      <label>31</label>
-                    </div>
-                    <div class = "col-2">
-                      <label class = "bold">ATK</label>
-                      <label>31</label>
-                    </div>
-                    <div class = "col-2">
-                      <label class = "bold">DEF</label>
-                      <label>31</label>
-                    </div>
-                    <div class = "col-2">
-                      <label class = "bold">SPA</label>
-                      <label>31</label>
-                    </div>
-                    <div class = "col-2">
-                      <label class = "bold">SPD</label>
-                      <label>31</label>
-                    </div>
-                    <div class = "col-2">
-                      <label class = "bold">SPE</label>
-                      <label>31</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <%
+            }
+          %>
           </div>
+
           <div class = "col-card">
+          <%
+            for (int i = 1; i < size; i = i+2) {
+              Offer offer = new Offer();
+              offer = list_offer.get(i);
+          %>
             <div class="card">
               <div class = "row">
                 <div class = "col-3">
@@ -410,70 +366,9 @@
                 </div>
               </div>
             </div>
-            <div class="card">
-              <div class = "row">
-                <div class = "col-3">
-                  <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "card-img">
-                </div>
-                <div class = "col-card-stats">
-                  <div class = "row justify-content-between">
-                    <div class = "col-6">
-                      <label class = "big bold">Bulbasaur</label>
-                    </div>
-                    <div class = "col-6">
-                      <label>Owner</label>
-                      <label class = "text-muted">Gonzautist</label>
-                    </div>
-                  </div>
-                  <div class = "row-blank"></div>
-                  <div class = "row justify-content-between">
-                    <div class = "col-4">
-                      <label>Nature</label>
-                      <label class = "text-muted">Adamant</label>
-                    </div>
-                    <div class = "col-3">
-                      <label>Level</label>
-                      <label class = "text-muted">100</label>
-                    </div>
-                    <div class = "col-3">
-                      <label>Gender</label>
-                      <label class = "text-muted">Male</label>
-                    </div>
-                    <div class = "col-2">
-                      <label>Shiny</label>
-                      <label class = "text-muted">No</label>
-                    </div>
-                  </div>
-                  <div class = "row-blank"></div>
-                  <div class = "row justify-content-between">
-                    <div class = "col-2">
-                      <label class = "bold">HP</label>
-                      <label>31</label>
-                    </div>
-                    <div class = "col-2">
-                      <label class = "bold">ATK</label>
-                      <label>31</label>
-                    </div>
-                    <div class = "col-2">
-                      <label class = "bold">DEF</label>
-                      <label>31</label>
-                    </div>
-                    <div class = "col-2">
-                      <label class = "bold">SPA</label>
-                      <label>31</label>
-                    </div>
-                    <div class = "col-2">
-                      <label class = "bold">SPD</label>
-                      <label>31</label>
-                    </div>
-                    <div class = "col-2">
-                      <label class = "bold">SPE</label>
-                      <label>31</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <%
+            }
+          %>  
           </div>
         </div>
       </div>

@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.*;
 import javax.servlet.http.*;
+import java.util.*;
 
 /**
  *
@@ -84,7 +85,8 @@ public class SearchServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
         try {
-            int id = DBOffers.postOffer(offer, user);
+            ArrayList<Offer> list_offer = DBOffers.lookOffer(offer, user);
+            request.setAttribute("list_offer", list_offer);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/search.jsp");
             dispatcher.forward(request, response);
         }
