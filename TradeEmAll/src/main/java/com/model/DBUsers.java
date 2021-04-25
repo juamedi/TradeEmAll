@@ -7,8 +7,6 @@
 package com.model;
 
 import com.conexion.*;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.*;
 
 /**
@@ -21,10 +19,12 @@ public class DBUsers{
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
-        String sql = "INSERT INTO user (username, password, email, profile_picture) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO user (username, password, "
+                + "email, profile_picture) VALUES (?,?,?,?)";
 
         try {
-            ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement(sql, 
+                    Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getEmail());
@@ -45,7 +45,8 @@ public class DBUsers{
         }
     }
 
-    public static User login(String username, String password) throws Exception {
+    public static User login(String username, String password) 
+            throws Exception {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
