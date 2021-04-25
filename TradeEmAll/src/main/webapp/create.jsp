@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import = "com.model.User"%>
 <html>
   <head>
       <title>Trade Em All</title>
@@ -10,6 +11,14 @@
       <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/juamedi/SSW/main/favicon.png" sizes="32x32">   
       <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/juamedi/SSW/main/favicon.pngg" sizes="64x64">
   </head>
+  
+<%
+    User user = (User) session.getAttribute("user");
+    String username = user.getUsername();
+    String password = user.getPassword();
+    String email = user.getEmail();
+%>
+  
   <body>
     <div class="background-image">
       <div class= "header">

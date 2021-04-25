@@ -14,25 +14,21 @@ import java.sql.*;
  */
 public class DBOffers {
     
-    public static int postOffer(Offer offer) throws Exception {
+    public static int postOffer(Offer offer, User user) throws Exception {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
-        String sql = "INSERT INTO offer (trade_id, user_id, poke_num, name," +
-                    "level, gender, shiny, ability," +
-                    "move1, move2, move3, move4," +
-                    "nature, HP_IVs, Attack_IVs, Defense_IVs," +
-                    "SAttack_IVs, SDefense_IVs, Speed_IVs," +
-                    "HP_EVs, Attack_EVs, Defense_EVs," +
-                    "SAttack_EVs, SDefense_EVs, Speed_EVs " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
-                    + "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO offer (user_id, trade_id, poke_num, poke_name, poke_level, " +
+"                     poke_gender, poke_shiny, poke_ability, poke_move_1, poke_move_2, poke_move_3, poke_move_4, " +
+"                     poke_nature, poke_ev_hp, poke_ev_atk, poke_ev_def, poke_ev_spa, poke_ev_spd, poke_ev_spe, " +
+"                     poke_iv_hp, poke_iv_atk, poke_iv_def, poke_iv_spa, poke_iv_spd, poke_iv_spe) " + 
+                      "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         
         try {
             ps = connection.prepareStatement(sql,
                     Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, offer.getTradeId());
-            ps.setInt(2, offer.getUserId());
+            ps.setInt(1, user.getId());
+            ps.setInt(2, offer.getTradeId());
             ps.setInt(3, offer.getPokeNum());
             ps.setString(4, offer.getName());
             ps.setInt(5, offer.getLevel());

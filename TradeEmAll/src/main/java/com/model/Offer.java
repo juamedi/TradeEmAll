@@ -10,38 +10,9 @@ package com.model;
  * @author gonza
  */
 
-enum Gender {
-    Male,
-    Female,
-    None
-}
 
-enum Nature {
-    Hardy,
-    Lonely,
-    Brave,
-    Adamant,
-    Naughty,
-    Bold,
-    Docile,
-    Relaxed,
-    Impish,
-    Lax,
-    Timid,
-    Hasty,
-    Serious,
-    Jolly,
-    Naive,
-    Modest,
-    Mild,
-    Quiet,
-    Bashful,
-    Rash,
-    Gentle,
-    Sassy,
-    Careful,
-    Quirky
-}
+
+
 
 public class Offer {
     private int offer_id;
@@ -50,14 +21,14 @@ public class Offer {
     private int poke_num;
     private String name;
     private int level;
-    private Gender gender;
+    private String gender;
     private boolean shiny;
     private String ability;
     private String move1;
     private String move2;
     private String move3;
     private String move4;
-    private Nature nature;
+    private String nature;
     private int HP_IVs;
     private int Attack_IVs;
     private int Defense_IVs;
@@ -77,9 +48,9 @@ public class Offer {
     }
     
     public Offer (  int trade_id, int user_id, int poke_num, String name,
-                    int level, Gender gender, boolean shiny, String ability,
+                    int level, String gender, boolean shiny, String ability,
                     String move1, String move2, String move3, String move4,
-                    Nature nature, int HP_IVs, int Attack_IVs, int Defense_IVs,
+                    String nature, int HP_IVs, int Attack_IVs, int Defense_IVs,
                     int SAttack_IVs, int SDefense_IVs, int Speed_IVs,
                     int HP_EVs, int Attack_EVs, int Defense_EVs,
                     int SAttack_EVs, int SDefense_EVs, int Speed_EVs    ) {
@@ -159,11 +130,11 @@ public class Offer {
         this.level = level;
     }
     
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
     
-    public void setGender(Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
     
@@ -215,11 +186,11 @@ public class Offer {
         this.move4 = move4;
     }
     
-    public Nature getNature () {
+    public String getNature () {
         return nature;
     }
     
-    public void setNature (Nature nature) {
+    public void setNature (String nature) {
         this.nature = nature;
     }
     

@@ -17,8 +17,9 @@
 
 <%
     User user = (User) session.getAttribute("user");
-    session.invalidate();
     String username = user.getUsername();
+    String password = user.getPassword();
+    String email = user.getEmail();
 %>
 <body>
 	<div class="background-image">
@@ -58,7 +59,7 @@
           <label class = "bold">Username:</label>
         </div>
         <div class = "col-4 py">    
-          <input readonly="True" value="Juamedi"></input> 
+            <input readonly="True" value=<%=password%>></input> 
         </div>
         <div class = "col-4 py">    
           <a class="boton-white" href="#">Change</a>
@@ -69,7 +70,7 @@
           <label class = "bold">Email:</label>
         </div>
         <div class = "col-9 py">    
-          <label>elperrocejon@example.com</label> 
+          <label><%=email%></label> 
         </div>
       </div>
       <div class="row py">
@@ -77,7 +78,7 @@
           <label class = "bold">Password:</label>
         </div>
         <div class = "col-4 py">    
-          <input type="password" readonly="True" value="contraseña"></input> 
+          <input type="password" readonly="True" value=<%=password%>></input> 
         </div>
         <div class = "col-4 py">    
           <a class="boton-white" href="#">Change</a>
