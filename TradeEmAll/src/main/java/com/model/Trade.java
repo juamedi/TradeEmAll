@@ -21,14 +21,14 @@ public class Trade {
     private int give_poke_num;
     private String give_name;
     private int give_level;
-    private Gender give_gender;
+    private String give_gender;
     private boolean give_shiny;
     private String give_ability;
     private String give_move1;
     private String give_move2;
     private String give_move3;
     private String give_move4;
-    private Nature give_nature;
+    private String give_nature;
     private int give_HP_IVs;
     private int give_Attack_IVs;
     private int give_Defense_IVs;
@@ -44,14 +44,14 @@ public class Trade {
     private int receive_poke_num;
     private String receive_name;
     private int receive_level;
-    private Gender receive_gender;
+    private String receive_gender;
     private boolean receive_shiny;
     private String receive_ability;
     private String receive_move1;
     private String receive_move2;
     private String receive_move3;
     private String receive_move4;
-    private Nature receive_nature;
+    private String receive_nature;
     private int receive_HP_IVs;
     private int receive_Attack_IVs;
     private int receive_Defense_IVs;
@@ -73,20 +73,20 @@ public class Trade {
                     String give_review, int give_review_stars, 
                     String receive_review, int receive_review_stars,
                     int give_poke_num, String give_name, int give_level, 
-                    Gender give_gender, boolean give_shiny, String give_ability,
+                    String give_gender, boolean give_shiny, String give_ability,
                     String give_move1, String give_move2, String give_move3,
-                    String give_move4, Nature give_nature, int give_HP_IVs,
+                    String give_move4, String give_nature, int give_HP_IVs,
                     int give_Attack_IVs, int give_Defense_IVs, 
                     int give_SAttack_IVs, int give_SDefense_IVs,
                     int give_Speed_IVs, int give_HP_EVs, int give_Attack_EVs,
                     int give_Defense_EVs, int give_SAttack_EVs,
                     int give_SDefense_EVs, int give_Speed_EVs, 
                     int receive_poke_num, String receive_name, 
-                    int receive_level, Gender receive_gender,
+                    int receive_level, String receive_gender,
                     boolean receive_shiny, String receive_ability,
                     String receive_move1, String receive_move2,
                     String receive_move3, String receive_move4,
-                    Nature receive_nature, int receive_HP_IVs,
+                    String receive_nature, int receive_HP_IVs,
                     int receive_Attack_IVs, int receive_Defense_IVs,
                     int receive_SAttack_IVs, int receive_SDefense_IVs,
                     int receive_Speed_IVs, int receive_HP_EVs,
@@ -237,11 +237,11 @@ public class Trade {
         this.give_level = give_level;
     }
     
-    public Gender getGiveGender() {
+    public String getGiveGender() {
         return give_gender;
     }
     
-    public void setGiveGender(Gender give_gender) {
+    public void setGiveGender(String give_gender) {
         this.give_gender = give_gender;
     }
     
@@ -293,11 +293,11 @@ public class Trade {
         this.give_move4 = give_move4;
     }
     
-    public Nature getGiveNature () {
+    public String getGiveNature () {
         return give_nature;
     }
     
-    public void setGiveNature (Nature give_nature) {
+    public void setGiveNature (String give_nature) {
         this.give_nature = give_nature;
     }
     
@@ -421,11 +421,11 @@ public class Trade {
         this.receive_level = receive_level;
     }
     
-    public Gender getReceiveGender() {
+    public String getReceiveGender() {
         return receive_gender;
     }
     
-    public void setReceiveGender(Gender receive_gender) {
+    public void setReceiveGender(String receive_gender) {
         this.receive_gender = receive_gender;
     }
     
@@ -477,11 +477,11 @@ public class Trade {
         this.receive_move4 = receive_move4;
     }
     
-    public Nature getReceiveNature () {
+    public String getReceiveNature () {
         return receive_nature;
     }
     
-    public void setReceiveNature (Nature receive_nature) {
+    public void setReceiveNature (String receive_nature) {
         this.receive_nature = receive_nature;
     }
     

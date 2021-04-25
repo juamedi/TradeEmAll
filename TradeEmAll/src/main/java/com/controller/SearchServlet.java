@@ -79,7 +79,8 @@ public class SearchServlet extends HttpServlet {
         offer.setSAttackIVs(iv_spa);
         offer.setSDefenseIVs(iv_spd);
         offer.setSpeedIVs(iv_spe);
-
+        
+        HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
         try {
