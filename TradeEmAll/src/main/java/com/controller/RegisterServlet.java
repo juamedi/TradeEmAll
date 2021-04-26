@@ -48,12 +48,18 @@ public class RegisterServlet extends HttpServlet {
         User user = new User();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String rpassword = request.getParameter("repeat-password");
         String email = request.getParameter("e-mail");
         
+        if (!password.equals(rpassword)) {
+            request.setAttribute("wrong_password_reg", "true");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/register.jsp");
+            dispatcher.forward(request, response);
+        }
         user.setUsername(username);
         user.setPassword(password);
         user.setEmail(email);
-        user.setProfilePicture(null);
+        user.setProfilePicture("https://raw.githubusercontent.com/juamedi/SSW/main/pfp_default.jpg");
         
         try {
             int id = DBUsers.register(user);
@@ -64,7 +70,7 @@ public class RegisterServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
         catch (Exception ex){
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/register.jsp");
             dispatcher.forward(request, response);
         }
 

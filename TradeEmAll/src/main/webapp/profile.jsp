@@ -17,9 +17,11 @@
 
 <%
     User user = (User) session.getAttribute("user");
+    int id = user.getId();
     String username = user.getUsername();
     String password = user.getPassword();
     String email = user.getEmail();
+    String pfp = user.getProfilePicture();
 %>
 <body>
 	<div class="background-image">
@@ -34,7 +36,7 @@
         </form>
         <form class="form-inline dropdown">    
           <button class="dropbtn"><%=username%>
-            <img src="https://raw.githubusercontent.com/juamedi/SSW/main/cejaperro.png" class = "img-icon">
+            <img src=<%=pfp%> class = "img-icon">
           </button>
           <div class="dropdown-content">
               <a class="dropdown-item" href="profile.jsp">Your profile</a>
@@ -52,14 +54,14 @@
       <div class = "panel-fluid-profile row">
       <div class="col-profile">
       <div class="row py">
-        <img src='https://raw.githubusercontent.com/juamedi/SSW/main/cejaperro.png' class = "img-profile"alt= "Profile picture">
+        <img src=<%=pfp%> class = "img-profile" alt= "Profile picture">
       </div>
       <div class="row py">
         <div class = "col-3 py">
           <label class = "bold">Username:</label>
         </div>
         <div class = "col-4 py">    
-            <input readonly="True" value=<%=password%>></input> 
+            <input readonly="True" value="<%=username + " #" + id%>"></input> 
         </div>
         <div class = "col-4 py">    
           <a class="boton-white" href="#">Change</a>

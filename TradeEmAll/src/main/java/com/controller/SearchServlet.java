@@ -37,6 +37,7 @@ public class SearchServlet extends HttpServlet {
         String pkmnature = request.getParameter("pkmnature");
         int pkmlevel = Integer.parseInt(request.getParameter("pkmlevel"));
         String pkmgender = request.getParameter("pkmgender");
+        String pkmability = request.getParameter("pkmability");
         String shiny = request.getParameter("pkmshiny");
         boolean pkmshiny = false;
         if (shiny != null) {pkmshiny = true;}
@@ -57,36 +58,37 @@ public class SearchServlet extends HttpServlet {
         String moveset3 = request.getParameter("moveset3");
         String moveset4 = request.getParameter("moveset4");
 
-        Offer offer = new Offer();
+        Trade trade = new Trade();
 
-        offer.setName(pkmname);
-        offer.setNature(pkmnature);
-        offer.setLevel(pkmlevel);
-        offer.setGender(pkmgender);
-        offer.setShiny(pkmshiny);
-        offer.setMove1(moveset1);
-        offer.setMove2(moveset2);
-        offer.setMove3(moveset3);
-        offer.setMove4(moveset4);
-        offer.setHPEVs(ev_hp);
-        offer.setAttackEVs(ev_atk);
-        offer.setDefenseEVs(ev_def);
-        offer.setSAttackEVs(ev_spa);
-        offer.setSDefenseEVs(ev_spd);
-        offer.setSpeedEVs(ev_spe);
-        offer.setHPIVs(iv_hp);
-        offer.setAttackIVs(iv_atk);
-        offer.setDefenseIVs(iv_def);
-        offer.setSAttackIVs(iv_spa);
-        offer.setSDefenseIVs(iv_spd);
-        offer.setSpeedIVs(iv_spe);
+        trade.setGiveName(pkmname);
+        trade.setGiveNature(pkmnature);
+        trade.setGiveLevel(pkmlevel);
+        trade.setGiveGender(pkmgender);
+        trade.setGiveAbility(pkmability);
+        trade.setGiveShiny(pkmshiny);
+        trade.setGiveMove1(moveset1);
+        trade.setGiveMove2(moveset2);
+        trade.setGiveMove3(moveset3);
+        trade.setGiveMove4(moveset4);
+        trade.setGiveHPEVs(ev_hp);
+        trade.setGiveAttackEVs(ev_atk);
+        trade.setGiveDefenseEVs(ev_def);
+        trade.setGiveSAttackEVs(ev_spa);
+        trade.setGiveSDefenseEVs(ev_spd);
+        trade.setGiveSpeedEVs(ev_spe);
+        trade.setGiveHPIVs(iv_hp);
+        trade.setGiveAttackIVs(iv_atk);
+        trade.setGiveDefenseIVs(iv_def);
+        trade.setGiveSAttackIVs(iv_spa);
+        trade.setGiveSDefenseIVs(iv_spd);
+        trade.setGiveSpeedIVs(iv_spe);
         
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
         try {
-            ArrayList<Offer> list_offer = DBOffers.lookOffer(offer, user);
-            request.setAttribute("list_offer", list_offer);
+            ArrayList<Trade> list_trade = DBTrades.lookTrade(trade, user);
+            request.setAttribute("list_trade", list_trade);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/search.jsp");
             dispatcher.forward(request, response);
         }

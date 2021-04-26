@@ -7,6 +7,7 @@ package com.model;
 
 import com.conexion.*;
 import java.sql.*;
+import java.util.*;
 
 /**
  *
@@ -18,7 +19,7 @@ public class DBTrades {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
-        String sql = "INSERT INTO trade ( active, give_user_id, "
+        String sql = "INSERT INTO trade (active, give_user_id, "
                 + "receive_user_id, give_review, give_review_stars, "
                 + "receive_review, receive_review_stars, give_poke_num, "
                 + "give_name, give_level, give_gender, give_shiny, "
@@ -102,6 +103,7 @@ public class DBTrades {
             if (rs.next()) {
                 id = rs.getInt(1);
             }
+            rs.close();
             ps.close();
             pool.freeConnection(connection);
             return id;
@@ -109,6 +111,119 @@ public class DBTrades {
         catch (Exception e) {
             e.printStackTrace();
             return 0;
+        }
+    }
+
+    public static ArrayList<Trade> lookTrade (Trade trade, User user) throws Exception {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "SELECT T.*, U.username FROM trade T, user U WHERE give_user_id = id AND give_user_id != ? AND give_name = ? AND give_level = ? " +
+                     "AND give_gender = ? AND give_shiny = ? AND give_ability = ? AND give_move1 = ? " +
+                     "AND give_move2 = ? AND give_move3 = ? AND give_move4 = ? AND give_nature = ? " + 
+                     "AND give_HP_EVs = ? AND give_Attack_EVs = ? AND give_Defense_EVs = ? AND give_SAttack_EVs = ? " +
+                     "AND give_SDefense_EVs = ? AND give_Speed_EVs = ? AND give_HP_IVs = ? AND give_Attack_IVs = ? " + 
+                     "AND give_Defense_IVs = ? AND give_SAttack_IVs = ? AND give_SDefense_IVs = ? AND give_Speed_IVs = ? AND active is true";
+        ArrayList<Trade> trade_list = new ArrayList<Trade>();
+
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, user.getId());
+            ps.setString(2, trade.getGiveName());
+            ps.setInt(3, trade.getGiveLevel());
+            ps.setString(4, trade.getGiveGender());
+            ps.setBoolean(5, trade.getGiveShiny());
+            ps.setString(6, trade.getGiveAbility());
+            ps.setString(7, trade.getGiveMove1());
+            ps.setString(8, trade.getGiveMove2());
+            ps.setString(9, trade.getGiveMove3());
+            ps.setString(10, trade.getGiveMove4());
+            ps.setString(11, trade.getGiveNature());
+            ps.setInt(12, trade.getGiveHPEVs());
+            ps.setInt(13, trade.getGiveAttackEVs());
+            ps.setInt(14, trade.getGiveDefenseEVs());
+            ps.setInt(15, trade.getGiveSAttackEVs());
+            ps.setInt(16, trade.getGiveSDefenseEVs());
+            ps.setInt(17, trade.getGiveSpeedEVs());
+            ps.setInt(18, trade.getGiveHPIVs());
+            ps.setInt(19, trade.getGiveAttackIVs());
+            ps.setInt(20, trade.getGiveDefenseIVs());
+            ps.setInt(21, trade.getGiveSAttackIVs());
+            ps.setInt(22, trade.getGiveSDefenseIVs());
+            ps.setInt(23, trade.getGiveSpeedIVs());
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Trade dbtrade = new Trade();
+
+                dbtrade.setTradeId(rs.getInt(1));
+                dbtrade.setActive(rs.getBoolean(2));
+                dbtrade.setGiveUserId(rs.getInt(3));
+                dbtrade.setReceiveUserId(rs.getInt(4));
+                dbtrade.setGiveReview(rs.getString(5));
+                dbtrade.setGiveReviewStars(rs.getInt(6));
+                dbtrade.setReceiveReview(rs.getString(7));
+                dbtrade.setReceiveReviewStars(rs.getInt(8));
+                dbtrade.setGivePokeNum(rs.getInt(9));
+                dbtrade.setGiveName(rs.getString(10));
+                dbtrade.setGiveLevel(rs.getInt(11));
+                dbtrade.setGiveGender(rs.getString(12));
+                dbtrade.setGiveShiny(rs.getBoolean(13));
+                dbtrade.setGiveAbility(rs.getString(14));
+                dbtrade.setGiveMove1(rs.getString(15));
+                dbtrade.setGiveMove2(rs.getString(16));
+                dbtrade.setGiveMove3(rs.getString(17));
+                dbtrade.setGiveMove4(rs.getString(18));
+                dbtrade.setGiveNature(rs.getString(19));
+                dbtrade.setGiveHPIVs(rs.getInt(20));
+                dbtrade.setGiveAttackIVs(rs.getInt(21));
+                dbtrade.setGiveDefenseIVs(rs.getInt(22));
+                dbtrade.setGiveSAttackIVs(rs.getInt(23));
+                dbtrade.setGiveSDefenseIVs(rs.getInt(24));
+                dbtrade.setGiveSpeedIVs(rs.getInt(25));
+                dbtrade.setGiveHPEVs(rs.getInt(26));
+                dbtrade.setGiveAttackEVs(rs.getInt(27));
+                dbtrade.setGiveDefenseEVs(rs.getInt(28));
+                dbtrade.setGiveSAttackEVs(rs.getInt(29));
+                dbtrade.setGiveSDefenseEVs(rs.getInt(30));
+                dbtrade.setGiveSpeedEVs(rs.getInt(31));
+                dbtrade.setReceivePokeNum(rs.getInt(32));
+                dbtrade.setReceiveName(rs.getString(33));
+                dbtrade.setReceiveLevel(rs.getInt(34));
+                dbtrade.setReceiveGender(rs.getString(35));
+                dbtrade.setReceiveShiny(rs.getBoolean(36));
+                dbtrade.setReceiveAbility(rs.getString(37));
+                dbtrade.setReceiveMove1(rs.getString(38));
+                dbtrade.setReceiveMove2(rs.getString(39));
+                dbtrade.setReceiveMove3(rs.getString(40));
+                dbtrade.setReceiveMove4(rs.getString(41));
+                dbtrade.setReceiveNature(rs.getString(42));
+                dbtrade.setReceiveHPIVs(rs.getInt(43));
+                dbtrade.setReceiveAttackIVs(rs.getInt(44));
+                dbtrade.setReceiveDefenseIVs(rs.getInt(45));
+                dbtrade.setReceiveSAttackIVs(rs.getInt(46));
+                dbtrade.setReceiveSDefenseIVs(rs.getInt(47));
+                dbtrade.setReceiveSpeedIVs(rs.getInt(48));
+                dbtrade.setReceiveHPEVs(rs.getInt(49));
+                dbtrade.setReceiveAttackEVs(rs.getInt(50));
+                dbtrade.setReceiveDefenseEVs(rs.getInt(51));
+                dbtrade.setReceiveSAttackEVs(rs.getInt(52));
+                dbtrade.setReceiveSDefenseEVs(rs.getInt(53));
+                dbtrade.setReceiveSpeedEVs(rs.getInt(54));
+                dbtrade.setGiveUsername(rs.getString(55));
+
+                trade_list.add(dbtrade);
+            }
+
+            rs.close();
+            ps.close();
+            pool.freeConnection(connection);
+            return trade_list;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

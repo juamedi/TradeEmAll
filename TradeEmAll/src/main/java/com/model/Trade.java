@@ -14,6 +14,8 @@ public class Trade {
     private boolean active;
     private int give_user_id;
     private int receive_user_id;
+    private String give_username;
+    private String receive_username;
     private String give_review;
     private String receive_review;
     private int give_review_stars;
@@ -69,7 +71,8 @@ public class Trade {
         this.active = true;
     }
     
-    public Trade (  int give_user_id, int receive_user_id, 
+    public Trade (  int give_user_id, int receive_user_id,
+                    String give_username, String receive_username,
                     String give_review, int give_review_stars, 
                     String receive_review, int receive_review_stars,
                     int give_poke_num, String give_name, int give_level, 
@@ -97,6 +100,8 @@ public class Trade {
         this.active = true;
         this.give_user_id = give_user_id;
         this.receive_user_id = receive_user_id;
+        this.give_username = give_username;
+        this.receive_username = receive_username;
         this.give_review = give_review;
         this.give_review_stars = give_review_stars;
         this.receive_review = receive_review;
@@ -174,11 +179,27 @@ public class Trade {
     }
     
     public int getReceiveUserId() {
-        return give_user_id;
+        return receive_user_id;
     }
     
     public void setReceiveUserId(int receive_user_id) {
         this.receive_user_id = receive_user_id;
+    }
+
+    public String getGiveUsername() {
+        return give_username;
+    }
+    
+    public void setGiveUsername(String give_username) {
+        this.give_username = give_username;
+    }
+    
+    public String getReceiveUsername() {
+        return receive_username;
+    }
+    
+    public void setReceiveUsername(String receive_username) {
+        this.receive_username = receive_username;
     }
     
     public String getGiveReview() {

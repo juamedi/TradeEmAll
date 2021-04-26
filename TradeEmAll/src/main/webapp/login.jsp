@@ -11,6 +11,13 @@
   <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/juamedi/SSW/main/favicon.pngg" sizes="64x64">
 </head>
 
+<%
+    String wpl = "false";
+    if ((String) request.getAttribute("wrong_password_log") != null) {
+        wpl = (String) request.getAttribute("wrong_password_log");
+    }
+%>
+
 <body>
 	<div class="background-image">
 	  <div class= "header">
@@ -29,7 +36,15 @@
         </div>
         <div class = "form-group">
           <button type="submit" class="boton-red">Login</button>
+          <%
+            if(wpl.equals("true")) {
+          %>
+          <label class = "big bold" style = "align-self: center">El usuario y la contraseña no coinciden</label>
+          <%
+            }
+          %>
           <a class="boton-red" href="register.jsp">Register now</a>
+
         </div>
       </fieldset>
     </form>

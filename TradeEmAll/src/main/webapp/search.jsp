@@ -17,11 +17,13 @@
     String username = user.getUsername();
     String password = user.getPassword();
     String email = user.getEmail();
-    ArrayList<Offer> list_offer = new ArrayList<Offer>();
-    if ((ArrayList<Offer>) request.getAttribute("list_offer") != null) {
-        list_offer = (ArrayList<Offer>) request.getAttribute("list_offer");
+    String pfp = user.getProfilePicture();
+    ArrayList<Trade> list_trade = new ArrayList<Trade>();
+    if ((ArrayList<Trade>) request.getAttribute("list_trade") != null) {
+        list_trade = (ArrayList<Trade>) request.getAttribute("list_trade");
     }
-    int size = list_offer.size();
+    int size = list_trade.size();
+    
 %>
   
   <body>
@@ -37,7 +39,7 @@
         </form>
         <form class="form-inline dropdown">    
           <button class="dropbtn"><%=username%>
-            <img src="https://raw.githubusercontent.com/juamedi/SSW/main/cejaperro.png" class = "img-icon">
+            <img src=<%=pfp%> class = "img-icon">
           </button>
           <div class="dropdown-content">
               <a class="dropdown-item" href="profile.jsp">Your profile</a>
@@ -56,7 +58,7 @@
                   <label class = "bold" for="pkmname">Pokemon</label>
                 </div>
                 <div class = "col-6">
-                  <input type="text" id="pkmname" name = "pkmname" aria-describedby="pokemon-name" placeholder="Bulbasaur">
+                  <input type="text" style = "margin: 2px 0px" id="pkmname" name = "pkmname" aria-describedby="pokemon-name" placeholder="Bulbasaur">
                 </div>
               </div>
               <div class = "row">
@@ -64,7 +66,7 @@
                   <label class = "bold" for="pkmnature">Nature</label>
                 </div>
                 <div class = "col-6">
-                  <input type="text" id="pkmnature" name = "pkmnature" aria-describedby="pokemon-nature" placeholder="Adamant">
+                  <input type="text" style = "margin: 2px 0px" id="pkmnature" name = "pkmnature" aria-describedby="pokemon-nature" placeholder="Adamant">
                 </div>
               </div>
               <div class = "row">
@@ -72,7 +74,7 @@
                   <label class = "bold" for="pkmlevel">Level</label>
                 </div>
                 <div class = "col-6">
-                  <input type="text" id="pkmnlevel" name = "pkmlevel" aria-describedby="pokemon-nature" placeholder="1">
+                  <input type="text" style = "margin: 2px 0px" id="pkmnlevel" name = "pkmlevel" aria-describedby="pokemon-nature" placeholder="1">
                 </div>
               </div>
               <div class = "row">
@@ -80,7 +82,15 @@
                   <label class = "bold" for="pkmgender">Gender</label>
                 </div>
                 <div class = "col-6">
-                  <input type="text" id="pkmgender" name = "pkmgender" aria-describedby="pokemon-nature" placeholder="Male">
+                  <input type="text" style = "margin: 2px 0px" id="pkmgender" name = "pkmgender" aria-describedby="pokemon-nature" placeholder="Male">
+                </div>
+              </div>
+              <div class = "row">
+                <div class = "col-6">
+                  <label class = "bold" for="pkmability">Ability</label>
+                </div>
+                <div class = "col-6">
+                  <input type="text" style = "margin: 2px 0px" id="pkmability" name = "pkmability" aria-describedby="pokemon-ability" placeholder="Overgrow">
                 </div>
               </div>
               <div class = "row">
@@ -88,7 +98,7 @@
                   <label class = "bold" for="pkmshiny">Shiny</label>
                 </div>
                 <div class = "col-6">
-                  <input type="checkbox" id="shiny" name="pkmshiny">
+                  <input type="checkbox" style = "margin: 2px 0px" id="shiny" name="pkmshiny">
                 </div>
               </div>
             </div>
@@ -219,160 +229,221 @@
       </form>
 
       <div class = "panel-fluid">
-        <div class = "row-card">    
-          <div class = "col-card">
-          <%
-            for (int i = 0; i < size; i = i+2) {
-              Offer offer = new Offer();
-              offer = list_offer.get(i);
-              
-          %>
-            <div class="card">
-              <div class = "row">
-                <div class = "col-3">
-                  <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "card-img">
-                </div>
-                <div class = "col-card-stats">
-                  <div class = "row justify-content-between">
-                    <div class = "col-6">
-                      <label class = "big bold">Bulbasaur</label>
-                    </div>
-                    <div class = "col-6">
-                      <label>Owner</label>
-                      <label class = "text-muted">Goba</label>
-                    </div>
-                  </div>
-                  <div class = "row-blank"></div>
-                  <div class = "row justify-content-between">
-                    <div class = "col-4">
-                      <label>Nature</label>
-                      <label class = "text-muted">Adamant</label>
-                    </div>
-                    <div class = "col-3">
-                      <label>Level</label>
-                      <label class = "text-muted">100</label>
-                    </div>
-                    <div class = "col-3">
-                      <label>Gender</label>
-                      <label class = "text-muted">Male</label>
-                    </div>
-                    <div class = "col-2">
-                      <label>Shiny</label>
-                      <label class = "text-muted"></label>
-                    </div>
-                  </div>
-                  <div class = "row-blank"></div>
-                  <div class = "row justify-content-between">
-                    <div class = "col-2">
-                      <label class = "bold">HP</label>
-                      <label>31</label>
-                    </div>
-                    <div class = "col-2">
-                      <label class = "bold">ATK</label>
-                      <label><%=offer.getAttackIVs()%></label>
-                    </div>
-                    <div class = "col-2">
-                      <label class = "bold">DEF</label>
-                      <label>31</label>
-                    </div>
-                    <div class = "col-2">
-                      <label class = "bold">SPA</label>
-                      <label>31</label>
-                    </div>
-                    <div class = "col-2">
-                      <label class = "bold">SPD</label>
-                      <label>31</label>
-                    </div>
-                    <div class = "col-2">
-                      <label class = "bold">SPE</label>
-                      <label>31</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <div class = "row-card hide-overflow">
+        <%
+            if (size == 0) {
+        %>
+        <div class="card flex" style = "height: 200px">
+          <div class = "row" style = "height: 100%">
+            <div class = "col-12 text-align-center">
+              <label class = "big bold" style = "align-self: center">No se ha encontrado ningun intercambio con esas características</label>
             </div>
-          <%
-            }
-          %>
           </div>
+        </div>
+        <%
+            }
+        %>
+        <%
+          for (int i = 0; i < size; i++) {
+            String giveShiny = "No";
+            String receiveShiny = "No";
+            Trade trade = new Trade();
+            trade = list_trade.get(i);
+            if (trade.getGiveShiny()) {
+                giveShiny = "Yes";
+            }
+            if (trade.getReceiveShiny()) {
+                receiveShiny = "Yes";
+            }
 
-          <div class = "col-card">
-          <%
-            for (int i = 1; i < size; i = i+2) {
-              Offer offer = new Offer();
-              offer = list_offer.get(i);
-          %>
-            <div class="card">
-              <div class = "row">
-                <div class = "col-3">
-                  <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "card-img">
+        %>
+          <div class="card flex">
+            <div class = "row justify-content-between">
+              <div class = "col-5">
+                <div class = "row">
+                  <div class = "col-3">
+                    <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "card-img">
+                  </div>
+                  <div class = "col-card-stats">
+                    <div class = "row justify-content-between">
+                      <div class = "col-4">
+                        <label class = "big bold"><%=trade.getGiveName()%></label>
+                      </div>
+                      <div class = "col-6">
+                        <label>Owner</label>
+                        <label class = "text-muted"><%=trade.getGiveUsername()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label>Level</label>
+                        <label class = "text-muted"><%=trade.getGiveLevel()%></label>
+                      </div>
+                    </div>
+                    <div class = "row-blank"></div>
+                    <div class = "row justify-content-between">
+                      <div class = "col-4">
+                        <label>Nature</label>
+                        <label class = "text-muted"><%=trade.getGiveNature()%></label>
+                      </div>
+                        <div class = "col-3">
+                          <label>Ability</label>
+                          <label class = "text-muted"><%=trade.getGiveAbility()%></label>
+                        </div>
+                      <div class = "col-3">
+                        <label>Gender</label>
+                        <label class = "text-muted"><%=trade.getGiveGender()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label>Shiny</label>
+                        <label class = "text-muted"><%=giveShiny%></label>
+                      </div>
+                    </div>
+                    <div class = "row-blank"></div>
+                    <div class = "row justify-content-between">
+                      <div class = "col-2">
+                        <label class = "bold">HP</label>
+                        <label><%=trade.getGiveHPIVs()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">ATK</label>
+                        <label><%=trade.getGiveAttackIVs()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">DEF</label>
+                        <label><%=trade.getGiveDefenseIVs()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">SPA</label>
+                        <label><%=trade.getGiveSAttackIVs()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">SPD</label>
+                        <label><%=trade.getGiveSDefenseIVs()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">SPE</label>
+                        <label><%=trade.getGiveSpeedIVs()%></label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class = "col-card-stats">
-                  <div class = "row justify-content-between">
-                    <div class = "col-6">
-                      <label class = "big bold">Bulbasaur</label>
-                    </div>
-                    <div class = "col-6">
-                      <label>Owner</label>
-                      <label class = "text-muted">Thedi88</label>
-                    </div>
+              </div>
+              <div class = "col-2">
+                <div class = "row justify-content-center">
+                  <img src = "https://raw.githubusercontent.com/juamedi/SSW/main/arrow.png" alt="Avatar" class = "card-img">
+                </div>
+              </div>
+              <div class = "col-5">
+                <div class = "row">
+                  <div class = "col-3">
+                    <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "card-img">
                   </div>
-                  <div class = "row-blank"></div>
-                  <div class = "row justify-content-between">
-                    <div class = "col-4">
-                      <label>Nature</label>
-                      <label class = "text-muted">Adamant</label>
+                  <div class = "col-card-stats">
+                    <div class = "row justify-content-between">
+                      <div class = "col-4">
+                        <label class = "big bold"><%=trade.getReceiveName()%></label>
+                      </div>
+                      <div class = "col-6">
+                        <label> </label>
+                      </div>
+                      <div class = "col-2">
+                        <label>Level</label>
+                        <label class = "text-muted"><%=trade.getReceiveLevel()%></label>
+                      </div>
                     </div>
-                    <div class = "col-3">
-                      <label>Level</label>
-                      <label class = "text-muted">100</label>
+                    <div class = "row-blank"></div>
+                    <div class = "row justify-content-between">
+                      <div class = "col-4">
+                        <label>Nature</label>
+                        <label class = "text-muted"><%=trade.getReceiveNature()%></label>
+                      </div>
+                      <div class = "col-3">
+                        <label>Ability</label>
+                        <label class = "text-muted"><%=trade.getReceiveAbility()%></label>
+                      </div>
+                      <div class = "col-3">
+                        <label>Gender</label>
+                        <label class = "text-muted"><%=trade.getReceiveGender()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label>Shiny</label>
+                        <label class = "text-muted"><%=receiveShiny%></label>
+                      </div>
                     </div>
-                    <div class = "col-3">
-                      <label>Gender</label>
-                      <label class = "text-muted">Male</label>
-                    </div>
-                    <div class = "col-2">
-                      <label>Shiny</label>
-                      <label class = "text-muted">No</label>
-                    </div>
-                  </div>
-                  <div class = "row-blank"></div>
-                  <div class = "row justify-content-between">
-                    <div class = "col-2">
-                      <label class = "bold">HP</label>
-                      <label>31</label>
-                    </div>
-                    <div class = "col-2">
-                      <label class = "bold">ATK</label>
-                      <label>31</label>
-                    </div>
-                    <div class = "col-2">
-                      <label class = "bold">DEF</label>
-                      <label>31</label>
-                    </div>
-                    <div class = "col-2">
-                      <label class = "bold">SPA</label>
-                      <label>31</label>
-                    </div>
-                    <div class = "col-2">
-                      <label class = "bold">SPD</label>
-                      <label>31</label>
-                    </div>
-                    <div class = "col-2">
-                      <label class = "bold">SPE</label>
-                      <label>31</label>
+                    <div class = "row-blank"></div>
+                    <div class = "row justify-content-between">
+                      <div class = "col-2">
+                        <label class = "bold">HP</label>
+                        <label><%=trade.getReceiveHPIVs()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">ATK</label>
+                        <label><%=trade.getReceiveAttackIVs()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">DEF</label>
+                        <label><%=trade.getReceiveDefenseIVs()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">SPA</label>
+                        <label><%=trade.getReceiveSAttackIVs()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">SPD</label>
+                        <label><%=trade.getReceiveSDefenseIVs()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">SPE</label>
+                        <label><%=trade.getReceiveSpeedIVs()%></label>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          <%
-            }
-          %>  
+            <div class = "row justify-content-between">
+                <div class = "col-4 text-align-center">
+                  <label class = "big bold" style = "text-align: end">You Give</label>
+                </div>
+                <div class = "col-4 text-align-center py">
+                  <button type = "submit" class = "boton-red">Post offer</button>
+                </div>
+                <div class = "col-4 text-align-center">
+                  <label class = "big bold">You Receive</label>
+                </div>
+            </div> 
           </div>
+        <%
+          }
+        %>
         </div>
       </div>
     </div>
+    <script>
+        var sliderhp = document.getElementById("range-hp");
+        var slideratk = document.getElementById("range-atk");
+        var sliderdef = document.getElementById("range-def");
+        var sliderspa = document.getElementById("range-spa");
+        var sliderspd = document.getElementById("range-spd");
+        var sliderspe = document.getElementById("range-spe");
+        var outputhp = document.getElementById("ev-hp");
+        var outputatk = document.getElementById("ev-atk");
+        var outputdef = document.getElementById("ev-def");
+        var outputspa = document.getElementById("ev-spa");
+        var outputspd = document.getElementById("ev-spd");
+        var outputspe = document.getElementById("ev-spe");
+        outputhp.innerHTML = sliderhp.value;
+        outputatk.innerHTML = slideratk.value;
+        outputdef.innerHTML = sliderdef.value;
+        outputspa.innerHTML = sliderspa.value;
+        outputspd.innerHTML = sliderspd.value;
+        outputspe.innerHTML = sliderspe.value;
+        sliderhp.oninput = function() {outputhp.innerHTML = this.value;};
+        slideratk.oninput = function() {outputatk.innerHTML = this.value;};
+        sliderdef.oninput = function() {outputdef.innerHTML = this.value;};
+        sliderspa.oninput = function() {outputspa.innerHTML = this.value;};
+        sliderspd.oninput = function() {outputspd.innerHTML = this.value;};
+        sliderspe.oninput = function() {outputspe.innerHTML = this.value;};
+  </script>
   </body>
 </html>
 

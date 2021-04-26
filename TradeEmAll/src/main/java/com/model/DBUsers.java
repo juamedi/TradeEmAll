@@ -35,6 +35,7 @@ public class DBUsers{
             if (rs.next()) {
                 id = rs.getInt(1);
             }
+            rs.close();
             ps.close();
             pool.freeConnection(connection);
             return id;

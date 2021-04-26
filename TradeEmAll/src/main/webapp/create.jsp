@@ -17,6 +17,7 @@
     String username = user.getUsername();
     String password = user.getPassword();
     String email = user.getEmail();
+    String pfp = user.getProfilePicture();
 %>
   
   <body>
@@ -32,7 +33,7 @@
         </form>
         <form class="form-inline dropdown">    
           <button class="dropbtn">Juamedi 
-            <img src="https://raw.githubusercontent.com/juamedi/SSW/main/cejaperro.png" class = "img-icon">
+            <img src=<%=pfp%> class = "img-icon">
           </button>
           <div class="dropdown-content">
               <a class="dropdown-item" href="profile.jsp">Your profile</a>

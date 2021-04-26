@@ -60,8 +60,15 @@ body {
   font-size: 120%;
 }
 
+.denied {
+  background-color: rgba(238, 238, 238, 0.377);
+}
 .text-muted {
   color: #777;
+}
+
+.flex {
+    width: 100%;
 }
 
 input {
@@ -95,6 +102,14 @@ input {
 
 a {
   text-decoration: none;
+}
+
+.hide-overflow {
+    overflow: hidden;
+}
+
+.text-align-center {
+    text-align: center;
 }
 
 /*Panels-------------------------------------------------------*/

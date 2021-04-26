@@ -49,6 +49,11 @@ public class LoginServlet extends HttpServlet {
         User user = null;
         try {
             user = DBUsers.login(username, password);
+            if (user.getId() == 0 || user == null) {
+                request.setAttribute("wrong_password_log", "true");
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+                dispatcher.forward(request, response); 
+            }
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/profile.jsp");

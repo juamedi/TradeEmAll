@@ -11,6 +11,12 @@
       <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/juamedi/SSW/main/favicon.pngg" sizes="64x64">
 </head>
 
+<%
+    String wpr = "false";
+    if ((String) request.getAttribute("wrong_password_reg") != null) {
+        wpr = (String) request.getAttribute("wrong_password_reg");
+    }
+%>
 <body>
 	<div class="background-image">
 	  <div class= "header">
@@ -35,9 +41,17 @@
           <label for="login">E-mail</label>
           <input type="text" id = "e-mail" name = "e-mail" aria-describedby="email-help" placeholder="E-mail">
         </div>
-        <div class = "form-group">
+        <div class = "form-group" style = "text-align: end">
           <button type="submit" class="boton-red">Register</button>
+          <%
+            if(wpr.equals("true")) {
+          %>
+          <label class = "big bold" style = "align-self: center">Las contraseñas no coinciden</label>
+          <%
+            }
+          %>
         </div>
+
       </fieldset>
     </form>
   </div>
