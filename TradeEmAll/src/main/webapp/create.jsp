@@ -25,6 +25,7 @@
       <div class= "header">
         <a href="index.jsp"><img src='https://raw.githubusercontent.com/juamedi/SSW/main/tradeemall.png' alt= "Trade Em All Logo"></a>
       </div>
+        
       <nav class="navbar">
         <form class="form-inline">
           <img src= "https://raw.githubusercontent.com/juamedi/SSW/main/logodark.png" class = "img-logo" alt= "Trade Em All Logo">
@@ -32,7 +33,7 @@
           <a class="boton-white" href="create.jsp">Create offer</a>
         </form>
         <form class="form-inline dropdown">    
-          <button class="dropbtn">Juamedi 
+          <button class="dropbtn"><%=username%>
             <img src=<%=pfp%> class = "img-icon">
           </button>
           <div class="dropdown-content">
@@ -42,6 +43,7 @@
           </div>
         </form>
       </nav>
+          
       <div class = "row">
         <div class = "col-6">
           <div class ="row justify-content-center">
@@ -75,6 +77,14 @@
                       </div>
                       <div class = "col-10">
                         <input type="text" id="gender" aria-describedby="pokemon-gender" placeholder="Male">
+                      </div>
+                    </div>
+                    <div class = "row">
+                      <div class = "col-2">
+                        <label class = "bold">Ability</label>
+                      </div>
+                      <div class = "col-10">
+                        <input type="text" id="gender" aria-describedby="pokemon-gender" placeholder="Overgrow">
                       </div>
                     </div>
                     <div class = "row">
@@ -255,6 +265,14 @@
                       </div>
                       <div class = "col-10">
                         <input type="text" id="gender" aria-describedby="pokemon-gender" placeholder="Male">
+                      </div>
+                    </div>
+                    <div class = "row">
+                      <div class = "col-2">
+                        <label class = "bold">Ability</label>
+                      </div>
+                      <div class = "col-10">
+                        <input type="text" id="gender" aria-describedby="pokemon-gender" placeholder="Overgrow">
                       </div>
                     </div>
                     <div class = "row">

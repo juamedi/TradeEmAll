@@ -56,24 +56,25 @@ public class RegisterServlet extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/register.jsp");
             dispatcher.forward(request, response);
         }
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setEmail(email);
-        user.setProfilePicture("https://raw.githubusercontent.com/juamedi/SSW/main/pfp_default.jpg");
-        
-        try {
-            int id = DBUsers.register(user);
-            user.setId(id);
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/profile.jsp");
-            dispatcher.forward(request, response);
-        }
-        catch (Exception ex){
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/register.jsp");
-            dispatcher.forward(request, response);
-        }
+        else {
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setEmail(email);
+            user.setProfilePicture("https://raw.githubusercontent.com/juamedi/SSW/main/pfp_default.jpg");
 
+            try {
+                int id = DBUsers.register(user);
+                user.setId(id);
+                HttpSession session = request.getSession();
+                session.setAttribute("user", user);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/profile.jsp");
+                dispatcher.forward(request, response);
+            }
+            catch (Exception ex){
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/register.jsp");
+                dispatcher.forward(request, response);
+            }
+        }
     }
 
     /** 

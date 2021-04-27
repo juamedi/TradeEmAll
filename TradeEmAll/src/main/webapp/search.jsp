@@ -258,11 +258,11 @@
 
         %>
           <div class="card flex">
-            <div class = "row justify-content-between">
+            <div class = "row justify-content-center">
               <div class = "col-5">
                 <div class = "row">
                   <div class = "col-3">
-                    <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "card-img">
+                    <img src="<%="https://play.pokemonshowdown.com/sprites/bwani/" + trade.getGiveName().toLowerCase() + ".gif"%>" alt="Avatar" class = "card-img">
                   </div>
                   <div class = "col-card-stats">
                     <div class = "row justify-content-between">
@@ -327,7 +327,7 @@
                   </div>
                 </div>
               </div>
-              <div class = "col-2">
+              <div class = "col-1">
                 <div class = "row justify-content-center">
                   <img src = "https://raw.githubusercontent.com/juamedi/SSW/main/arrow.png" alt="Avatar" class = "card-img">
                 </div>
@@ -335,7 +335,7 @@
               <div class = "col-5">
                 <div class = "row">
                   <div class = "col-3">
-                    <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "card-img">
+                    <img src="<%="https://play.pokemonshowdown.com/sprites/bwani/" + trade.getReceiveName().toLowerCase() + ".gif"%>" alt="Avatar" class = "card-img">
                   </div>
                   <div class = "col-card-stats">
                     <div class = "row justify-content-between">
@@ -401,14 +401,14 @@
               </div>
             </div>
             <div class = "row justify-content-between">
-                <div class = "col-4 text-align-center">
-                  <label class = "big bold" style = "text-align: end">You Give</label>
+                <div class = "col-5 text-align-center">
+                  <label class = "big bold" style = "text-align: end">You Receive</label>
                 </div>
-                <div class = "col-4 text-align-center py">
+                <div class = "col-2 text-align-center py">
                   <button type = "submit" class = "boton-red">Post offer</button>
                 </div>
-                <div class = "col-4 text-align-center">
-                  <label class = "big bold">You Receive</label>
+                <div class = "col-5 text-align-center">
+                  <label class = "big bold">You Give</label>
                 </div>
             </div> 
           </div>
