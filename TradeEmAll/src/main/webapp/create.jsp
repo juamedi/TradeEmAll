@@ -52,7 +52,7 @@
                 <legend>Given</legend>
                 <div class = "row-stats">
                   <div class = "col-4">
-                    <img src='https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png' alt="Pokemon image" class = "img-create">
+                    <img id = "cimg1" src='https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png' alt="Pokemon image" class = "img-create">
                   </div>
                   <div class = "col-8">
                     <div class ="row">
@@ -60,7 +60,7 @@
                         <label class = "bold">Name</label>
                       </div>
                       <div class = "col-10">
-                        <input type="text" id="name" aria-describedby="pokemon-name" placeholder="Bulbasaur">
+                        <input type="text" id="cname1" aria-describedby="pokemon-name" placeholder="Bulbasaur">
                       </div>
                     </div>
                     <div class = "row">
@@ -240,7 +240,7 @@
                 <legend>Received</legend>
                 <div class = "row-stats">
                   <div class = "col-4">
-                    <img src='https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png' alt="Pokemon image" class="img-create">
+                    <img id = "cimg2" src='https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png' alt="Pokemon image" class="img-create">
                   </div>
                   <div class = "col-8">
                     <div class ="row">
@@ -248,7 +248,7 @@
                         <label class = "bold">Name</label>
                       </div>
                       <div class = "col-10">
-                        <input type="text" id="name" aria-describedby="pokemon-name" placeholder="Bulbasaur">
+                        <input type="text" id="cname2" aria-describedby="pokemon-name" placeholder="Bulbasaur">
                       </div>
                     </div>
                     <div class = "row">
@@ -426,6 +426,14 @@
           <button type="submit" class="boton-red">Publish</button>
       </div>
     </div>
+    <script>
+        var cimg1 = document.getElementById("cimg1");
+        var cimg2 = document.getElementById("cimg2");
+        var cname1 = document.getElementById("cname1");
+        var cname2 = document.getElementById("cname2");
+        cname1.oninput = function() {cimg1.src = "https://play.pokemonshowdown.com/sprites/bwani/" + this.value.toLowerCase() + ".gif";};
+        cname2.oninput = function() {cimg2.src = "https://play.pokemonshowdown.com/sprites/bwani/" + this.value.toLowerCase() + ".gif";};
+  </script>
   </body>
 </html>
 
