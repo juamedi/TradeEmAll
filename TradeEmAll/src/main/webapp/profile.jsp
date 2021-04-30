@@ -645,7 +645,7 @@
                 </div>
                 <div class = "col-2">
                   <input class = "trade-input" type="image" src="accepted.png" id = "boton-aceptar" />
-                  <input class = "trade-input" type="image" src="denied.png" />
+                  <input class = "trade-input" type="image" src="denied.png" id = "boton-rechazar"id = "boton-rechazar"/>
                 </div>
               </div>    
             </div>
@@ -788,8 +788,8 @@
                   </div>
                 </div>
                 <div class = "col-2">
-                  <input class = "trade-input" type="image" src="accepted.png" />
-                  <input class = "trade-input" type="image" src="denied.png" />
+                  <input class = "trade-input" type="image" src="accepted.png" id = "boton-aceptar"/>
+                  <input class = "trade-input" type="image" src="denied.png" id = "boton-rechazar"/>
                 </div>
               </div>    
             </div>
@@ -932,8 +932,8 @@
                   </div>
                 </div>
                 <div class = "col-2">
-                  <input class = "trade-input" type="image" src="accepted.png" />
-                  <input class = "trade-input" type="image" src="denied.png" />
+                  <input class = "trade-input" type="image" src="accepted.png" id = "boton-aceptar"/>
+                  <input class = "trade-input" type="image" src="denied.png" id = "boton-rechazar"/>
                 </div>
               </div>    
             </div>
@@ -1076,8 +1076,8 @@
                   </div>
                 </div>
                 <div class = "col-2">
-                  <input class = "trade-input" type="image" src="accepted.png" />
-                  <input class = "trade-input" type="image" src="denied.png" />
+                  <input class = "trade-input" type="image" src="accepted.png" id = "boton-aceptar"/>
+                  <input class = "trade-input" type="image" src="denied.png" id = "boton-rechazar"/>
                 </div>
               </div>    
             </div>
@@ -1220,8 +1220,8 @@
                   </div>
                 </div>
                 <div class = "col-2">
-                  <input class = "trade-input" type="image" src="accepted.png" />
-                  <input class = "trade-input" type="image" src="denied.png" />
+                  <input class = "trade-input" type="image" src="accepted.png" id = "boton-aceptar"/>
+                  <input class = "trade-input" type="image" src="denied.png" id = "boton-rechazar"/>
                 </div>
               </div>    
             </div>
@@ -1364,8 +1364,8 @@
                   </div>
                 </div>
                 <div class = "col-2">
-                  <input class = "trade-input" type="image" src="accepted.png" />
-                  <input class = "trade-input" type="image" src="denied.png" />
+                  <input class = "trade-input" type="image" src="accepted.png" id = "boton-aceptar"/>
+                  <input class = "trade-input" type="image" src="denied.png" id = "boton-rechazar"/>
                 </div>
               </div>    
             </div>
@@ -2549,6 +2549,7 @@
     </div>
   </div>
   <script>
+      // Gestiona el cambio de tabs en el apartado "Profile"
       function openTab(evt, tabName) {
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tabcontent");
@@ -2563,6 +2564,20 @@
         evt.currentTarget.className += " active";
       }
       document.getElementById("defaultOpen").click();
+
+      // Cambia color para estados entre aceptado y rechazado en "Offers received"
+      let y = document.getElementsByClassName("trade-input");
+      for (let i = 0; i < y.length; i++) {
+        y[i].onclick = function({target}) {
+          if (!target.parentElement.parentElement.parentElement.style.backgroundColor) {
+            if(target.id == "boton-aceptar"){
+                target.parentElement.parentElement.parentElement.style.backgroundColor = "rgb(105, 184, 115)";
+            }else{
+                target.parentElement.parentElement.parentElement.style.backgroundColor = "rgb(214, 110, 110)";
+            }
+          }
+        }
+      }
     </script>
 </body>
 </html>
