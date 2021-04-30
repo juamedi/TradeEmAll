@@ -60,15 +60,12 @@ body {
   font-size: 120%;
 }
 
-.denied {
-  background-color: rgba(238, 238, 238, 0.377);
-}
 .text-muted {
   color: #777;
 }
 
 .flex {
-    width: 100%;
+  width: 100%;
 }
 
 input {
@@ -78,6 +75,23 @@ input {
   box-sizing: border-box;
   height: calc(1.5em + .75rem + 2px);
   padding:.375rem 1rem;
+  font-size:1rem;
+  font-weight:400;
+  line-height:1.5;
+  color:#495057;
+  background-color:#fff;
+  background-clip:padding-box;
+  border:1px solid #ced4da;
+  border-radius:.25rem;
+  transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.trade-input {
+  width: auto;
+  padding: 0;
+  margin-left: 30px;
+  box-sizing: border-box;
+  height: calc(1.5em + .75rem + 2px);
   font-size:1rem;
   font-weight:400;
   line-height:1.5;
