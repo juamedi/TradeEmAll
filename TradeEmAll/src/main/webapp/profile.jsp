@@ -40,7 +40,7 @@
               <div class="dropdown-content">
                   <a class="dropdown-item" href="profile.jsp">Your profile</a>
                   <div class = "dropdown-divider"></div>
-                  <a class="dropdown-item quit" href="login.jsp">Quit</a>
+                  <a class="dropdown-item quit" href="index.jsp">Quit</a>
               </div>
             </form>
         </nav>
@@ -644,8 +644,8 @@
                   </div>
                 </div>
                 <div class = "col-2">
-                  <input class = "trade-input" type="image" src="accepted.png" id = "boton-aceptar" />
-                  <input class = "trade-input" type="image" src="denied.png" id = "boton-rechazar"id = "boton-rechazar"/>
+                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/accepted.png" id = "boton-aceptar" />
+                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/denied.png" id = "boton-rechazar"id = "boton-rechazar"/>
                 </div>
               </div>    
             </div>
@@ -788,8 +788,8 @@
                   </div>
                 </div>
                 <div class = "col-2">
-                  <input class = "trade-input" type="image" src="accepted.png" id = "boton-aceptar"/>
-                  <input class = "trade-input" type="image" src="denied.png" id = "boton-rechazar"/>
+                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/accepted.png" id = "boton-aceptar"/>
+                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/denied.png" id = "boton-rechazar"/>
                 </div>
               </div>    
             </div>
@@ -932,8 +932,8 @@
                   </div>
                 </div>
                 <div class = "col-2">
-                  <input class = "trade-input" type="image" src="accepted.png" id = "boton-aceptar"/>
-                  <input class = "trade-input" type="image" src="denied.png" id = "boton-rechazar"/>
+                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/accepted.png" id = "boton-aceptar"/>
+                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/denied.png" id = "boton-rechazar"/>
                 </div>
               </div>    
             </div>
@@ -1076,8 +1076,8 @@
                   </div>
                 </div>
                 <div class = "col-2">
-                  <input class = "trade-input" type="image" src="accepted.png" id = "boton-aceptar"/>
-                  <input class = "trade-input" type="image" src="denied.png" id = "boton-rechazar"/>
+                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/accepted.png" id = "boton-aceptar"/>
+                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/denied.png" id = "boton-rechazar"/>
                 </div>
               </div>    
             </div>
@@ -1220,8 +1220,8 @@
                   </div>
                 </div>
                 <div class = "col-2">
-                  <input class = "trade-input" type="image" src="accepted.png" id = "boton-aceptar"/>
-                  <input class = "trade-input" type="image" src="denied.png" id = "boton-rechazar"/>
+                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/accepted.png" id = "boton-aceptar"/>
+                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/denied.png" id = "boton-rechazar"/>
                 </div>
               </div>    
             </div>
@@ -1364,8 +1364,8 @@
                   </div>
                 </div>
                 <div class = "col-2">
-                  <input class = "trade-input" type="image" src="accepted.png" id = "boton-aceptar"/>
-                  <input class = "trade-input" type="image" src="denied.png" id = "boton-rechazar"/>
+                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/accepted.png" id = "boton-aceptar"/>
+                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/denied.png" id = "boton-rechazar"/>
                 </div>
               </div>    
             </div>
@@ -2570,13 +2570,13 @@
       for (let i = 0; i < y.length; i++) {
         y[i].onclick = function({target}) {
           if (!target.parentElement.parentElement.parentElement.style.backgroundColor) {
-            if(target.id == "boton-aceptar"){
+            if(target.id === "boton-aceptar"){
                 target.parentElement.parentElement.parentElement.style.backgroundColor = "rgb(105, 184, 115)";
             }else{
                 target.parentElement.parentElement.parentElement.style.backgroundColor = "rgb(214, 110, 110)";
             }
           }
-        }
+        };
       }
     </script>
 </body>

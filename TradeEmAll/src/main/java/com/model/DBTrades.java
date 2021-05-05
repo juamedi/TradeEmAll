@@ -119,39 +119,37 @@ public class DBTrades {
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String sql = "SELECT T.*, U.username FROM trade T, user U WHERE give_user_id = id AND give_user_id != ? AND give_name = ? AND give_level = ? " +
-                     "AND give_gender = ? AND give_shiny = ? AND give_ability = ? AND give_move1 = ? " +
-                     "AND give_move2 = ? AND give_move3 = ? AND give_move4 = ? AND give_nature = ? " + 
-                     "AND give_HP_EVs = ? AND give_Attack_EVs = ? AND give_Defense_EVs = ? AND give_SAttack_EVs = ? " +
-                     "AND give_SDefense_EVs = ? AND give_Speed_EVs = ? AND give_HP_IVs = ? AND give_Attack_IVs = ? " + 
-                     "AND give_Defense_IVs = ? AND give_SAttack_IVs = ? AND give_SDefense_IVs = ? AND give_Speed_IVs = ? AND active is true";
+        String sql = "SELECT T.*, U.username FROM trade T, user U WHERE give_user_id = id AND give_user_id != ? AND active is true AND give_shiny = ?";
         ArrayList<Trade> trade_list = new ArrayList<Trade>();
 
         try {
+            if(!trade.getGiveName().equals("")) {sql = sql + " AND give_name = \"" + trade.getGiveName() + "\"";}
+            if(trade.getGiveLevel() != 0) {sql = sql + " AND give_level = " + trade.getGiveLevel();}
+            if(!trade.getGiveGender().equals("")) {sql = sql + " AND give_gender = \"" + trade.getGiveGender() + "\"";}
+            if(!trade.getGiveAbility().equals("")) {sql = sql + " AND give_ability = \"" + trade.getGiveAbility() + "\"";}
+            if(!trade.getGiveMove1().equals("")) {sql = sql + " AND give_move1 = \"" + trade.getGiveMove1() + "\"";}
+            if(!trade.getGiveMove2().equals("")) {sql = sql + " AND give_move2 = \"" + trade.getGiveMove2() + "\"";}
+            if(!trade.getGiveMove3().equals("")) {sql = sql + " AND give_move3 = \"" + trade.getGiveMove3() + "\"";}
+            if(!trade.getGiveMove4().equals("")) {sql = sql + " AND give_move4 = \"" + trade.getGiveMove4() + "\"";}
+            if(!trade.getGiveNature().equals("")) {sql = sql + " AND give_nature = \"" + trade.getGiveNature() + "\"";}
+            sql = sql + " AND give_HP_EVs >= " + trade.getGiveHPEVs();
+            sql = sql + " AND give_Attack_EVs >= " + trade.getGiveAttackEVs();
+            sql = sql + " AND give_Defense_EVs >= " + trade.getGiveDefenseEVs();
+            sql = sql + " AND give_SAttack_EVs >= " + trade.getGiveSAttackEVs();
+            sql = sql + " AND give_SDefense_EVs >= " + trade.getGiveSDefenseEVs();
+            sql = sql + " AND give_Speed_EVs >= " + trade.getGiveSpeedEVs();
+            sql = sql + " AND give_HP_IVs >= " + trade.getGiveHPIVs();
+            sql = sql + " AND give_Attack_IVs >= " + trade.getGiveAttackIVs();
+            sql = sql + " AND give_Defense_IVs >= " + trade.getGiveDefenseIVs();
+            sql = sql + " AND give_SAttack_IVs >= " + trade.getGiveSAttackIVs();
+            sql = sql + " AND give_SDefense_IVs >= " + trade.getGiveSDefenseIVs();
+            sql = sql + " AND give_Speed_IVs >= " + trade.getGiveSpeedIVs();
+            
+            System.out.println(sql);
+  
             ps = connection.prepareStatement(sql);
             ps.setInt(1, user.getId());
-            ps.setString(2, trade.getGiveName());
-            ps.setInt(3, trade.getGiveLevel());
-            ps.setString(4, trade.getGiveGender());
-            ps.setBoolean(5, trade.getGiveShiny());
-            ps.setString(6, trade.getGiveAbility());
-            ps.setString(7, trade.getGiveMove1());
-            ps.setString(8, trade.getGiveMove2());
-            ps.setString(9, trade.getGiveMove3());
-            ps.setString(10, trade.getGiveMove4());
-            ps.setString(11, trade.getGiveNature());
-            ps.setInt(12, trade.getGiveHPEVs());
-            ps.setInt(13, trade.getGiveAttackEVs());
-            ps.setInt(14, trade.getGiveDefenseEVs());
-            ps.setInt(15, trade.getGiveSAttackEVs());
-            ps.setInt(16, trade.getGiveSDefenseEVs());
-            ps.setInt(17, trade.getGiveSpeedEVs());
-            ps.setInt(18, trade.getGiveHPIVs());
-            ps.setInt(19, trade.getGiveAttackIVs());
-            ps.setInt(20, trade.getGiveDefenseIVs());
-            ps.setInt(21, trade.getGiveSAttackIVs());
-            ps.setInt(22, trade.getGiveSDefenseIVs());
-            ps.setInt(23, trade.getGiveSpeedIVs());
+            ps.setBoolean(2, trade.getGiveShiny());
             rs = ps.executeQuery();
             
             while (rs.next()) {

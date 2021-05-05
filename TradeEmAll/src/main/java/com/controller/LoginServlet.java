@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
             user = DBUsers.login(username, password);
             if (user.getId() == 0 || user == null) {
                 request.setAttribute("wrong_password_log", "true");
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
                 dispatcher.forward(request, response); 
             }
             HttpSession session = request.getSession();
@@ -60,7 +60,7 @@ public class LoginServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
         catch (Exception ex){
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
             dispatcher.forward(request, response); 
         }
     }

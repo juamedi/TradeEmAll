@@ -35,28 +35,35 @@ public class SearchServlet extends HttpServlet {
     throws ServletException, IOException {
         String pkmname = request.getParameter("pkmname");
         String pkmnature = request.getParameter("pkmnature");
-        int pkmlevel = Integer.parseInt(request.getParameter("pkmlevel"));
         String pkmgender = request.getParameter("pkmgender");
         String pkmability = request.getParameter("pkmability");
-        String shiny = request.getParameter("pkmshiny");
-        boolean pkmshiny = false;
-        if (shiny != null) {pkmshiny = true;}
+        String moveset1 = request.getParameter("moveset1");
+        String moveset2 = request.getParameter("moveset2");
+        String moveset3 = request.getParameter("moveset3");
+        String moveset4 = request.getParameter("moveset4");
         int ev_hp = Integer.parseInt(request.getParameter("range-hp"));
         int ev_atk = Integer.parseInt(request.getParameter("range-atk"));
         int ev_def = Integer.parseInt(request.getParameter("range-def"));
         int ev_spa = Integer.parseInt(request.getParameter("range-spa"));
         int ev_spd = Integer.parseInt(request.getParameter("range-spd"));
         int ev_spe = Integer.parseInt(request.getParameter("range-spe"));
-        int iv_hp = Integer.parseInt(request.getParameter("iv-hp"));
-        int iv_atk = Integer.parseInt(request.getParameter("iv-atk"));
-        int iv_def = Integer.parseInt(request.getParameter("iv-def"));
-        int iv_spa = Integer.parseInt(request.getParameter("iv-spa"));
-        int iv_spd = Integer.parseInt(request.getParameter("iv-spd"));
-        int iv_spe = Integer.parseInt(request.getParameter("iv-spe"));
-        String moveset1 = request.getParameter("moveset1");
-        String moveset2 = request.getParameter("moveset2");
-        String moveset3 = request.getParameter("moveset3");
-        String moveset4 = request.getParameter("moveset4");
+        int pkmlevel = 0;
+        int iv_hp = 0;
+        int iv_atk = 0;
+        int iv_def = 0;
+        int iv_spa = 0;
+        int iv_spd = 0;
+        int iv_spe = 0;
+        if (!request.getParameter("pkmlevel").equals("")) {pkmlevel = Integer.parseInt(request.getParameter("pkmlevel"));}
+        if (!request.getParameter("iv-hp").equals("")) {iv_hp = Integer.parseInt(request.getParameter("iv-hp"));}
+        if (!request.getParameter("iv-atk").equals("")) {iv_atk = Integer.parseInt(request.getParameter("iv-atk"));}
+        if (!request.getParameter("iv-def").equals("")) {iv_def = Integer.parseInt(request.getParameter("iv-def"));}
+        if (!request.getParameter("iv-spa").equals("")) {iv_spa = Integer.parseInt(request.getParameter("iv-spa"));}
+        if (!request.getParameter("iv-spd").equals("")) {iv_spd = Integer.parseInt(request.getParameter("iv-spd"));}
+        if (!request.getParameter("iv-spe").equals("")) {iv_spe = Integer.parseInt(request.getParameter("iv-spe"));}
+        boolean pkmshiny = false;
+        String shiny = request.getParameter("pkmshiny");
+        if (shiny != null) {pkmshiny = true;}
 
         Trade trade = new Trade();
 

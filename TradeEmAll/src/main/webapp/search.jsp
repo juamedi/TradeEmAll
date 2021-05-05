@@ -44,7 +44,7 @@
           <div class="dropdown-content">
               <a class="dropdown-item" href="profile.jsp">Your profile</a>
               <div class = "dropdown-divider"></div>
-              <a class="dropdown-item quit" href="login.jsp">Quit</a>
+              <a class="dropdown-item quit" href="index.jsp">Quit</a>
           </div>
         </form>
       </nav>
