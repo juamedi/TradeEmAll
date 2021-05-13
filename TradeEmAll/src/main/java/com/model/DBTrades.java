@@ -15,6 +15,7 @@ import java.util.*;
  */
 public class DBTrades {
     
+/*
     public static int postTrade(Trade trade, User user) throws Exception {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -114,45 +115,49 @@ public class DBTrades {
         }
     }
 
-    public static ArrayList<Trade> lookTrade (Trade trade, User user) throws Exception {
+*/
+    public static ArrayList<Trade> lookTrade (Pokemon pkm, User user) throws Exception {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String sql = "SELECT T.*, U.username FROM trade T, user U WHERE give_user_id = id AND give_user_id != ? AND active is true AND give_shiny = ?";
+        String sql = "SELECT T.*, P1.*, P2.*, U.username " + 
+                     "FROM trade T, user U, pokemon P1, pokemon P2 " +
+                     "WHERE give_user_id = user_id AND give_poke_id = P1.poke_id AND receive_poke_id = P2.poke_id AND give_user_id != ? AND active is true";
+        
         ArrayList<Trade> trade_list = new ArrayList<Trade>();
 
         try {
-            if(!trade.getGiveName().equals("")) {sql = sql + " AND give_name = \"" + trade.getGiveName() + "\"";}
-            if(trade.getGiveLevel() != 0) {sql = sql + " AND give_level = " + trade.getGiveLevel();}
-            if(!trade.getGiveGender().equals("")) {sql = sql + " AND give_gender = \"" + trade.getGiveGender() + "\"";}
-            if(!trade.getGiveAbility().equals("")) {sql = sql + " AND give_ability = \"" + trade.getGiveAbility() + "\"";}
-            if(!trade.getGiveMove1().equals("")) {sql = sql + " AND give_move1 = \"" + trade.getGiveMove1() + "\"";}
-            if(!trade.getGiveMove2().equals("")) {sql = sql + " AND give_move2 = \"" + trade.getGiveMove2() + "\"";}
-            if(!trade.getGiveMove3().equals("")) {sql = sql + " AND give_move3 = \"" + trade.getGiveMove3() + "\"";}
-            if(!trade.getGiveMove4().equals("")) {sql = sql + " AND give_move4 = \"" + trade.getGiveMove4() + "\"";}
-            if(!trade.getGiveNature().equals("")) {sql = sql + " AND give_nature = \"" + trade.getGiveNature() + "\"";}
-            sql = sql + " AND give_HP_EVs >= " + trade.getGiveHPEVs();
-            sql = sql + " AND give_Attack_EVs >= " + trade.getGiveAttackEVs();
-            sql = sql + " AND give_Defense_EVs >= " + trade.getGiveDefenseEVs();
-            sql = sql + " AND give_SAttack_EVs >= " + trade.getGiveSAttackEVs();
-            sql = sql + " AND give_SDefense_EVs >= " + trade.getGiveSDefenseEVs();
-            sql = sql + " AND give_Speed_EVs >= " + trade.getGiveSpeedEVs();
-            sql = sql + " AND give_HP_IVs >= " + trade.getGiveHPIVs();
-            sql = sql + " AND give_Attack_IVs >= " + trade.getGiveAttackIVs();
-            sql = sql + " AND give_Defense_IVs >= " + trade.getGiveDefenseIVs();
-            sql = sql + " AND give_SAttack_IVs >= " + trade.getGiveSAttackIVs();
-            sql = sql + " AND give_SDefense_IVs >= " + trade.getGiveSDefenseIVs();
-            sql = sql + " AND give_Speed_IVs >= " + trade.getGiveSpeedIVs();
-            
-            System.out.println(sql);
+            if(!pkm.getName().equals("")) {sql = sql + " AND P1.name = \"" + pkm.getName() + "\"";}
+            if(pkm.getLvl() != 0) {sql = sql + " AND P1.level = " + pkm.getLvl();}
+            if(!pkm.getGender().equals("")) {sql = sql + " AND P1.gender = \"" + pkm.getGender() + "\"";}
+            if(!pkm.getAbility().equals("")) {sql = sql + " AND P1.ability = \"" + pkm.getAbility() + "\"";}
+            if(pkm.getShiny()) {sql = sql + " AND P1.shiny = true";}
+            if(!pkm.getMove1().equals("")) {sql = sql + " AND P1.move_1 = \"" + pkm.getMove1() + "\"";}
+            if(!pkm.getMove2().equals("")) {sql = sql + " AND P1.move_2 = \"" + pkm.getMove2() + "\"";}
+            if(!pkm.getMove3().equals("")) {sql = sql + " AND P1.move_3 = \"" + pkm.getMove3() + "\"";}
+            if(!pkm.getMove4().equals("")) {sql = sql + " AND P1.move_4 = \"" + pkm.getMove4() + "\"";}
+            if(!pkm.getNature().equals("")) {sql = sql + " AND P1.nature = \"" + pkm.getNature() + "\"";}
+            sql = sql + " AND P1.ev_hp >= " + pkm.getEVHP();
+            sql = sql + " AND P1.ev_atk >= " + pkm.getEVATK();
+            sql = sql + " AND P1.ev_def >= " + pkm.getEVDEF();
+            sql = sql + " AND P1.ev_spa >= " + pkm.getEVSPA();
+            sql = sql + " AND P1.ev_spd >= " + pkm.getEVSPD();
+            sql = sql + " AND P1.ev_spe >= " + pkm.getEVSPE();
+            sql = sql + " AND P1.iv_hp >= " + pkm.getIVHP();
+            sql = sql + " AND P1.iv_atk >= " + pkm.getIVATK();
+            sql = sql + " AND P1.iv_def >= " + pkm.getIVDEF();
+            sql = sql + " AND P1.iv_spa >= " + pkm.getIVSPA();
+            sql = sql + " AND P1.iv_spd >= " + pkm.getIVSPD();
+            sql = sql + " AND P1.iv_spe >= " + pkm.getIVSPE();
   
             ps = connection.prepareStatement(sql);
             ps.setInt(1, user.getId());
-            ps.setBoolean(2, trade.getGiveShiny());
             rs = ps.executeQuery();
             
             while (rs.next()) {
+                Pokemon give_pkm = new Pokemon();
+                Pokemon receive_pkm = new Pokemon();
                 Trade dbtrade = new Trade();
 
                 dbtrade.setTradeId(rs.getInt(1));
@@ -163,53 +168,154 @@ public class DBTrades {
                 dbtrade.setGiveReviewStars(rs.getInt(6));
                 dbtrade.setReceiveReview(rs.getString(7));
                 dbtrade.setReceiveReviewStars(rs.getInt(8));
-                dbtrade.setGivePokeNum(rs.getInt(9));
-                dbtrade.setGiveName(rs.getString(10));
-                dbtrade.setGiveLevel(rs.getInt(11));
-                dbtrade.setGiveGender(rs.getString(12));
-                dbtrade.setGiveShiny(rs.getBoolean(13));
-                dbtrade.setGiveAbility(rs.getString(14));
-                dbtrade.setGiveMove1(rs.getString(15));
-                dbtrade.setGiveMove2(rs.getString(16));
-                dbtrade.setGiveMove3(rs.getString(17));
-                dbtrade.setGiveMove4(rs.getString(18));
-                dbtrade.setGiveNature(rs.getString(19));
-                dbtrade.setGiveHPIVs(rs.getInt(20));
-                dbtrade.setGiveAttackIVs(rs.getInt(21));
-                dbtrade.setGiveDefenseIVs(rs.getInt(22));
-                dbtrade.setGiveSAttackIVs(rs.getInt(23));
-                dbtrade.setGiveSDefenseIVs(rs.getInt(24));
-                dbtrade.setGiveSpeedIVs(rs.getInt(25));
-                dbtrade.setGiveHPEVs(rs.getInt(26));
-                dbtrade.setGiveAttackEVs(rs.getInt(27));
-                dbtrade.setGiveDefenseEVs(rs.getInt(28));
-                dbtrade.setGiveSAttackEVs(rs.getInt(29));
-                dbtrade.setGiveSDefenseEVs(rs.getInt(30));
-                dbtrade.setGiveSpeedEVs(rs.getInt(31));
-                dbtrade.setReceivePokeNum(rs.getInt(32));
-                dbtrade.setReceiveName(rs.getString(33));
-                dbtrade.setReceiveLevel(rs.getInt(34));
-                dbtrade.setReceiveGender(rs.getString(35));
-                dbtrade.setReceiveShiny(rs.getBoolean(36));
-                dbtrade.setReceiveAbility(rs.getString(37));
-                dbtrade.setReceiveMove1(rs.getString(38));
-                dbtrade.setReceiveMove2(rs.getString(39));
-                dbtrade.setReceiveMove3(rs.getString(40));
-                dbtrade.setReceiveMove4(rs.getString(41));
-                dbtrade.setReceiveNature(rs.getString(42));
-                dbtrade.setReceiveHPIVs(rs.getInt(43));
-                dbtrade.setReceiveAttackIVs(rs.getInt(44));
-                dbtrade.setReceiveDefenseIVs(rs.getInt(45));
-                dbtrade.setReceiveSAttackIVs(rs.getInt(46));
-                dbtrade.setReceiveSDefenseIVs(rs.getInt(47));
-                dbtrade.setReceiveSpeedIVs(rs.getInt(48));
-                dbtrade.setReceiveHPEVs(rs.getInt(49));
-                dbtrade.setReceiveAttackEVs(rs.getInt(50));
-                dbtrade.setReceiveDefenseEVs(rs.getInt(51));
-                dbtrade.setReceiveSAttackEVs(rs.getInt(52));
-                dbtrade.setReceiveSDefenseEVs(rs.getInt(53));
-                dbtrade.setReceiveSpeedEVs(rs.getInt(54));
-                dbtrade.setGiveUsername(rs.getString(55));
+                
+                give_pkm.setPkmId(rs.getInt(9));
+                give_pkm.setName(rs.getString(12));
+                give_pkm.setLvl(rs.getInt(13));
+                give_pkm.setGender(rs.getString(14));
+                give_pkm.setShiny(rs.getBoolean(15));
+                give_pkm.setAbility(rs.getString(16));
+                give_pkm.setMove1(rs.getString(17));
+                give_pkm.setMove2(rs.getString(18));
+                give_pkm.setMove3(rs.getString(19));
+                give_pkm.setMove4(rs.getString(20));
+                give_pkm.setNature(rs.getString(21));
+                give_pkm.setIVHP(rs.getInt(22));
+                give_pkm.setIVATK(rs.getInt(23));
+                give_pkm.setIVDEF(rs.getInt(24));
+                give_pkm.setIVSPA(rs.getInt(25));
+                give_pkm.setIVSPD(rs.getInt(26));
+                give_pkm.setIVSPE(rs.getInt(27));
+                give_pkm.setEVHP(rs.getInt(28));
+                give_pkm.setEVATK(rs.getInt(29));
+                give_pkm.setEVDEF(rs.getInt(30));
+                give_pkm.setEVSPA(rs.getInt(31));
+                give_pkm.setEVSPD(rs.getInt(32));
+                give_pkm.setEVSPE(rs.getInt(33));
+
+                receive_pkm.setPkmId(rs.getInt(34));
+                receive_pkm.setName(rs.getString(35));
+                receive_pkm.setLvl(rs.getInt(36));
+                receive_pkm.setGender(rs.getString(37));
+                receive_pkm.setShiny(rs.getBoolean(38));
+                receive_pkm.setAbility(rs.getString(39));
+                receive_pkm.setMove1(rs.getString(40));
+                receive_pkm.setMove2(rs.getString(41));
+                receive_pkm.setMove3(rs.getString(42));
+                receive_pkm.setMove4(rs.getString(43));
+                receive_pkm.setNature(rs.getString(44));
+                receive_pkm.setIVHP(rs.getInt(45));
+                receive_pkm.setIVATK(rs.getInt(46));
+                receive_pkm.setIVDEF(rs.getInt(47));
+                receive_pkm.setIVSPA(rs.getInt(48));
+                receive_pkm.setIVSPD(rs.getInt(49));
+                receive_pkm.setIVSPE(rs.getInt(50));
+                receive_pkm.setEVHP(rs.getInt(51));
+                receive_pkm.setEVATK(rs.getInt(52));
+                receive_pkm.setEVDEF(rs.getInt(53));
+                receive_pkm.setEVSPA(rs.getInt(54));
+                receive_pkm.setEVSPD(rs.getInt(55));
+                receive_pkm.setEVSPE(rs.getInt(56));
+
+                dbtrade.setGiveUsername(rs.getString(57));
+                dbtrade.setGivePkm(give_pkm);
+                dbtrade.setReceivePkm(receive_pkm);
+
+                trade_list.add(dbtrade);
+            }
+
+            rs.close();
+            ps.close();
+            pool.freeConnection(connection);
+            return trade_list;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ArrayList<Trade> lookFirst (User user) throws Exception {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "SELECT T.*, P1.*, P2.*, U.username " + 
+                     "FROM trade T, user U, pokemon P1, pokemon P2 " +
+                     "WHERE give_user_id = user_id AND give_poke_id = P1.poke_id AND receive_poke_id = P2.poke_id AND give_user_id != ? AND active is true";
+        
+        ArrayList<Trade> trade_list = new ArrayList<Trade>();
+
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, user.getId());
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Pokemon give_pkm = new Pokemon();
+                Pokemon receive_pkm = new Pokemon();
+                Trade dbtrade = new Trade();
+
+                dbtrade.setTradeId(rs.getInt(1));
+                dbtrade.setActive(rs.getBoolean(2));
+                dbtrade.setGiveUserId(rs.getInt(3));
+                dbtrade.setReceiveUserId(rs.getInt(4));
+                dbtrade.setGiveReview(rs.getString(5));
+                dbtrade.setGiveReviewStars(rs.getInt(6));
+                dbtrade.setReceiveReview(rs.getString(7));
+                dbtrade.setReceiveReviewStars(rs.getInt(8));
+                
+                give_pkm.setPkmId(rs.getInt(9));
+                give_pkm.setName(rs.getString(12));
+                give_pkm.setLvl(rs.getInt(13));
+                give_pkm.setGender(rs.getString(14));
+                give_pkm.setShiny(rs.getBoolean(15));
+                give_pkm.setAbility(rs.getString(16));
+                give_pkm.setMove1(rs.getString(17));
+                give_pkm.setMove2(rs.getString(18));
+                give_pkm.setMove3(rs.getString(19));
+                give_pkm.setMove4(rs.getString(20));
+                give_pkm.setNature(rs.getString(21));
+                give_pkm.setIVHP(rs.getInt(22));
+                give_pkm.setIVATK(rs.getInt(23));
+                give_pkm.setIVDEF(rs.getInt(24));
+                give_pkm.setIVSPA(rs.getInt(25));
+                give_pkm.setIVSPD(rs.getInt(26));
+                give_pkm.setIVSPE(rs.getInt(27));
+                give_pkm.setEVHP(rs.getInt(28));
+                give_pkm.setEVATK(rs.getInt(29));
+                give_pkm.setEVDEF(rs.getInt(30));
+                give_pkm.setEVSPA(rs.getInt(31));
+                give_pkm.setEVSPD(rs.getInt(32));
+                give_pkm.setEVSPE(rs.getInt(33));
+
+                receive_pkm.setPkmId(rs.getInt(34));
+                receive_pkm.setName(rs.getString(35));
+                receive_pkm.setLvl(rs.getInt(36));
+                receive_pkm.setGender(rs.getString(37));
+                receive_pkm.setShiny(rs.getBoolean(38));
+                receive_pkm.setAbility(rs.getString(39));
+                receive_pkm.setMove1(rs.getString(40));
+                receive_pkm.setMove2(rs.getString(41));
+                receive_pkm.setMove3(rs.getString(42));
+                receive_pkm.setMove4(rs.getString(43));
+                receive_pkm.setNature(rs.getString(44));
+                receive_pkm.setIVHP(rs.getInt(45));
+                receive_pkm.setIVATK(rs.getInt(46));
+                receive_pkm.setIVDEF(rs.getInt(47));
+                receive_pkm.setIVSPA(rs.getInt(48));
+                receive_pkm.setIVSPD(rs.getInt(49));
+                receive_pkm.setIVSPE(rs.getInt(50));
+                receive_pkm.setEVHP(rs.getInt(51));
+                receive_pkm.setEVATK(rs.getInt(52));
+                receive_pkm.setEVDEF(rs.getInt(53));
+                receive_pkm.setEVSPA(rs.getInt(54));
+                receive_pkm.setEVSPD(rs.getInt(55));
+                receive_pkm.setEVSPE(rs.getInt(56));
+
+                dbtrade.setGiveUsername(rs.getString(57));
+                dbtrade.setGivePkm(give_pkm);
+                dbtrade.setReceivePkm(receive_pkm);
 
                 trade_list.add(dbtrade);
             }

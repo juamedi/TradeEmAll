@@ -27,19 +27,19 @@
         <legend>Register</legend>
         <div>
           <label for="login">Username</label>
-          <input type="text" id = "username" name = "username" aria-describedby="login-help" placeholder="Username">
+          <input type="text" id = "username" name = "username" aria-describedby="login-help" placeholder="Username" required class = "input-form">
         </div>
         <div>
           <label for="password">Password</label>
-          <input type="password" id = "password" name = "password" placeholder="Password">
+          <input type="password" id = "password" name = "password" placeholder="Password" required class = "input-form">
         </div>
         <div>
           <label for="password">Repeat password</label>
-          <input type="password" id="repeat-password" name = "repeat-password" placeholder="Repeat password">
+          <input type="password" id="repeat-password" name = "repeat-password" placeholder="Repeat password" required class = "input-form">
         </div>
         <div>
           <label for="login">E-mail</label>
-          <input type="text" id = "e-mail" name = "e-mail" aria-describedby="email-help" placeholder="E-mail">
+          <input type="text" id = "e-mail" name = "e-mail" aria-describedby="email-help" placeholder="E-mail" required pattern="^[^@]+@[^@]+\.[a-zA-Z]{2,}$" class = "input-form">
         </div>
         <div class = "form-group" style = "text-align: end">
           <button type="submit" class="boton-red">Register</button>

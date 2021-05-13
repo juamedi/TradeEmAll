@@ -28,11 +28,11 @@
         <legend>Login</legend>
         <div>
           <label for="login">Username / E-mail</label>
-          <input type="text" id="username" name = "username" aria-describedby="login-help" placeholder="Username / E-mail">
+          <input type="text" id="username" name = "username" aria-describedby="login-help" placeholder="Username / E-mail" required class = "input-form">
         </div>
         <div>
           <label for="password">Password</label>
-          <input type="password" id="password" name = "password" placeholder="Password">
+          <input type="password" id="password" name = "password" placeholder="Password" required class = "input-form">
         </div>
         <div class = "form-group">
           <button type="submit" class="boton-red">Login</button>

@@ -15,6 +15,7 @@ import java.util.*;
  */
 public class DBOffers {
     
+/*
     public static int postOffer(Offer offer, User user) throws Exception {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -152,4 +153,7 @@ public class DBOffers {
             return null;
         }
     }
+
+*/
 }
+

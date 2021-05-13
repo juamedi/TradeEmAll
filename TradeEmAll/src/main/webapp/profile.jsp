@@ -30,7 +30,7 @@
         <nav class="navbar">
             <form class="form-inline">
               <img src= "https://raw.githubusercontent.com/juamedi/SSW/main/logodark.png" class = "img-logo" alt= "Trade Em All Logo">
-              <a class="boton-white" href="search.jsp">Search</a>
+              <a class="boton-white" href="SearchStartServlet">Search</a>
               <a class="boton-white" href="create.jsp">Create offer</a>
             </form>
             <form class="form-inline dropdown">    

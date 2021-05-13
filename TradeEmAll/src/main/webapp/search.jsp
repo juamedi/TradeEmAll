@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="style-common.css">
     <link rel="stylesheet" href="style-grid.css">
 
-      <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/juamedi/SSW/main/favicon.png" sizes="16x16">
-      <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/juamedi/SSW/main/favicon.png" sizes="32x32">   
-      <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/juamedi/SSW/main/favicon.pngg" sizes="64x64">
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/juamedi/SSW/main/favicon.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/juamedi/SSW/main/favicon.png" sizes="32x32">   
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/juamedi/SSW/main/favicon.pngg" sizes="64x64">
+
   </head>
   
 <%
@@ -34,7 +35,7 @@
       <nav class="navbar">
         <form class="form-inline">
           <img src= "https://raw.githubusercontent.com/juamedi/SSW/main/logodark.png" class = "img-logo" alt= "Trade Em All Logo">
-          <a class="boton-white" href="search.jsp">Search</a>
+          <a class="boton-white" href="SearchStartServlet">Search</a>
           <a class="boton-white" href="create.jsp">Create offer</a>
         </form>
         <form class="form-inline dropdown">    
@@ -220,7 +221,7 @@
               </div>
               <div class = "row-pkm-search">
                 <div col-3>
-                  <button type="submit" class="boton-search">Search</button>
+                  <button type="submit" class="boton-search" id = "btn-search">Search</button>
                 </div>
               </div>
             </div>
@@ -245,29 +246,62 @@
         %>
         <%
           for (int i = 0; i < size; i++) {
-            String giveShiny = "No";
-            String receiveShiny = "No";
+            String give_shiny = "No";
+            String receive_shiny = "Any";
+            String receive_img = "https://raw.githubusercontent.com/juamedi/SSW/main/unknown_pokemon.png";
+            String receive_name = "Any";
+            String receive_ability = "Any";
+            String receive_nature = "Any";
+            String receive_gender = "Any";
+            String receive_lvl = "Any";
+
             Trade trade = new Trade();
+            Pokemon give_pkm = new Pokemon();
+            Pokemon receive_pkm = new Pokemon();
+            
             trade = list_trade.get(i);
-            if (trade.getGiveShiny()) {
-                giveShiny = "Yes";
+            give_pkm = trade.getGivePkm();
+            receive_pkm = trade.getReceivePkm();
+
+            if (give_pkm.getShiny()) {
+                give_shiny = "Yes";
             }
-            if (trade.getReceiveShiny()) {
-                receiveShiny = "Yes";
+            if (receive_pkm.getShiny()) {
+                receive_shiny = "Yes";
             }
 
+            if (receive_pkm.getName() != null) {
+                receive_img = "https://play.pokemonshowdown.com/sprites/bwani/" + receive_pkm.getName().toLowerCase() + ".gif";
+                receive_name = receive_pkm.getName();
+            }
+            
+            if (receive_pkm.getAbility() != null) {
+                receive_ability = receive_pkm.getAbility();
+            }
+
+            if (receive_pkm.getNature() != null) {
+                receive_nature = receive_pkm.getNature();
+            }
+
+            if (receive_pkm.getGender() != null) {
+                receive_gender = receive_pkm.getGender();
+            }
+
+            if (receive_pkm.getLvl() != 0) {
+                receive_lvl = "" + receive_pkm.getLvl();
+            }
         %>
           <div class="card flex">
             <div class = "row justify-content-center">
               <div class = "col-5">
                 <div class = "row">
                   <div class = "col-3">
-                    <img src="<%="https://play.pokemonshowdown.com/sprites/bwani/" + trade.getGiveName().toLowerCase() + ".gif"%>" alt="Avatar" class = "card-img">
+                    <img src="<%="https://play.pokemonshowdown.com/sprites/bwani/" + give_pkm.getName().toLowerCase() + ".gif"%>" alt="Avatar" class = "card-img">
                   </div>
                   <div class = "col-card-stats">
                     <div class = "row justify-content-between">
                       <div class = "col-4">
-                        <label class = "big bold"><%=trade.getGiveName()%></label>
+                        <label class = "big bold"><%=give_pkm.getName()%></label>
                       </div>
                       <div class = "col-6">
                         <label>Owner</label>
@@ -275,53 +309,53 @@
                       </div>
                       <div class = "col-2">
                         <label>Level</label>
-                        <label class = "text-muted"><%=trade.getGiveLevel()%></label>
+                        <label class = "text-muted"><%=give_pkm.getLvl()%></label>
                       </div>
                     </div>
                     <div class = "row-blank"></div>
                     <div class = "row justify-content-between">
                       <div class = "col-4">
                         <label>Nature</label>
-                        <label class = "text-muted"><%=trade.getGiveNature()%></label>
+                        <label class = "text-muted"><%=give_pkm.getNature()%></label>
                       </div>
                         <div class = "col-3">
                           <label>Ability</label>
-                          <label class = "text-muted"><%=trade.getGiveAbility()%></label>
+                          <label class = "text-muted"><%=give_pkm.getAbility()%></label>
                         </div>
                       <div class = "col-3">
                         <label>Gender</label>
-                        <label class = "text-muted"><%=trade.getGiveGender()%></label>
+                        <label class = "text-muted"><%=give_pkm.getGender()%></label>
                       </div>
                       <div class = "col-2">
                         <label>Shiny</label>
-                        <label class = "text-muted"><%=giveShiny%></label>
+                        <label class = "text-muted"><%=give_shiny%></label>
                       </div>
                     </div>
                     <div class = "row-blank"></div>
                     <div class = "row justify-content-between">
                       <div class = "col-2">
                         <label class = "bold">HP</label>
-                        <label><%=trade.getGiveHPIVs()%></label>
+                        <label><%=give_pkm.getIVHP()%></label>
                       </div>
                       <div class = "col-2">
                         <label class = "bold">ATK</label>
-                        <label><%=trade.getGiveAttackIVs()%></label>
+                        <label><%=give_pkm.getIVATK()%></label>
                       </div>
                       <div class = "col-2">
                         <label class = "bold">DEF</label>
-                        <label><%=trade.getGiveDefenseIVs()%></label>
+                        <label><%=give_pkm.getIVDEF()%></label>
                       </div>
                       <div class = "col-2">
                         <label class = "bold">SPA</label>
-                        <label><%=trade.getGiveSAttackIVs()%></label>
+                        <label><%=give_pkm.getIVSPA()%></label>
                       </div>
                       <div class = "col-2">
                         <label class = "bold">SPD</label>
-                        <label><%=trade.getGiveSDefenseIVs()%></label>
+                        <label><%=give_pkm.getIVSPD()%></label>
                       </div>
                       <div class = "col-2">
                         <label class = "bold">SPE</label>
-                        <label><%=trade.getGiveSpeedIVs()%></label>
+                        <label><%=give_pkm.getIVSPE()%></label>
                       </div>
                     </div>
                   </div>
@@ -335,65 +369,65 @@
               <div class = "col-5">
                 <div class = "row">
                   <div class = "col-3">
-                    <img src="<%="https://play.pokemonshowdown.com/sprites/bwani/" + trade.getReceiveName().toLowerCase() + ".gif"%>" alt="Avatar" class = "card-img">
+                    <img src="<%=receive_img%>" alt="Avatar" class = "card-img">
                   </div>
                   <div class = "col-card-stats">
                     <div class = "row justify-content-between">
                       <div class = "col-4">
-                        <label class = "big bold"><%=trade.getReceiveName()%></label>
+                        <label class = "big bold"><%=receive_name%></label>
                       </div>
                       <div class = "col-6">
                         <label> </label>
                       </div>
                       <div class = "col-2">
                         <label>Level</label>
-                        <label class = "text-muted"><%=trade.getReceiveLevel()%></label>
+                        <label class = "text-muted"><%=receive_lvl%></label>
                       </div>
                     </div>
                     <div class = "row-blank"></div>
                     <div class = "row justify-content-between">
                       <div class = "col-4">
                         <label>Nature</label>
-                        <label class = "text-muted"><%=trade.getReceiveNature()%></label>
+                        <label class = "text-muted"><%=receive_nature%></label>
                       </div>
                       <div class = "col-3">
                         <label>Ability</label>
-                        <label class = "text-muted"><%=trade.getReceiveAbility()%></label>
+                        <label class = "text-muted"><%=receive_ability%></label>
                       </div>
                       <div class = "col-3">
                         <label>Gender</label>
-                        <label class = "text-muted"><%=trade.getReceiveGender()%></label>
+                        <label class = "text-muted"><%=receive_gender%></label>
                       </div>
                       <div class = "col-2">
                         <label>Shiny</label>
-                        <label class = "text-muted"><%=receiveShiny%></label>
+                        <label class = "text-muted"><%=receive_shiny%></label>
                       </div>
                     </div>
                     <div class = "row-blank"></div>
                     <div class = "row justify-content-between">
                       <div class = "col-2">
                         <label class = "bold">HP</label>
-                        <label><%=trade.getReceiveHPIVs()%></label>
+                        <label><%=receive_pkm.getIVHP()%></label>
                       </div>
                       <div class = "col-2">
                         <label class = "bold">ATK</label>
-                        <label><%=trade.getReceiveAttackIVs()%></label>
+                        <label><%=receive_pkm.getIVATK()%></label>
                       </div>
                       <div class = "col-2">
                         <label class = "bold">DEF</label>
-                        <label><%=trade.getReceiveDefenseIVs()%></label>
+                        <label><%=receive_pkm.getIVDEF()%></label>
                       </div>
                       <div class = "col-2">
                         <label class = "bold">SPA</label>
-                        <label><%=trade.getReceiveSAttackIVs()%></label>
+                        <label><%=receive_pkm.getIVSPA()%></label>
                       </div>
                       <div class = "col-2">
                         <label class = "bold">SPD</label>
-                        <label><%=trade.getReceiveSDefenseIVs()%></label>
+                        <label><%=receive_pkm.getIVSPD()%></label>
                       </div>
                       <div class = "col-2">
                         <label class = "bold">SPE</label>
-                        <label><%=trade.getReceiveSpeedIVs()%></label>
+                        <label><%=receive_pkm.getIVSPE()%></label>
                       </div>
                     </div>
                   </div>
@@ -418,6 +452,7 @@
         </div>
       </div>
     </div>
+
     <script>
         var sliderhp = document.getElementById("range-hp");
         var slideratk = document.getElementById("range-atk");

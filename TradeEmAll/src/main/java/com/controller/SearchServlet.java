@@ -55,46 +55,48 @@ public class SearchServlet extends HttpServlet {
         int iv_spd = 0;
         int iv_spe = 0;
         if (!request.getParameter("pkmlevel").equals("")) {pkmlevel = Integer.parseInt(request.getParameter("pkmlevel"));}
+
         if (!request.getParameter("iv-hp").equals("")) {iv_hp = Integer.parseInt(request.getParameter("iv-hp"));}
         if (!request.getParameter("iv-atk").equals("")) {iv_atk = Integer.parseInt(request.getParameter("iv-atk"));}
         if (!request.getParameter("iv-def").equals("")) {iv_def = Integer.parseInt(request.getParameter("iv-def"));}
         if (!request.getParameter("iv-spa").equals("")) {iv_spa = Integer.parseInt(request.getParameter("iv-spa"));}
         if (!request.getParameter("iv-spd").equals("")) {iv_spd = Integer.parseInt(request.getParameter("iv-spd"));}
         if (!request.getParameter("iv-spe").equals("")) {iv_spe = Integer.parseInt(request.getParameter("iv-spe"));}
+
         boolean pkmshiny = false;
         String shiny = request.getParameter("pkmshiny");
         if (shiny != null) {pkmshiny = true;}
 
-        Trade trade = new Trade();
+        Pokemon pkm = new Pokemon();
 
-        trade.setGiveName(pkmname);
-        trade.setGiveNature(pkmnature);
-        trade.setGiveLevel(pkmlevel);
-        trade.setGiveGender(pkmgender);
-        trade.setGiveAbility(pkmability);
-        trade.setGiveShiny(pkmshiny);
-        trade.setGiveMove1(moveset1);
-        trade.setGiveMove2(moveset2);
-        trade.setGiveMove3(moveset3);
-        trade.setGiveMove4(moveset4);
-        trade.setGiveHPEVs(ev_hp);
-        trade.setGiveAttackEVs(ev_atk);
-        trade.setGiveDefenseEVs(ev_def);
-        trade.setGiveSAttackEVs(ev_spa);
-        trade.setGiveSDefenseEVs(ev_spd);
-        trade.setGiveSpeedEVs(ev_spe);
-        trade.setGiveHPIVs(iv_hp);
-        trade.setGiveAttackIVs(iv_atk);
-        trade.setGiveDefenseIVs(iv_def);
-        trade.setGiveSAttackIVs(iv_spa);
-        trade.setGiveSDefenseIVs(iv_spd);
-        trade.setGiveSpeedIVs(iv_spe);
+        pkm.setName(pkmname);
+        pkm.setNature(pkmnature);
+        pkm.setLvl(pkmlevel);
+        pkm.setGender(pkmgender);
+        pkm.setAbility(pkmability);
+        pkm.setShiny(pkmshiny);
+        pkm.setMove1(moveset1);
+        pkm.setMove2(moveset2);
+        pkm.setMove3(moveset3);
+        pkm.setMove4(moveset4);
+        pkm.setEVHP(ev_hp);
+        pkm.setEVATK(ev_atk);
+        pkm.setEVDEF(ev_def);
+        pkm.setEVSPA(ev_spa);
+        pkm.setEVSPD(ev_spd);
+        pkm.setEVSPE(ev_spe);
+        pkm.setIVHP(iv_hp);
+        pkm.setIVATK(iv_atk);
+        pkm.setIVDEF(iv_def);
+        pkm.setIVSPA(iv_spa);
+        pkm.setIVSPD(iv_spd);
+        pkm.setIVSPE(iv_spe);
         
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
         try {
-            ArrayList<Trade> list_trade = DBTrades.lookTrade(trade, user);
+            ArrayList<Trade> list_trade = DBTrades.lookTrade(pkm, user);
             request.setAttribute("list_trade", list_trade);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/search.jsp");
             dispatcher.forward(request, response);
