@@ -98,6 +98,7 @@ public class SearchServlet extends HttpServlet {
         try {
             ArrayList<Trade> list_trade = DBTrades.lookTrade(pkm, user);
             request.setAttribute("list_trade", list_trade);
+            session.setAttribute("list_trade", list_trade);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/search.jsp");
             dispatcher.forward(request, response);
         }

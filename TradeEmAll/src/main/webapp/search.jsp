@@ -15,14 +15,11 @@
   <%
     User user = (User) session.getAttribute("user");
     String username = user.getUsername();
-    String password = user.getPassword();
-    String email = user.getEmail();
     String pfp = user.getProfilePicture();
     ArrayList<Trade> list_trade = new ArrayList<Trade>();
     if ((ArrayList<Trade>) request.getAttribute("list_trade") != null) {
       list_trade = (ArrayList<Trade>) request.getAttribute("list_trade");
     }
-    request.setAttribute("list_trade", list_trade);
     int size = list_trade.size(); 
   %>
   
@@ -117,7 +114,7 @@
                 </div>
                 <div class = "col-range">
                   <div class="slidecontainer">
-                    <input type="range" min="0" max="252" value="0" class="custom-range" id="range-hp" name="range-hp">
+                    <input type="range" min="0" max="252" value="0" step="4" class="custom-range" id="range-hp" name="range-hp">
                   </div>
                 </div>
                 <div class = "col-ev">
@@ -133,7 +130,7 @@
                 </div>
                 <div class = "col-range">
                   <div class="slidecontainer">
-                    <input type="range" min="0" max="252" value="0" class="custom-range" id="range-atk" name="range-atk">
+                    <input type="range" min="0" max="252" value="0" step="4" class="custom-range" id="range-atk" name="range-atk">
                   </div>
                 </div>
                 <div class = "col-ev">
@@ -149,7 +146,7 @@
                 </div>
                 <div class = "col-range">
                   <div class="slidecontainer">
-                    <input type="range" min="0" max="252" value="0" class="custom-range" id="range-def" name="range-def">
+                    <input type="range" min="0" max="252" value="0" step="4" class="custom-range" id="range-def" name="range-def">
                   </div>
                 </div>
                 <div class = "col-ev">
@@ -165,7 +162,7 @@
                 </div>
                 <div class = "col-range">
                   <div class="slidecontainer">
-                    <input type="range" min="0" max="252" value="0" class="custom-range" id="range-spa" name="range-spa">
+                    <input type="range" min="0" max="252" value="0" step="4" class="custom-range" id="range-spa" name="range-spa">
                   </div>
                 </div>
                 <div class = "col-ev">
@@ -181,7 +178,7 @@
                 </div>
                 <div class = "col-range">
                   <div class="slidecontainer">
-                    <input type="range" min="0" max="252" value="0" class="custom-range" id="range-spd" name="range-spd">
+                    <input type="range" min="0" max="252" value="0" step="4" class="custom-range" id="range-spd" name="range-spd">
                   </div>
                 </div>
                 <div class = "col-ev">
@@ -197,7 +194,7 @@
                 </div>
                 <div class = "col-range">
                   <div class="slidecontainer">
-                    <input type="range" min="0" max="252" value="0" class="custom-range" id="range-spe" name="range-spe">
+                    <input type="range" min="0" max="252" value="0" step="4" class="custom-range" id="range-spe" name="range-spe">
                   </div>
                 </div>
                 <div class = "col-ev">
@@ -242,7 +239,7 @@
           %>
           <%
             for (int i = 0; i < size; i++) {
-              String give_shiny = "No";
+              String give_shiny = "Any";
               String receive_shiny = "Any";
               String receive_img = "https://raw.githubusercontent.com/juamedi/SSW/main/unknown_pokemon.png";
               String receive_name = "Any";

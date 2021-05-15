@@ -36,7 +36,9 @@ public class OfferServlet extends HttpServlet {
         int id_trade = Integer.parseInt(request.getParameter("id-trade"));
         
         ArrayList<Trade> trade_list = new ArrayList<>();
-        trade_list = (ArrayList<Trade>) request.getAttribute("list_trade");
+        trade_list = (ArrayList<Trade>) request.getSession().getAttribute("list_trade");
+        //request.getSession().removeAttribute("list_trade");
+        System.out.println("pene: " + trade_list);
 
         try {
             request.setAttribute("id_trade", id_trade);
@@ -45,7 +47,7 @@ public class OfferServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
         catch (Exception ex){
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
             dispatcher.forward(request, response);
         }
     } 

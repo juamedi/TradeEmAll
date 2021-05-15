@@ -135,6 +135,9 @@ a {
   border: 1px solid #ced4da;
 }
 
+.cbx-shiny:disabled {
+    background-color: blue;
+}
 
 /*Panels-------------------------------------------------------*/
 

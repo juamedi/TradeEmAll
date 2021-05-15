@@ -113,7 +113,7 @@
                   </div>
                   <div class = "col-range">
                     <div class="slidecontainer">
-                      <input type="range" min="0" max="252" value="0" class="custom-range" id="give-range-hp" name="pkm-give-ev-hp">
+                      <input type="range" min="0" max="252" value="0" step="4" class="custom-range" id="give-range-hp" name="pkm-give-ev-hp">
                     </div>
                   </div>
                   <div class = "col-ev">
@@ -129,7 +129,7 @@
                   </div>
                   <div class = "col-range">
                     <div class="slidecontainer">
-                      <input type="range" min="0" max="252" value="0" class="custom-range" id="give-range-atk" name="pkm-give-ev-atk">
+                      <input type="range" min="0" max="252" value="0" step="4" class="custom-range" id="give-range-atk" name="pkm-give-ev-atk">
                     </div>
                   </div>
                   <div class = "col-ev">
@@ -145,7 +145,7 @@
                   </div>
                   <div class = "col-range">
                     <div class="slidecontainer">
-                      <input type="range" min="0" max="252" value="0" class="custom-range" id="give-range-def" name="pkm-give-ev-def">
+                      <input type="range" min="0" max="252" value="0" step="4" class="custom-range" id="give-range-def" name="pkm-give-ev-def">
                     </div>
                   </div>
                   <div class = "col-ev">
@@ -161,7 +161,7 @@
                   </div>
                   <div class = "col-range">
                     <div class="slidecontainer">
-                      <input type="range" min="0" max="252" value="0" class="custom-range" id="give-range-spa" name="pkm-give-ev-spa">
+                      <input type="range" min="0" max="252" value="0" step="4" class="custom-range" id="give-range-spa" name="pkm-give-ev-spa">
                     </div>
                   </div>
                   <div class = "col-ev">
@@ -177,7 +177,7 @@
                   </div>
                   <div class = "col-range">
                     <div class="slidecontainer">
-                      <input type="range" min="0" max="252" value="0" class="custom-range" id="give-range-spd" name="pkm-give-ev-spd">
+                      <input type="range" min="0" max="252" value="0" step="4" class="custom-range" id="give-range-spd" name="pkm-give-ev-spd">
                     </div>
                   </div>
                   <div class = "col-ev">
@@ -193,7 +193,7 @@
                   </div>
                   <div class = "col-range">
                     <div class="slidecontainer">
-                      <input type="range" min="0" max="252" value="0" class="custom-range" id="give-range-spe" name="pkm-give-ev-spe">
+                      <input type="range" min="0" max="252" value="0" step="4" class="custom-range" id="give-range-spe" name="pkm-give-ev-spe">
                     </div>
                   </div>
                   <div class = "col-ev">
@@ -301,7 +301,7 @@
                   </div>
                   <div class = "col-range">
                     <div class="slidecontainer">
-                      <input type="range" min="0" max="252" value="0" class="custom-range" id="receive-range-hp" name="pkm-receive-ev-hp">
+                      <input type="range" min="0" max="252" value="0" step="4" class="custom-range" id="receive-range-hp" name="pkm-receive-ev-hp">
                     </div>
                   </div>
                   <div class = "col-ev">
@@ -317,7 +317,7 @@
                   </div>
                   <div class = "col-range">
                     <div class="slidecontainer">
-                      <input type="range" min="0" max="252" value="0" class="custom-range" id="receive-range-atk" name="pkm-receive-ev-atk">
+                      <input type="range" min="0" max="252" value="0" step="4" class="custom-range" id="receive-range-atk" name="pkm-receive-ev-atk">
                     </div>
                   </div>
                   <div class = "col-ev">
@@ -333,7 +333,7 @@
                   </div>
                   <div class = "col-range">
                     <div class="slidecontainer">
-                      <input type="range" min="0" max="252" value="0" class="custom-range" id="receive-range-def" name="pkm-receive-ev-def">
+                      <input type="range" min="0" max="252" value="0" step="4" class="custom-range" id="receive-range-def" name="pkm-receive-ev-def">
                     </div>
                   </div>
                   <div class = "col-ev">
@@ -349,7 +349,7 @@
                   </div>
                   <div class = "col-range">
                     <div class="slidecontainer">
-                      <input type="range" min="0" max="252" value="0" class="custom-range" id="receive-range-spa" name="pkm-receive-ev-spa">
+                      <input type="range" min="0" max="252" value="0" step="4" class="custom-range" id="receive-range-spa" name="pkm-receive-ev-spa">
                     </div>
                   </div>
                   <div class = "col-ev">
@@ -365,7 +365,7 @@
                   </div>
                   <div class = "col-range">
                     <div class="slidecontainer">
-                      <input type="range" min="0" max="252" value="0" class="custom-range" id="receive-range-spd" name="pkm-receive-ev-spd">
+                      <input type="range" min="0" max="252" value="0" step="4" class="custom-range" id="receive-range-spd" name="pkm-receive-ev-spd">
                     </div>
                   </div>
                   <div class = "col-ev">
@@ -381,7 +381,7 @@
                   </div>
                   <div class = "col-range">
                     <div class="slidecontainer">
-                      <input type="range" min="0" max="252" value="0" class="custom-range" id="receive-range-spe" name="pkm-receive-ev-spe">
+                      <input type="range" min="0" max="252" value="0" step="4" class="custom-range" id="receive-range-spe" name="pkm-receive-ev-spe">
                     </div>
                   </div>
                   <div class = "col-ev">
