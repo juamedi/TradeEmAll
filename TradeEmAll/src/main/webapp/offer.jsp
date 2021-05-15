@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@page import = "com.model.User"%>
+<%@page import = "com.model.*, java.util.*"%>
 <html>
   <head>
       <title>Trade Em All</title>
@@ -15,9 +15,51 @@
 <%
     User user = (User) session.getAttribute("user");
     String username = user.getUsername();
-    String password = user.getPassword();
-    String email = user.getEmail();
     String pfp = user.getProfilePicture();
+    int id_trade = (Integer) request.getAttribute("id_trade");
+    ArrayList<Trade> list_trade = new ArrayList<Trade>();
+    if ((ArrayList<Trade>) request.getAttribute("list_trade") != null) {
+      list_trade = (ArrayList<Trade>) request.getAttribute("list_trade");
+    }
+    String give_shiny = null;
+    String give_img = "https://raw.githubusercontent.com/juamedi/SSW/main/unknown_pokemon.png";
+    String give_name = "Any";
+    String give_ability = "Any";
+    String give_nature = "Any";
+    String give_gender = "Any";
+    String give_lvl = "Any";
+
+    Trade trade = new Trade();
+    Pokemon give_pkm = new Pokemon();
+    Pokemon receive_pkm = new Pokemon();
+
+    trade = list_trade.get(id_trade);
+    give_pkm = trade.getGivePkm();
+
+    if (give_pkm.getShiny()) {
+        give_shiny = "";
+    }
+
+    if (give_pkm.getName() != null) {
+        give_img = "https://play.pokemonshowdown.com/sprites/bwani/" + give_pkm.getName().toLowerCase() + ".gif";
+        give_name = give_pkm.getName();
+    }
+
+    if (give_pkm.getAbility() != null) {
+        give_ability = give_pkm.getAbility();
+    }
+
+    if (give_pkm.getNature() != null) {
+        give_nature = give_pkm.getNature();
+    }
+
+    if (give_pkm.getGender() != null) {
+        give_gender = give_pkm.getGender();
+    }
+
+    if (give_pkm.getLvl() != 0) {
+        give_lvl = "" + give_pkm.getLvl();
+    }
 %>
   
   <body>
@@ -52,7 +94,7 @@
                 <legend>Given</legend>
                 <div class = "row-stats">
                   <div class = "col-4">
-                    <img id = "cimg1" src='' alt="Pokemon image" class = "img-create">
+                    <img id = "cimg1" src=<%="https://play.pokemonshowdown.com/sprites/bwani/" + give_pkm.getName().toLowerCase() + ".gif"%> alt="Pokemon image" class = "img-create">
                   </div>
                   <div class = "col-8">
                     <div class ="row">
@@ -60,7 +102,7 @@
                         <label class = "bold">Name</label>
                       </div>
                       <div class = "col-10">
-                        <input type="text" style = "margin: 2px 0px" id="cname1" name="pkm-give-name" aria-describedby="pokemon-name" placeholder="Bulbasaur">
+                        <input type="text" style = "margin: 2px 0px" id="cname1" name="pkm-give-name" aria-describedby="pokemon-name" placeholder="Bulbasaur" value=<%=give_name%>>
                       </div>
                     </div>
                     <div class = "row">
@@ -68,7 +110,7 @@
                         <label class = "bold">Level</label>
                       </div>
                       <div class = "col-10">
-                        <input type="text" style = "margin: 2px 0px" id="level" name="pkm-give-lvl" aria-describedby="pokemon-level" placeholder="1">
+                        <input type="text" style = "margin: 2px 0px" id="level" name="pkm-give-lvl" aria-describedby="pokemon-level" placeholder="1" value=<%=give_lvl%>>
                       </div>
                     </div>
                     <div class = "row">
@@ -76,7 +118,7 @@
                         <label class = "bold">Gender</label>
                       </div>
                       <div class = "col-10">
-                        <input type="text" style = "margin: 2px 0px" id="gender" name="pkm-give-gender" aria-describedby="pokemon-gender" placeholder="Male">
+                        <input type="text" style = "margin: 2px 0px" id="gender" name="pkm-give-gender" aria-describedby="pokemon-gender" placeholder="Male" value=<%=give_gender%>>
                       </div>
                     </div>
                     <div class = "row">
@@ -84,7 +126,7 @@
                         <label class = "bold">Ability</label>
                       </div>
                       <div class = "col-10">
-                        <input type="text" style = "margin: 2px 0px" id="ability" name="pkm-give-ability" aria-describedby="pokemon-gender" placeholder="Overgrow">
+                        <input type="text" style = "margin: 2px 0px" id="ability" name="pkm-give-ability" aria-describedby="pokemon-gender" placeholder="Overgrow" value=<%=give_ability%>>
                       </div>
                     </div>
                     <div class = "row">
@@ -92,7 +134,7 @@
                         <label class = "bold">Shiny</label>
                       </div>
                       <div class = "col-10">
-                        <input type="checkbox" style = "margin: 2px 0px" id="shiny" name="pkm-give-shiny">
+                        <input type="checkbox" style = "margin: 2px 0px" id="shiny" name="pkm-give-shiny"value=<%=give_shiny%>>
                       </div>
                     </div>
                   </div>
@@ -427,11 +469,8 @@
     </div>
 
     <script>
-        var cimg1 = document.getElementById("cimg1");
         var cimg2 = document.getElementById("cimg2");
-        var cname1 = document.getElementById("cname1");
         var cname2 = document.getElementById("cname2");
-        cname1.oninput = function() {cimg1.src = "https://play.pokemonshowdown.com/sprites/bwani/" + this.value.toLowerCase() + ".gif";};
         cname2.oninput = function() {cimg2.src = "https://play.pokemonshowdown.com/sprites/bwani/" + this.value.toLowerCase() + ".gif";};
     </script>
 
@@ -488,4 +527,3 @@
     </script>
   </body>
 </html>
-

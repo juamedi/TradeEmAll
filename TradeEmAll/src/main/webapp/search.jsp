@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <%@page import = "com.model.*, java.util.*"%>
 <html>
+
   <head>
     <title>Trade Em All</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="style-common.css">
     <link rel="stylesheet" href="style-grid.css">
-
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/juamedi/SSW/main/favicon.png" sizes="16x16">
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/juamedi/SSW/main/favicon.png" sizes="32x32">   
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/juamedi/SSW/main/favicon.pngg" sizes="64x64">
-
   </head>
   
-<%
+  <%
     User user = (User) session.getAttribute("user");
     String username = user.getUsername();
     String password = user.getPassword();
@@ -21,11 +20,11 @@
     String pfp = user.getProfilePicture();
     ArrayList<Trade> list_trade = new ArrayList<Trade>();
     if ((ArrayList<Trade>) request.getAttribute("list_trade") != null) {
-        list_trade = (ArrayList<Trade>) request.getAttribute("list_trade");
+      list_trade = (ArrayList<Trade>) request.getAttribute("list_trade");
     }
-    int size = list_trade.size();
-    
-%>
+    request.setAttribute("list_trade", list_trade);
+    int size = list_trade.size(); 
+  %>
   
   <body>
     <div class="background-image">
@@ -43,13 +42,12 @@
             <img src=<%=pfp%> class = "img-icon">
           </button>
           <div class="dropdown-content">
-              <a class="dropdown-item" href="profile.jsp">Your profile</a>
-              <div class = "dropdown-divider"></div>
-              <a class="dropdown-item quit" href="index.jsp">Quit</a>
+            <a class="dropdown-item" href="profile.jsp">Your profile</a>
+            <div class = "dropdown-divider"></div>
+            <a class="dropdown-item quit" href="index.jsp">Quit</a>
           </div>
         </form>
       </nav>
-
       <form class = "panel-fluid" action = "SearchServlet" method = "get">
         <fieldset>
           <div class = "row-stats">
@@ -105,8 +103,7 @@
             </div>
             <div class = "col-pkm-ev">
               <div class = "row-stats">
-                <div class = "col-att">
-                </div>
+                <div class = "col-att"></div>
                 <div class = "col-ev-help">
                   <label class = "stat-help bold">EVs</label>
                 </div>
@@ -228,70 +225,69 @@
           </div>
         </fieldset>
       </form>
-
       <div class = "panel-fluid">
         <div class = "row-card hide-overflow">
-        <%
+          <%
             if (size == 0) {
-        %>
-        <div class="card flex" style = "height: 200px">
-          <div class = "row" style = "height: 100%">
-            <div class = "col-12 text-align-center">
-              <label class = "big bold" style = "align-self: center">No se ha encontrado ningun intercambio con esas características</label>
+          %>
+          <div class="card flex" style = "height: 200px">
+            <div class = "row" style = "height: 100%">
+              <div class = "col-12 text-align-center">
+                <label class = "big bold" style = "align-self: center">No se ha encontrado ningun intercambio con esas caracterï¿½sticas</label>
+              </div>
             </div>
           </div>
-        </div>
-        <%
+          <%
             }
-        %>
-        <%
-          for (int i = 0; i < size; i++) {
-            String give_shiny = "No";
-            String receive_shiny = "Any";
-            String receive_img = "https://raw.githubusercontent.com/juamedi/SSW/main/unknown_pokemon.png";
-            String receive_name = "Any";
-            String receive_ability = "Any";
-            String receive_nature = "Any";
-            String receive_gender = "Any";
-            String receive_lvl = "Any";
+          %>
+          <%
+            for (int i = 0; i < size; i++) {
+              String give_shiny = "No";
+              String receive_shiny = "Any";
+              String receive_img = "https://raw.githubusercontent.com/juamedi/SSW/main/unknown_pokemon.png";
+              String receive_name = "Any";
+              String receive_ability = "Any";
+              String receive_nature = "Any";
+              String receive_gender = "Any";
+              String receive_lvl = "Any";
 
-            Trade trade = new Trade();
-            Pokemon give_pkm = new Pokemon();
-            Pokemon receive_pkm = new Pokemon();
-            
-            trade = list_trade.get(i);
-            give_pkm = trade.getGivePkm();
-            receive_pkm = trade.getReceivePkm();
+              Trade trade = new Trade();
+              Pokemon give_pkm = new Pokemon();
+              Pokemon receive_pkm = new Pokemon();
+              
+              trade = list_trade.get(i);
+              give_pkm = trade.getGivePkm();
+              receive_pkm = trade.getReceivePkm();
 
-            if (give_pkm.getShiny()) {
-                give_shiny = "Yes";
-            }
-            if (receive_pkm.getShiny()) {
-                receive_shiny = "Yes";
-            }
+              if (give_pkm.getShiny()) {
+                  give_shiny = "Yes";
+              }
+              if (receive_pkm.getShiny()) {
+                  receive_shiny = "Yes";
+              }
 
-            if (receive_pkm.getName() != null) {
-                receive_img = "https://play.pokemonshowdown.com/sprites/bwani/" + receive_pkm.getName().toLowerCase() + ".gif";
-                receive_name = receive_pkm.getName();
-            }
-            
-            if (receive_pkm.getAbility() != null) {
-                receive_ability = receive_pkm.getAbility();
-            }
+              if (receive_pkm.getName() != null) {
+                  receive_img = "https://play.pokemonshowdown.com/sprites/bwani/" + receive_pkm.getName().toLowerCase() + ".gif";
+                  receive_name = receive_pkm.getName();
+              }
+              
+              if (receive_pkm.getAbility() != null) {
+                  receive_ability = receive_pkm.getAbility();
+              }
 
-            if (receive_pkm.getNature() != null) {
-                receive_nature = receive_pkm.getNature();
-            }
+              if (receive_pkm.getNature() != null) {
+                  receive_nature = receive_pkm.getNature();
+              }
 
-            if (receive_pkm.getGender() != null) {
-                receive_gender = receive_pkm.getGender();
-            }
+              if (receive_pkm.getGender() != null) {
+                  receive_gender = receive_pkm.getGender();
+              }
 
-            if (receive_pkm.getLvl() != 0) {
-                receive_lvl = "" + receive_pkm.getLvl();
-            }
-        %>
-          <div class="card flex">
+              if (receive_pkm.getLvl() != 0) {
+                  receive_lvl = "" + receive_pkm.getLvl();
+              }
+          %>
+          <form class="card flex" action="OfferServlet" method="get">
             <div class = "row justify-content-center">
               <div class = "col-5">
                 <div class = "row">
@@ -435,50 +431,51 @@
               </div>
             </div>
             <div class = "row justify-content-between">
-                <div class = "col-5 text-align-center">
-                  <label class = "big bold" style = "text-align: end">You Receive</label>
-                </div>
-                <div class = "col-2 text-align-center py">
-                  <button type = "submit" class = "boton-red">Post offer</button>
-                </div>
-                <div class = "col-5 text-align-center">
-                  <label class = "big bold">You Give</label>
-                </div>
+              <div class = "col-5 text-align-center">
+                <label class = "big bold" style = "text-align: end">You Receive</label>
+              </div>
+              <div class = "col-2 text-align-center py">
+                <button type = "submit" class = "boton-red">Post offer</button>
+                <input type="text" id="id-trade" name="id-trade" hidden value=<%=i%>>
+              </div>
+              <div class = "col-5 text-align-center">
+                <label class = "big bold">You Give</label>
+              </div>
             </div> 
-          </div>
-        <%
-          }
-        %>
+          </form>
+          <%
+            }
+          %>
         </div>
       </div>
     </div>
 
     <script>
-        var sliderhp = document.getElementById("range-hp");
-        var slideratk = document.getElementById("range-atk");
-        var sliderdef = document.getElementById("range-def");
-        var sliderspa = document.getElementById("range-spa");
-        var sliderspd = document.getElementById("range-spd");
-        var sliderspe = document.getElementById("range-spe");
-        var outputhp = document.getElementById("ev-hp");
-        var outputatk = document.getElementById("ev-atk");
-        var outputdef = document.getElementById("ev-def");
-        var outputspa = document.getElementById("ev-spa");
-        var outputspd = document.getElementById("ev-spd");
-        var outputspe = document.getElementById("ev-spe");
-        outputhp.innerHTML = sliderhp.value;
-        outputatk.innerHTML = slideratk.value;
-        outputdef.innerHTML = sliderdef.value;
-        outputspa.innerHTML = sliderspa.value;
-        outputspd.innerHTML = sliderspd.value;
-        outputspe.innerHTML = sliderspe.value;
-        sliderhp.oninput = function() {outputhp.innerHTML = this.value;};
-        slideratk.oninput = function() {outputatk.innerHTML = this.value;};
-        sliderdef.oninput = function() {outputdef.innerHTML = this.value;};
-        sliderspa.oninput = function() {outputspa.innerHTML = this.value;};
-        sliderspd.oninput = function() {outputspd.innerHTML = this.value;};
-        sliderspe.oninput = function() {outputspe.innerHTML = this.value;};
-  </script>
+      var sliderhp = document.getElementById("range-hp");
+      var slideratk = document.getElementById("range-atk");
+      var sliderdef = document.getElementById("range-def");
+      var sliderspa = document.getElementById("range-spa");
+      var sliderspd = document.getElementById("range-spd");
+      var sliderspe = document.getElementById("range-spe");
+      var outputhp = document.getElementById("ev-hp");
+      var outputatk = document.getElementById("ev-atk");
+      var outputdef = document.getElementById("ev-def");
+      var outputspa = document.getElementById("ev-spa");
+      var outputspd = document.getElementById("ev-spd");
+      var outputspe = document.getElementById("ev-spe");
+      outputhp.innerHTML = sliderhp.value;
+      outputatk.innerHTML = slideratk.value;
+      outputdef.innerHTML = sliderdef.value;
+      outputspa.innerHTML = sliderspa.value;
+      outputspd.innerHTML = sliderspd.value;
+      outputspe.innerHTML = sliderspe.value;
+      sliderhp.oninput = function() {outputhp.innerHTML = this.value;};
+      slideratk.oninput = function() {outputatk.innerHTML = this.value;};
+      sliderdef.oninput = function() {outputdef.innerHTML = this.value;};
+      sliderspa.oninput = function() {outputspa.innerHTML = this.value;};
+      sliderspd.oninput = function() {outputspd.innerHTML = this.value;};
+      sliderspe.oninput = function() {outputspe.innerHTML = this.value;};
+    </script>
   </body>
 </html>
 
