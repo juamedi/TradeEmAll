@@ -230,7 +230,7 @@
           <div class="card flex" style = "height: 200px">
             <div class = "row" style = "height: 100%">
               <div class = "col-12 text-align-center">
-                <label class = "big bold" style = "align-self: center">No se ha encontrado ningun intercambio con esas caracter�sticas</label>
+                <label class = "big bold" style = "align-self: center">No Pokemon found with the specified parameters</label>
               </div>
             </div>
           </div>

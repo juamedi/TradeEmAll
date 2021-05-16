@@ -1,12 +1,14 @@
 
 package com.model;
 
+import java.io.*;
+
 /**
  *
  * @author gonza
  */
 
-public class Offer {
+public class Offer implements java.io.Serializable{
     private int offer_id;
     private int trade_id;
     private int user_id;

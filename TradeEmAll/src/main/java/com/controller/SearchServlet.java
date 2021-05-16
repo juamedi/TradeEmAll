@@ -99,11 +99,11 @@ public class SearchServlet extends HttpServlet {
             ArrayList<Trade> list_trade = DBTrades.lookTrade(pkm, user);
             request.setAttribute("list_trade", list_trade);
             session.setAttribute("list_trade", list_trade);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/search.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/search.jsp");
             dispatcher.forward(request, response);
         }
         catch (Exception ex){
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
             dispatcher.forward(request, response);
         }
     }

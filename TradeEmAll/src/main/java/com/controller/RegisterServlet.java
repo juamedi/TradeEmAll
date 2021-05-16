@@ -53,7 +53,7 @@ public class RegisterServlet extends HttpServlet {
         
         if (!password.equals(rpassword)) {
             request.setAttribute("wrong_password_reg", "true");
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/register.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/register.jsp");
             dispatcher.forward(request, response);
         }
         else {
@@ -67,11 +67,12 @@ public class RegisterServlet extends HttpServlet {
                 user.setId(id);
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/profile.jsp");
-                dispatcher.forward(request, response);
+                response.sendRedirect("ProfileServlet");
+                //RequestDispatcher dispatcher = request.getRequestDispatcher("ProfileServlet");
+                //dispatcher.forward(request, response);
             }
             catch (Exception ex){
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/register.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/register.jsp");
                 dispatcher.forward(request, response);
             }
         }

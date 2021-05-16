@@ -202,7 +202,19 @@
   flex-wrap: wrap;
   align-items: flex-start;
   overflow-y: auto;
+  overflow-x: hidden;
   height: 250px;
+}
+
+.row-card-profile {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  align-items: stretch;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
 }
 
 /*Grid-Create------------------------------------------------------------------------*/
@@ -222,8 +234,8 @@
 .row-active-post {
   padding-top: 20px;
   height: 490px;
-  overflow-y: auto;
-  overflow: hidden;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .row-reviews {
@@ -258,10 +270,10 @@
 
 .grid-offers {
   display: grid;
-  grid-template-columns: auto auto;
   padding-top: 20px;
   height: 460px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .slider-reviews {

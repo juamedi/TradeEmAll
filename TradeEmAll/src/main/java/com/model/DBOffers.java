@@ -111,6 +111,68 @@ public class DBOffers {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static Boolean acceptOffer (int id_offer, int id_trade) throws Exception {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        System.out.println(id_offer);
+        String sql_accept = "UPDATE Offer "
+                          + "SET accepted=\"Accepted\" "
+                          + "WHERE offer_id = ?";
+
+        String sql_reject = "UPDATE Offer "
+                          + "SET accepted=\"Rejected\" "
+                          + "WHERE offer_id != ? AND trade_id = ?";
+    
+        Boolean done = false;
+
+        try {
+            ps = connection.prepareStatement(sql_accept);
+            ps.setInt(1, id_offer);
+            ps.executeUpdate();
+            
+            ps = connection.prepareStatement(sql_reject);
+            ps.setInt(1, id_offer);
+            ps.setInt(2, id_trade);
+            ps.executeUpdate();
+                    
+            ps.close();
+            pool.freeConnection(connection);
+            return done;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        
+    }
+
+    public static Boolean rejectOffer (int id_offer) throws Exception {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        System.out.println(id_offer);
+        String sql_accept = "UPDATE Offer "
+                          + "SET accepted=\"Rejected\" "
+                          + "WHERE offer_id = ?";
+    
+        Boolean done = false;
+
+        try {
+            ps = connection.prepareStatement(sql_accept);
+            ps.setInt(1, id_offer);
+            ps.executeUpdate();
+                    
+            ps.close();
+            pool.freeConnection(connection);
+            return done;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
         
     }
 

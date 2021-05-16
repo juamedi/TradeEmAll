@@ -125,11 +125,12 @@ public class CreateOfferServlet extends HttpServlet {
         try {
             int id_pkm_receive = DBPokemons.createPokemon(pkm_receive);
             int offer_id = DBOffers.createOffer(id_pkm_receive, id_trade, user);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/profile.jsp");
-            dispatcher.forward(request, response);
+            response.sendRedirect("ProfileServlet");
+            //RequestDispatcher dispatcher = request.getRequestDispatcher("ProfileServlet");
+            //dispatcher.forward(request, response);
         }
         catch (Exception ex){
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
             dispatcher.forward(request, response);
         }
     }

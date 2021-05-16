@@ -185,11 +185,12 @@ public class CreateServlet extends HttpServlet {
             int id_pkm_give = DBPokemons.createPokemon(pkm_give);
             int id_pkm_receive = DBPokemons.createPokemon(pkm_receive);
             int trade_id = DBTrades.createTrade(id_pkm_give, id_pkm_receive, user);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/create.jsp");
-            dispatcher.forward(request, response);
+            response.sendRedirect("ProfileServlet");
+            //RequestDispatcher dispatcher = request.getRequestDispatcher("ProfileServlet");
+            //dispatcher.forward(request, response);
         }
         catch (Exception ex){
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
             dispatcher.forward(request, response);
         }
     }

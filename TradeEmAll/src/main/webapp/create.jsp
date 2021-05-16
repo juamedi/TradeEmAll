@@ -220,13 +220,6 @@
                         <input type = "text" id = "nature" aria-describedby = "pokemon-nature" placeholder="Adamant" name="pkm-give-nature" required>
                       </div>
                     </div>
-                    <div class = "row">
-                      <label class = "bold">Comments</label>
-                    </div>
-                    <div class = "row">
-                      <textarea id="comments" name="comments" rows = "6" cols = "40">Write any extra information here.
-                      </textarea>
-                    </div>
                   </div>
                 </div>
               </fieldset>
@@ -407,12 +400,6 @@
                       <div class = "col-8">
                         <input type = "text" id = "nature" aria-describedby = "pokemon-nature" placeholder="Adamant" name="pkm-receive-nature">
                       </div>
-                    </div>
-                    <div class = "row">
-                      <label class = "bold">Comments</label>
-                    </div>
-                    <div class = "row">
-                      <textarea id="comments" name="comments" rows = "6" cols = "40">Write any extra information here.</textarea>
                     </div>
                   </div>
                 </div>

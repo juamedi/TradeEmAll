@@ -39,7 +39,7 @@
             <%
               if(wpl.equals("true")) {
             %>
-            <label class = "big bold" style = "align-self: center">El usuario y la contraseña no coinciden</label>
+            <label class = "big bold" style = "align-self: center">Username and password do not match</label>
             <%
               }
             %>

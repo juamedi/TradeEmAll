@@ -41,11 +41,11 @@ public class OfferServlet extends HttpServlet {
             request.setAttribute("id_trade", id_trade);
             request.setAttribute("id_list_trade", id_list_trade);
             request.setAttribute("list_trade", trade_list);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/offer.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/offer.jsp");
             dispatcher.forward(request, response);
         }
         catch (Exception ex){
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
             dispatcher.forward(request, response);
         }
     } 

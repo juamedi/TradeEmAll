@@ -46,7 +46,7 @@
             <%
               if(wpr.equals("true")) {
             %>
-            <label class = "big bold" style = "align-self: center">Las contrase�as no coinciden</label>
+            <label class = "big bold" style = "align-self: center">Passwords do not match</label>
             <%
               }
             %>

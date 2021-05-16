@@ -51,16 +51,17 @@ public class LoginServlet extends HttpServlet {
             user = DBUsers.login(username, password);
             if (user.getId() == 0 || user == null) {
                 request.setAttribute("wrong_password_log", "true");
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
                 dispatcher.forward(request, response); 
             }
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/search.jsp");
-            dispatcher.forward(request, response);
+            response.sendRedirect("ProfileServlet");
+            //RequestDispatcher dispatcher = request.getRequestDispatcher("ProfileServlet");
+            //dispatcher.forward(request, response);
         }
         catch (Exception ex){
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
             dispatcher.forward(request, response); 
         }
     }
