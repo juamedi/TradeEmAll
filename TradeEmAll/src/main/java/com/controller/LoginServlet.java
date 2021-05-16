@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
             }
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/profile.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/search.jsp");
             dispatcher.forward(request, response);
         }
         catch (Exception ex){

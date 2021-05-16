@@ -11,6 +11,7 @@ public class Offer {
     private int trade_id;
     private int user_id;
     private Pokemon pkm;
+    private String username;
     
     public Offer() {}
     
@@ -44,5 +45,13 @@ public class Offer {
 
     public void setPkm(Pokemon pkm) {
         this.pkm = pkm;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

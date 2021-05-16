@@ -17,6 +17,7 @@
     String username = user.getUsername();
     String pfp = user.getProfilePicture();
     int id_trade = (Integer) request.getAttribute("id_trade");
+    int id_list_trade = (Integer) request.getAttribute("id_list_trade");
     ArrayList<Trade> list_trade = new ArrayList<Trade>();
     if ((ArrayList<Trade>) request.getAttribute("list_trade") != null) {
       list_trade = (ArrayList<Trade>) request.getAttribute("list_trade");
@@ -25,6 +26,10 @@
     Trade trade = new Trade();
     Pokemon give_pkm = new Pokemon();
     Pokemon receive_pkm = new Pokemon();
+
+    trade = list_trade.get(id_list_trade);
+    give_pkm = trade.getGivePkm();
+    receive_pkm = trade.getReceivePkm();
 
     String give_shiny = "";
     String give_img = "https://raw.githubusercontent.com/juamedi/SSW/main/unknown_pokemon.png";
@@ -47,20 +52,22 @@
     String receive_evspa = "" + receive_pkm.getEVSPA();
     String receive_evspd = "" + receive_pkm.getEVSPD();
     String receive_evspe = "" + receive_pkm.getEVSPE();
-    String receive_ivhp = "min = \"" + receive_pkm.getIVHP()+ "\"";
-    String receive_ivatk = "min = \"" + receive_pkm.getIVATK() + "\"";
-    String receive_ivdef = "min = \"" + receive_pkm.getIVDEF() + "\"";
-    String receive_ivspa = "min = \"" + receive_pkm.getIVSPA() + "\"";
-    String receive_ivspd = "min = \"" + receive_pkm.getIVSPD() + "\"";
-    String receive_ivspe = "min = \"" + receive_pkm.getIVSPE() + "\"";
+    int receive_ivhp = receive_pkm.getIVHP();
+    int receive_ivatk = receive_pkm.getIVATK();
+    int receive_ivdef = receive_pkm.getIVDEF();
+    int receive_ivspa = receive_pkm.getIVSPA();
+    int receive_ivspd = receive_pkm.getIVSPD();
+    int receive_ivspe = receive_pkm.getIVSPE();
+    System.out.println(receive_ivatk);
+    String receive_move1_class = "input-stats";
+    String receive_move2_class = "input-stats";
+    String receive_move3_class = "input-stats";
+    String receive_move4_class = "input-stats";
     String receive_move1 = "";
     String receive_move2 = "";
     String receive_move3 = "";
     String receive_move4 = "";
 
-    trade = list_trade.get(id_trade);
-    give_pkm = trade.getGivePkm();
-    receive_pkm = trade.getReceivePkm();
 
     if (give_pkm.getShiny()) {give_shiny = "checked";}
     if (give_pkm.getName() != null) {
@@ -72,19 +79,19 @@
     if (give_pkm.getGender() != null) {give_gender = give_pkm.getGender();}
     if (give_pkm.getLvl() != 0) {give_lvl = "" + give_pkm.getLvl();}
 
-    if (receive_pkm.getShiny()) {receive_shiny = "checked";}
+    if (receive_pkm.getShiny()) {receive_shiny = "checked disabled";}
     if (receive_pkm.getName() != null) {
         receive_img = "https://play.pokemonshowdown.com/sprites/bwani/" + receive_pkm.getName().toLowerCase() + ".gif";
-        receive_name = "value = \"" + receive_pkm.getName() + "\" disabled";
+        receive_name = "value = \"" + receive_pkm.getName() + "\" readonly  class=\"box-muted\"";
     }
-    if (receive_pkm.getAbility() != null) {receive_ability = "value = \"" + receive_pkm.getAbility() + "\" disabled";}
-    if (receive_pkm.getNature() != null) {receive_nature = "value = \"" + receive_pkm.getNature() + "\" disabled";}
-    if (receive_pkm.getGender() != null) {receive_gender = "value = \"" + receive_pkm.getGender() + "\" disabled";}
-    if (receive_pkm.getLvl() != 0) {receive_lvl = "value = \"" + receive_pkm.getLvl() + "\" disabled";}
-    if (receive_pkm.getMove1() != null) {receive_move1 = "value = \"" + receive_pkm.getMove1() + "\" disabled";}
-    if (receive_pkm.getMove2() != null) {receive_move2 = "value = \"" + receive_pkm.getMove2() + "\" disabled";}
-    if (receive_pkm.getMove3() != null) {receive_move3 = "value = \"" + receive_pkm.getMove3() + "\" disabled";}
-    if (receive_pkm.getMove4() != null) {receive_move4 = "value = \"" + receive_pkm.getMove4() + "\" disabled";}
+    if (receive_pkm.getAbility() != null) {receive_ability = "value = \"" + receive_pkm.getAbility() + "\" readonly class=\"box-muted\"";}
+    if (receive_pkm.getNature() != null) {receive_nature = "value = \"" + receive_pkm.getNature() + "\" readonly class=\"box-muted\"";}
+    if (receive_pkm.getGender() != null) {receive_gender = "value = \"" + receive_pkm.getGender() + "\" readonly class=\"box-muted\"";}
+    if (receive_pkm.getLvl() != 0) {receive_lvl = "value = \"" + receive_pkm.getLvl() + "\" readonly class=\"box-muted\"";}
+    if (receive_pkm.getMove1() != null) {receive_move1 = "value = \"" + receive_pkm.getMove1() + "\" readonly"; receive_move1_class += " box-muted";}
+    if (receive_pkm.getMove2() != null) {receive_move2 = "value = \"" + receive_pkm.getMove2() + "\" readonly"; receive_move2_class += " box-muted";}
+    if (receive_pkm.getMove3() != null) {receive_move3 = "value = \"" + receive_pkm.getMove3() + "\" readonly"; receive_move3_class += " box-muted";}
+    if (receive_pkm.getMove4() != null) {receive_move4 = "value = \"" + receive_pkm.getMove4() + "\" readonly"; receive_move4_class += " box-muted";}
 %>
   
   <body>
@@ -97,7 +104,7 @@
         <form class="form-inline">
           <img src= "https://raw.githubusercontent.com/juamedi/SSW/main/logodark.png" class = "img-logo" alt= "Trade Em All Logo">
           <a class="boton-white" href="SearchStartServlet">Search</a>
-          <a class="boton-white" href="create.jsp">Create offer</a>
+          <a class="boton-white" href="create.jsp">Create Trade</a>
         </form>
         <form class="form-inline dropdown">    
           <button class="dropbtn"><%=username%>
@@ -111,7 +118,7 @@
         </form>
       </nav>
 
-      <form class = "row just" action="CreateServlet" method="post">
+      <form class = "row just" action="CreateOfferServlet" method="post">
         <div class = "col-6">
           <div class = "row justify-content-center">  
             <div class = panel-fluid-double>
@@ -127,7 +134,7 @@
                         <label class = "bold">Name</label>
                       </div>
                       <div class = "col-10">
-                        <input type="text" style = "margin: 2px 0px" id="cname1" name="pkm-give-name" aria-describedby="pokemon-name" placeholder="Bulbasaur" value="<%=give_name%>" disabled>
+                        <input type="text" style = "margin: 2px 0px" id="cname1" name="pkm-give-name" aria-describedby="pokemon-name" placeholder="Bulbasaur" value="<%=give_name%>" readonly>
                       </div>
                     </div>
                     <div class = "row">
@@ -135,7 +142,7 @@
                         <label class = "bold">Level</label>
                       </div>
                       <div class = "col-10">
-                        <input type="text" style = "margin: 2px 0px" id="level" name="pkm-give-lvl" aria-describedby="pokemon-level" placeholder="1" value="<%=give_lvl%>" disabled>
+                        <input type="text" style = "margin: 2px 0px" id="level" name="pkm-give-lvl" aria-describedby="pokemon-level" placeholder="1" value="<%=give_lvl%>" readonly>
                       </div>
                     </div>
                     <div class = "row">
@@ -143,7 +150,7 @@
                         <label class = "bold">Gender</label>
                       </div>
                       <div class = "col-10">
-                        <input type="text" style = "margin: 2px 0px" id="gender" name="pkm-give-gender" aria-describedby="pokemon-gender" placeholder="Male" value="<%=give_gender%>" disabled>
+                        <input type="text" style = "margin: 2px 0px" id="gender" name="pkm-give-gender" aria-describedby="pokemon-gender" placeholder="Male" value="<%=give_gender%>" readonly>
                       </div>
                     </div>
                     <div class = "row">
@@ -151,7 +158,7 @@
                         <label class = "bold">Ability</label>
                       </div>
                       <div class = "col-10">
-                        <input type="text" style = "margin: 2px 0px" id="ability" name="pkm-give-ability" aria-describedby="pokemon-gender" placeholder="Overgrow" value="<%=give_ability%>" disabled>
+                        <input type="text" style = "margin: 2px 0px" id="ability" name="pkm-give-ability" aria-describedby="pokemon-gender" placeholder="Overgrow" value="<%=give_ability%>" readonly>
                       </div>
                     </div>
                     <div class = "row">
@@ -187,7 +194,7 @@
                     <label id = "give-ev-hp">252</label>
                   </div>
                   <div class = "col-iv">
-                    <input class = "input-stats" type="text" id="iv-hp" placeholder="HP" name="pkm-give-iv-hp" value="<%=give_pkm.getIVHP()%>" disabled>
+                    <input class = "input-stats" type="text" id="iv-hp" placeholder="HP" name="pkm-give-iv-hp" value="<%=give_pkm.getIVHP()%>" readonly>
                   </div>
                 </div>
                 <div class = "row-stats">
@@ -203,7 +210,7 @@
                     <label id = "give-ev-atk">252</label>
                   </div>
                   <div class = "col-iv">
-                    <input class = "input-stats" type="text" id="iv-atk" placeholder="ATK" name="pkm-give-iv-atk" value="<%=give_pkm.getIVATK()%>" disabled>
+                    <input class = "input-stats" type="text" id="iv-atk" placeholder="ATK" name="pkm-give-iv-atk" value="<%=give_pkm.getIVATK()%>" readonly>
                   </div>
                 </div>
                 <div class = "row-stats">
@@ -219,7 +226,7 @@
                     <label id = "give-ev-def">252</label>
                   </div>
                   <div class = "col-iv">
-                    <input class = "input-stats" type="text" id="iv-def" placeholder="DEF" name="pkm-give-iv-def" value="<%=give_pkm.getIVDEF()%>" disabled>
+                    <input class = "input-stats" type="text" id="iv-def" placeholder="DEF" name="pkm-give-iv-def" value="<%=give_pkm.getIVDEF()%>" readonly>
                   </div>
                 </div>
                 <div class = "row-stats">
@@ -235,7 +242,7 @@
                     <label id = "give-ev-spa">252</label>
                   </div>
                   <div class = "col-iv">
-                    <input class = "input-stats" type="text" id="iv-spa" placeholder="SPA" name="pkm-give-iv-spa" value="<%=give_pkm.getIVSPA()%>" disabled>
+                    <input class = "input-stats" type="text" id="iv-spa" placeholder="SPA" name="pkm-give-iv-spa" value="<%=give_pkm.getIVSPA()%>" readonly>
                   </div>
                 </div>
                 <div class = "row-stats">
@@ -251,7 +258,7 @@
                     <label id = "give-ev-spd">252</label>
                   </div>
                   <div class = "col-iv">
-                    <input class = "input-stats" type="text" id="iv-spd" placeholder="SPD" name="pkm-give-iv-spd" value="<%=give_pkm.getIVSPD()%>" disabled>
+                    <input class = "input-stats" type="text" id="iv-spd" placeholder="SPD" name="pkm-give-iv-spd" value="<%=give_pkm.getIVSPD()%>" readonly>
                   </div>
                 </div>
                 <div class = "row-stats">
@@ -267,16 +274,16 @@
                     <label id = "give-ev-spe">252</label>
                   </div>
                   <div class = "col-iv">
-                    <input class = "input-stats" type="text" id="iv-spe" placeholder="SPE" name="pkm-give-iv-spe" value="<%=give_pkm.getIVSPE()%>" disabled>
+                    <input class = "input-stats" type="text" id="iv-spe" placeholder="SPE" name="pkm-give-iv-spe" value="<%=give_pkm.getIVSPE()%>" readonly>
                   </div>
                 </div>
                 <div class = "row-stats">
                   <div class = "col-6">
                     <label class = "margin bold">Moveset</label>
-                    <input class = "input-stats" type="text" id="iv-spe" placeholder="---" name="pkm-give-move-1" value="<%=give_pkm.getMove1()%>" disabled>
-                    <input class = "input-stats" type="text" id="iv-spe" placeholder="---" name="pkm-give-move-2" value="<%=give_pkm.getMove2()%>" disabled>
-                    <input class = "input-stats" type="text" id="iv-spe" placeholder="---" name="pkm-give-move-3" value="<%=give_pkm.getMove3()%>" disabled>
-                    <input class = "input-stats" type="text" id="iv-spe" placeholder="---" name="pkm-give-move-4" value="<%=give_pkm.getMove4()%>" disabled>
+                    <input class = "input-stats" type="text" id="iv-spe" placeholder="---" name="pkm-give-move-1" value="<%=give_pkm.getMove1()%>" readonly>
+                    <input class = "input-stats" type="text" id="iv-spe" placeholder="---" name="pkm-give-move-2" value="<%=give_pkm.getMove2()%>" readonly>
+                    <input class = "input-stats" type="text" id="iv-spe" placeholder="---" name="pkm-give-move-3" value="<%=give_pkm.getMove3()%>" readonly>
+                    <input class = "input-stats" type="text" id="iv-spe" placeholder="---" name="pkm-give-move-4" value="<%=give_pkm.getMove4()%>" readonly>
                   </div>
                   <div class = "col-5">
                     <div class = "row-stats">
@@ -284,7 +291,7 @@
                         <label class = "bold">Nature</label>
                       </div>
                       <div class = "col-8">
-                        <input type = "text" id = "nature" aria-describedby = "pokemon-nature" placeholder="Adamant" name="pkm-give-nature" value="<%=give_nature%>" disabled>
+                        <input type = "text" id = "nature" aria-describedby = "pokemon-nature" placeholder="Adamant" name="pkm-give-nature" value="<%=give_nature%>" readonly>
                       </div>
                     </div>
                     <div class = "row">
@@ -315,7 +322,7 @@
                         <label class = "bold">Name</label>
                       </div>
                       <div class = "col-10">
-                        <input type="text" style = "margin: 2px 0px" id="cname2" aria-describedby="pokemon-name" placeholder="Bulbasaur" name="pkm-receive-name" <%=receive_name%>>
+                        <input type="text" style = "margin: 2px 0px" id="cname2" aria-describedby="pokemon-name" placeholder="Bulbasaur" name="pkm-receive-name" <%=receive_name%> required>
                       </div>
                     </div>
                     <div class = "row">
@@ -323,7 +330,7 @@
                         <label class = "bold">Level</label>
                       </div>
                       <div class = "col-10">
-                        <input type="text" style = "margin: 2px 0px" id="level" aria-describedby="pokemon-level" placeholder="1" name="pkm-receive-lvl" <%=receive_lvl%>>
+                        <input type="text" style = "margin: 2px 0px" id="level" aria-describedby="pokemon-level" placeholder="1" name="pkm-receive-lvl" <%=receive_lvl%> required>
                       </div>
                     </div>
                     <div class = "row">
@@ -331,7 +338,7 @@
                         <label class = "bold">Gender</label>
                       </div>
                       <div class = "col-10">
-                        <input type="text" style = "margin: 2px 0px" id="gender" aria-describedby="pokemon-gender" placeholder="Male" name="pkm-receive-gender" <%=receive_gender%>>
+                        <input type="text" style = "margin: 2px 0px" id="gender" aria-describedby="pokemon-gender" placeholder="Male" name="pkm-receive-gender" <%=receive_gender%> required>
                       </div>
                     </div>
                     <div class = "row">
@@ -339,7 +346,7 @@
                         <label class = "bold">Ability</label>
                       </div>
                       <div class = "col-10">
-                        <input type="text" style = "margin: 2px 0px" id="ability" aria-describedby="pokemon-gender" placeholder="Overgrow" name="pkm-receive-ability" <%=receive_ability%>>
+                        <input type="text" style = "margin: 2px 0px" id="ability" aria-describedby="pokemon-gender" placeholder="Overgrow" name="pkm-receive-ability" <%=receive_ability%> required>
                       </div>
                     </div>
                     <div class = "row">
@@ -368,14 +375,14 @@
                   </div>
                   <div class = "col-range">
                     <div class="slidecontainer">
-                      <input type="range" min="<%=receive_evhp%>" max="252" value="0" step="4" class="custom-range" id="receive-range-hp" name="pkm-receive-ev-hp">
+                      <input type="range" min="<%=receive_evhp%>" max="252" value="<%=receive_evhp%>" step="4" class="custom-range" id="receive-range-hp" name="pkm-receive-ev-hp">
                     </div>
                   </div>
                   <div class = "col-ev">
                     <label id = "receive-ev-hp">252</label>
                   </div>
                   <div class = "col-iv">
-                    <input class = "input-stats" type="text" id="iv-hp" placeholder="HP" name="pkm-receive-iv-hp" <%=receive_ivhp%>>
+                    <input class = "input-stats" type="number" min = "<%=receive_ivhp%>" max="31" value= "<%=receive_ivhp%>" id="iv-hp" placeholder="HP" name="pkm-receive-iv-hp" required>
                   </div>
                 </div>
                 <div class = "row-stats">
@@ -384,14 +391,14 @@
                   </div>
                   <div class = "col-range">
                     <div class="slidecontainer">
-                      <input type="range" min="<%=receive_evatk%>" max="252" value="0" step="4" class="custom-range" id="receive-range-atk" name="pkm-receive-ev-atk">
+                      <input type="range" min="<%=receive_evatk%>" max="252" value="<%=receive_evatk%>" step="4" class="custom-range" id="receive-range-atk" name="pkm-receive-ev-atk">
                     </div>
                   </div>
                   <div class = "col-ev">
                     <label id = "receive-ev-atk">252</label>
                   </div>
                   <div class = "col-iv">
-                    <input class = "input-stats" type="text" id="iv-atk" placeholder="ATK" name="pkm-receive-iv-atk" <%=receive_ivatk%>>
+                    <input class = "input-stats" type="number" min = "<%=receive_ivatk%>" max="31" value= "<%=receive_ivatk%>" id="iv-atk" placeholder="ATK" name="pkm-receive-iv-atk" required>
                   </div>
                 </div>
                 <div class = "row-stats">
@@ -400,14 +407,14 @@
                   </div>
                   <div class = "col-range">
                     <div class="slidecontainer">
-                      <input type="range" min="<%=receive_evdef%>" max="252" value="0"  step="4" class="custom-range" id="receive-range-def" name="pkm-receive-ev-def">
+                      <input type="range" min="<%=receive_evdef%>" max="252" value="<%=receive_evdef%>"  step="4" class="custom-range" id="receive-range-def" name="pkm-receive-ev-def">
                     </div>
                   </div>
                   <div class = "col-ev">
                     <label id = "receive-ev-def">252</label>
                   </div>
                   <div class = "col-iv">
-                    <input class = "input-stats" type="text" id="iv-def" placeholder="DEF" name="pkm-receive-iv-def" <%=receive_ivdef%>>
+                    <input class = "input-stats" type="number" min = "<%=receive_ivdef%>" max="31" value= "<%=receive_ivdef%>" id="iv-def" placeholder="DEF" name="pkm-receive-iv-def" required>
                   </div>
                 </div>
                 <div class = "row-stats">
@@ -423,7 +430,7 @@
                     <label id = "receive-ev-spa">252</label>
                   </div>
                   <div class = "col-iv">
-                    <input class = "input-stats" type="text" id="iv-spa" placeholder="SPA" name="pkm-receive-iv-spa" <%=receive_ivspa%>>
+                    <input class = "input-stats" type="number" min = "<%=receive_ivspa%>" max="31" value= "<%=receive_ivspa%>" id="iv-spa" placeholder="SPA" name="pkm-receive-iv-spa" required>
                   </div>
                 </div>
                 <div class = "row-stats">
@@ -432,14 +439,14 @@
                   </div>
                   <div class = "col-range">
                     <div class="slidecontainer">
-                      <input type="range" min="0" max="252" value="0" step="4" class="custom-range" id="receive-range-spd" name="pkm-receive-ev-spd">
+                      <input type="range" min="<%=receive_evspd%>" max="252" value="<%=receive_evspd%>" step="4" class="custom-range" id="receive-range-spd" name="pkm-receive-ev-spd">
                     </div>
                   </div>
                   <div class = "col-ev">
                     <label id = "receive-ev-spd">252</label>
                   </div>
                   <div class = "col-iv">
-                    <input class = "input-stats" type="text" id="iv-spd" placeholder="SPD" name="pkm-receive-iv-spd" <%=receive_ivspd%>>
+                    <input class = "input-stats" type="number" min = "<%=receive_ivspd%>" max="31" value= "<%=receive_ivspd%>" id="iv-spd" placeholder="SPD" name="pkm-receive-iv-spd" required>
                   </div>
                 </div>
                 <div class = "row-stats">
@@ -448,23 +455,23 @@
                   </div>
                   <div class = "col-range">
                     <div class="slidecontainer">
-                      <input type="range" min="0" max="252" value="0" step="4" class="custom-range" id="receive-range-spe" name="pkm-receive-ev-spe">
+                      <input type="range" min="<%=receive_evspe%>" max="252" value="<%=receive_evspe%>" step="4" class="custom-range" id="receive-range-spe" name="pkm-receive-ev-spe">
                     </div>
                   </div>
                   <div class = "col-ev">
                     <label id = "receive-ev-spe">252</label>
                   </div>
                   <div class = "col-iv">
-                    <input class = "input-stats" type="text" id="iv-spe" placeholder="SPE" name="pkm-receive-iv-spe" <%=receive_ivspe%>>
+                    <input class = "input-stats" type="number" min = "<%=receive_ivspe%>" max="31" value= "<%=receive_ivspe%>" id="iv-spe" placeholder="SPE" name="pkm-receive-iv-spe" required>
                   </div>
                 </div>
                 <div class = "row-stats">
                   <div class = "col-6">
                     <label class = "margin bold">Moveset</label>
-                    <input class = "input-stats" type="text" id="iv-spe" placeholder="---" name="pkm-receive-move-1" <%=receive_move1%>>
-                    <input class = "input-stats" type="text" id="iv-spe" placeholder="---" name="pkm-receive-move-2" <%=receive_move2%>>
-                    <input class = "input-stats" type="text" id="iv-spe" placeholder="---" name="pkm-receive-move-3" <%=receive_move3%>>
-                    <input class = "input-stats" type="text" id="iv-spe" placeholder="---" name="pkm-receive-move-4" <%=receive_move4%>>
+                    <input type="text" id="iv-spe" placeholder="---" name="pkm-receive-move-1" class="<%=receive_move1_class%>" <%=receive_move1%> required>
+                    <input type="text" id="iv-spe" placeholder="---" name="pkm-receive-move-2" class="<%=receive_move2_class%>" <%=receive_move2%> required>
+                    <input type="text" id="iv-spe" placeholder="---" name="pkm-receive-move-3" class="<%=receive_move3_class%>" <%=receive_move3%> required>
+                    <input type="text" id="iv-spe" placeholder="---" name="pkm-receive-move-4" class="<%=receive_move4_class%>" <%=receive_move4%> required>
                   </div>
                   <div class = "col-5">
                     <div class = "row-stats">
@@ -472,7 +479,7 @@
                         <label class = "bold">Nature</label>
                       </div>
                       <div class = "col-8">
-                        <input type = "text" id = "nature" aria-describedby = "pokemon-nature" placeholder="Adamant" name="pkm-receive-nature" <%=receive_nature%>>
+                        <input type = "text" id = "nature" aria-describedby = "pokemon-nature" placeholder="Adamant" name="pkm-receive-nature" <%=receive_nature%> required>
                       </div>
                     </div>
                     <div class = "row">
@@ -489,6 +496,8 @@
         </div>
         <div class = "row-last justify-content-center">
           <button type="submit" class="boton-red">Publish</button>
+          <input type = "text" id = "id-trade" name="id-trade" value="<%=id_trade%>" hidden>
+          <input type = "text" id = "id-list-trade" name="id-list-trade" value="<%=id_list_trade%>" hidden>
         </div>
       </form>
     </div>

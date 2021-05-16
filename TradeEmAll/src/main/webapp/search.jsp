@@ -32,14 +32,14 @@
         <form class="form-inline">
           <img src= "https://raw.githubusercontent.com/juamedi/SSW/main/logodark.png" class = "img-logo" alt= "Trade Em All Logo">
           <a class="boton-white" href="SearchStartServlet">Search</a>
-          <a class="boton-white" href="create.jsp">Create offer</a>
+          <a class="boton-white" href="create.jsp">Create Trade</a>
         </form>
         <form class="form-inline dropdown">    
           <button class="dropbtn"><%=username%>
             <img src=<%=pfp%> class = "img-icon">
           </button>
           <div class="dropdown-content">
-            <a class="dropdown-item" href="profile.jsp">Your profile</a>
+            <a class="dropdown-item" href="ProfileServlet">Your profile</a>
             <div class = "dropdown-divider"></div>
             <a class="dropdown-item quit" href="index.jsp">Quit</a>
           </div>
@@ -433,7 +433,8 @@
               </div>
               <div class = "col-2 text-align-center py">
                 <button type = "submit" class = "boton-red">Post offer</button>
-                <input type="text" id="id-trade" name="id-trade" hidden value=<%=i%>>
+                <input type="text" id="id-trade" name="id-trade" hidden value=<%=trade.getTradeId()%>>
+                <input type="text" id="id-list-trade" name="id-list-trade" hidden value=<%=i%>>
               </div>
               <div class = "col-5 text-align-center">
                 <label class = "big bold">You Give</label>

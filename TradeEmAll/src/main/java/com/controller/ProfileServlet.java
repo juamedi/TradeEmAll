@@ -19,8 +19,8 @@ import java.util.*;
  *
  * @author juanm
  */
-@WebServlet(name="OfferServlet", urlPatterns={"/OfferServlet"})
-public class OfferServlet extends HttpServlet {
+@WebServlet(name="ProfileServlet", urlPatterns={"/ProfileServlet"})
+public class ProfileServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -33,19 +33,20 @@ public class OfferServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int id_list_trade = Integer.parseInt(request.getParameter("id-list-trade"));
-        int id_trade = Integer.parseInt(request.getParameter("id-trade"));
-        ArrayList<Trade> trade_list = (ArrayList<Trade>) request.getSession().getAttribute("list_trade");
+        
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
 
         try {
-            request.setAttribute("id_trade", id_trade);
-            request.setAttribute("id_list_trade", id_list_trade);
-            request.setAttribute("list_trade", trade_list);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/offer.jsp");
+            ArrayList<Trade> list_trade = DBTrades.lookTradeUser(user);
+            ArrayList<Offer> list_offer = DBOffers.lookOfferUser(user);
+            session.setAttribute("list_trade_user", list_trade);
+            session.setAttribute("list_offer_user", list_offer);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/profile.jsp");
             dispatcher.forward(request, response);
         }
         catch (Exception ex){
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
             dispatcher.forward(request, response);
         }
     } 
@@ -61,6 +62,21 @@ public class OfferServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        try {
+            ArrayList<Trade> list_trade = DBTrades.lookTradeUser(user);
+            ArrayList<Offer> list_offer = DBOffers.lookOfferUser(user);
+            session.setAttribute("list_trade_user", list_trade);
+            session.setAttribute("list_offer_user", list_offer);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/profile.jsp");
+            dispatcher.forward(request, response);
+        }
+        catch (Exception ex){
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 
     /** 

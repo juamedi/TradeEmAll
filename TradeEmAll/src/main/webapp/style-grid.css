@@ -179,8 +179,6 @@
   -ms-flex: 0 0 33.333333%;
   flex: 0 0 33.333333%;
   max-width: 33.333333%;
-  margin-left: 15px;
-  margin-right: 100px;
 }
 
 /*Grid-Cards------------------------------------------------------------------------*/
@@ -225,6 +223,7 @@
   padding-top: 20px;
   height: 490px;
   overflow-y: auto;
+  overflow: hidden;
 }
 
 .row-reviews {
@@ -232,11 +231,15 @@
 }
 
 .col-active-post {
-  -ms-flex: 0 0 50%;
-  flex: 0 0 50%;
-  max-width: 50%;
-  margin-top: 40px;
-  align-self: start;
+  -ms-flex: 0 0 66.666667%;
+  flex: 0 0 66.666667%;
+  max-width: 66.666667%;
+}
+
+.col-active-trade {
+  -ms-flex: 0 0 45%;
+  flex: 0 0 45%;
+  max-width: 45%;
 }
 
 .col-offers {

@@ -30,7 +30,7 @@
         <form class="form-inline">
           <img src= "https://raw.githubusercontent.com/juamedi/SSW/main/logodark.png" class = "img-logo" alt= "Trade Em All Logo">
           <a class="boton-white" href="SearchStartServlet">Search</a>
-          <a class="boton-white" href="create.jsp">Create offer</a>
+          <a class="boton-white" href="create.jsp">Create Trade</a>
         </form>
         <form class="form-inline dropdown">    
           <button class="dropbtn"><%=username%>
@@ -60,7 +60,7 @@
                         <label class = "bold">Name</label>
                       </div>
                       <div class = "col-10">
-                        <input type="text" style = "margin: 2px 0px" id="cname1" name="pkm-give-name" aria-describedby="pokemon-name" placeholder="Bulbasaur">
+                        <input type="text" style = "margin: 2px 0px" id="cname1" name="pkm-give-name" aria-describedby="pokemon-name" placeholder="Bulbasaur" required>
                       </div>
                     </div>
                     <div class = "row">
@@ -68,7 +68,7 @@
                         <label class = "bold">Level</label>
                       </div>
                       <div class = "col-10">
-                        <input type="text" style = "margin: 2px 0px" id="level" name="pkm-give-lvl" aria-describedby="pokemon-level" placeholder="1">
+                        <input type="text" style = "margin: 2px 0px" id="level" name="pkm-give-lvl" aria-describedby="pokemon-level" placeholder="1" required>
                       </div>
                     </div>
                     <div class = "row">
@@ -76,7 +76,7 @@
                         <label class = "bold">Gender</label>
                       </div>
                       <div class = "col-10">
-                        <input type="text" style = "margin: 2px 0px" id="gender" name="pkm-give-gender" aria-describedby="pokemon-gender" placeholder="Male">
+                        <input type="text" style = "margin: 2px 0px" id="gender" name="pkm-give-gender" aria-describedby="pokemon-gender" placeholder="Male" required>
                       </div>
                     </div>
                     <div class = "row">
@@ -84,7 +84,7 @@
                         <label class = "bold">Ability</label>
                       </div>
                       <div class = "col-10">
-                        <input type="text" style = "margin: 2px 0px" id="ability" name="pkm-give-ability" aria-describedby="pokemon-gender" placeholder="Overgrow">
+                        <input type="text" style = "margin: 2px 0px" id="ability" name="pkm-give-ability" aria-describedby="pokemon-gender" placeholder="Overgrow" required>
                       </div>
                     </div>
                     <div class = "row">
@@ -120,7 +120,7 @@
                     <label id = "give-ev-hp">252</label>
                   </div>
                   <div class = "col-iv">
-                    <input class = "input-stats" type="text" id="iv-hp" placeholder="HP" name="pkm-give-iv-hp">
+                    <input class = "input-stats" type="text" id="iv-hp" placeholder="HP" name="pkm-give-iv-hp" required>
                   </div>
                 </div>
                 <div class = "row-stats">
@@ -136,7 +136,7 @@
                     <label id = "give-ev-atk">252</label>
                   </div>
                   <div class = "col-iv">
-                    <input class = "input-stats" type="text" id="iv-atk" placeholder="ATK" name="pkm-give-iv-atk">
+                    <input class = "input-stats" type="text" id="iv-atk" placeholder="ATK" name="pkm-give-iv-atk" required>
                   </div>
                 </div>
                 <div class = "row-stats">
@@ -152,7 +152,7 @@
                     <label id = "give-ev-def">252</label>
                   </div>
                   <div class = "col-iv">
-                    <input class = "input-stats" type="text" id="iv-def" placeholder="DEF" name="pkm-give-iv-def">
+                    <input class = "input-stats" type="text" id="iv-def" placeholder="DEF" name="pkm-give-iv-def" required>
                   </div>
                 </div>
                 <div class = "row-stats">
@@ -168,7 +168,7 @@
                     <label id = "give-ev-spa">252</label>
                   </div>
                   <div class = "col-iv">
-                    <input class = "input-stats" type="text" id="iv-spa" placeholder="SPA" name="pkm-give-iv-spa">
+                    <input class = "input-stats" type="text" id="iv-spa" placeholder="SPA" name="pkm-give-iv-spa" required>
                   </div>
                 </div>
                 <div class = "row-stats">
@@ -184,7 +184,7 @@
                     <label id = "give-ev-spd">252</label>
                   </div>
                   <div class = "col-iv">
-                    <input class = "input-stats" type="text" id="iv-spd" placeholder="SPD" name="pkm-give-iv-spd">
+                    <input class = "input-stats" type="text" id="iv-spd" placeholder="SPD" name="pkm-give-iv-spd" required>
                   </div>
                 </div>
                 <div class = "row-stats">
@@ -200,16 +200,16 @@
                     <label id = "give-ev-spe">252</label>
                   </div>
                   <div class = "col-iv">
-                    <input class = "input-stats" type="text" id="iv-spe" placeholder="SPE" name="pkm-give-iv-spe">
+                    <input class = "input-stats" type="text" id="iv-spe" placeholder="SPE" name="pkm-give-iv-spe" required>
                   </div>
                 </div>
                 <div class = "row-stats">
                   <div class = "col-6">
                     <label class = "margin bold">Moveset</label>
-                    <input class = "input-stats" type="text" id="iv-spe" placeholder="---" name="pkm-give-move-1">
-                    <input class = "input-stats" type="text" id="iv-spe" placeholder="---" name="pkm-give-move-2">
-                    <input class = "input-stats" type="text" id="iv-spe" placeholder="---" name="pkm-give-move-3">
-                    <input class = "input-stats" type="text" id="iv-spe" placeholder="---" name="pkm-give-move-4">
+                    <input class = "input-stats" type="text" id="iv-spe" placeholder="---" name="pkm-give-move-1" required>
+                    <input class = "input-stats" type="text" id="iv-spe" placeholder="---" name="pkm-give-move-2" required>
+                    <input class = "input-stats" type="text" id="iv-spe" placeholder="---" name="pkm-give-move-3" required>
+                    <input class = "input-stats" type="text" id="iv-spe" placeholder="---" name="pkm-give-move-4" required>
                   </div>
                   <div class = "col-5">
                     <div class = "row-stats">
@@ -217,7 +217,7 @@
                         <label class = "bold">Nature</label>
                       </div>
                       <div class = "col-8">
-                        <input type = "text" id = "nature" aria-describedby = "pokemon-nature" placeholder="Adamant" name="pkm-give-nature">
+                        <input type = "text" id = "nature" aria-describedby = "pokemon-nature" placeholder="Adamant" name="pkm-give-nature" required>
                       </div>
                     </div>
                     <div class = "row">

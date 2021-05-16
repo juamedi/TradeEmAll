@@ -64,6 +64,10 @@ body {
   color: #777;
 }
 
+.box-muted {
+  background-color: #e1e1e1;
+}
+
 .flex {
   width: 100%;
 }
@@ -137,6 +141,10 @@ a {
 
 .cbx-shiny:disabled {
     background-color: blue;
+}
+
+.placed {
+    color: red;
 }
 
 /*Panels-------------------------------------------------------*/

@@ -1,12 +1,13 @@
 
 package com.model;
 
+import java.io.*;
 /**
  *
  * @author juanm
  */
 
-public class Pokemon {
+public class Pokemon implements java.io.Serializable{
     private int pkm_id;
     private String name;
     private int lvl;

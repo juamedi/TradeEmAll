@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<%@page import = "com.model.User"%>
+<%@page import = "com.model.*, java.util.*"%>
 <html>
     <head>
             <title>Trade Em All</title>
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
             <link rel="stylesheet" href="style-common.css">
             <link rel="stylesheet" href="style-grid.css">
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.1/css/all.css">
 
             <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/juamedi/SSW/main/favicon.png" sizes="16x16">
             <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/juamedi/SSW/main/favicon.png" sizes="32x32">
-            <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/juamedi/SSW/main/favicon.pngg" sizes="64x64">
+            <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/juamedi/SSW/main/favicon.pngg" sizes="64x64">  
     </head>
 
 
@@ -21,6 +21,17 @@
     String password = user.getPassword();
     String email = user.getEmail();
     String pfp = user.getProfilePicture();
+
+    ArrayList<Trade> list_trade = new ArrayList<Trade>();
+    ArrayList<Offer> list_offer = new ArrayList<Offer>();
+    if ((ArrayList<Trade>) session.getAttribute("list_trade_user") != null) {
+      list_trade = (ArrayList<Trade>) session.getAttribute("list_trade_user");
+    }
+    if ((ArrayList<Offer>) session.getAttribute("list_offer_user") != null) {
+      list_offer = (ArrayList<Offer>) session.getAttribute("list_offer_user");
+    }
+    int size = list_trade.size();
+ 
 %>
 <body>
     <div class="background-image">
@@ -31,7 +42,7 @@
             <form class="form-inline">
               <img src= "https://raw.githubusercontent.com/juamedi/SSW/main/logodark.png" class = "img-logo" alt= "Trade Em All Logo">
               <a class="boton-white" href="SearchStartServlet">Search</a>
-              <a class="boton-white" href="create.jsp">Create offer</a>
+              <a class="boton-white" href="create.jsp">Create Trade</a>
             </form>
             <form class="form-inline dropdown">    
               <button class="dropbtn"><%=username%>
@@ -96,399 +107,217 @@
       </div>
     </div>
     <div class="col-active-post">
-      <div class="row">
-        <label class = "bold">Active posts</label>
+      <div class="row justify-content-center">
+        <label class = "bold" style="font-size: 150%; padding-bottom: 10px">Active posts</label>
       </div>
       <div class = "row-active-post">
-        <div class="card">
-          <div class = "row">
-            <div class = "col-3">
-              <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "img-create">
-            </div>
-              <div class = "col-card-stats">
-                <div class = "row justify-content-between">
-                  <div class = "col-6">
-                    <label class = "big bold">Bulbasaur</label>
-                  </div>
-                  <div class = "col-6">
-                    <label>Owner</label>
-                    <label class = "text-muted">Juamedi</label>
-                  </div>
-                </div>
-                <div class = "row-blank"></div>
-                <div class = "row justify-content-between">
-                  <div class = "col-4">
-                    <label>Nature</label>
-                    <label class = "text-muted">Adamant</label>
-                  </div>
-                  <div class = "col-3">
-                    <label>Level</label>
-                    <label class = "text-muted">100</label>
-                  </div>
-                  <div class = "col-3">
-                    <label>Gender</label>
-                    <label class = "text-muted">Male</label>
-                  </div>
-                  <div class = "col-2">
-                    <label>Shiny</label>
-                    <label class = "text-muted">No</label>
-                  </div>
-                </div>
-                <div class = "row-blank"></div>
-                <div class = "row justify-content-between">
-                  <div class = "col-2">
-                    <label class = "bold">HP</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">ATK</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">DEF</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">SPA</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">SPD</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">SPE</label>
-                    <label>31</label>
-                  </div>
-                </div>
+          <%
+            if (size == 0) {
+          %>
+          <div class="card flex" style = "height: 200px">
+            <div class = "row" style = "height: 100%">
+              <div class = "col-12 text-align-center">
+                <label class = "big bold" style = "align-self: center">No se ha encontrado ningun intercambio con esas características</label>
               </div>
+            </div>
           </div>
-        </div>
+          <%
+            }
+          %>
+          <%
+            for (int i = 0; i < size; i++) {
+              String give_shiny = "Any";
+              String receive_shiny = "Any";
+              String receive_img = "https://raw.githubusercontent.com/juamedi/SSW/main/unknown_pokemon.png";
+              String receive_name = "Any";
+              String receive_ability = "Any";
+              String receive_nature = "Any";
+              String receive_gender = "Any";
+              String receive_lvl = "Any";
 
-        <div class="card">
-          <div class = "row">
-            <div class = "col-3">
-              <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "img-create">
-            </div>
-              <div class = "col-card-stats">
-                <div class = "row justify-content-between">
-                  <div class = "col-6">
-                    <label class = "big bold">Bulbasaur</label>
-                  </div>
-                  <div class = "col-6">
-                    <label>Owner</label>
-                    <label class = "text-muted">Juamedi</label>
-                  </div>
-                </div>
-                <div class = "row-blank"></div>
-                <div class = "row justify-content-between">
-                  <div class = "col-4">
-                    <label>Nature</label>
-                    <label class = "text-muted">Adamant</label>
-                  </div>
-                  <div class = "col-3">
-                    <label>Level</label>
-                    <label class = "text-muted">100</label>
-                  </div>
-                  <div class = "col-3">
-                    <label>Gender</label>
-                    <label class = "text-muted">Male</label>
-                  </div>
-                  <div class = "col-2">
-                    <label>Shiny</label>
-                    <label class = "text-muted">No</label>
-                  </div>
-                </div>
-                <div class = "row-blank"></div>
-                <div class = "row justify-content-between">
-                  <div class = "col-2">
-                    <label class = "bold">HP</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">ATK</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">DEF</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">SPA</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">SPD</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">SPE</label>
-                    <label>31</label>
-                  </div>
-                </div>
-              </div>
-          </div>
-        </div>
+              Trade trade = new Trade();
+              Pokemon give_pkm = new Pokemon();
+              Pokemon receive_pkm = new Pokemon();
+              
+              trade = list_trade.get(i);
+              give_pkm = trade.getGivePkm();
+              receive_pkm = trade.getReceivePkm();
 
-        <div class="card">
-          <div class = "row">
-            <div class = "col-3">
-              <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "img-create">
-            </div>
-              <div class = "col-card-stats">
-                <div class = "row justify-content-between">
-                  <div class = "col-6">
-                    <label class = "big bold">Bulbasaur</label>
-                  </div>
-                  <div class = "col-6">
-                    <label>Owner</label>
-                    <label class = "text-muted">Juamedi</label>
-                  </div>
-                </div>
-                <div class = "row-blank"></div>
-                <div class = "row justify-content-between">
-                  <div class = "col-4">
-                    <label>Nature</label>
-                    <label class = "text-muted">Adamant</label>
-                  </div>
-                  <div class = "col-3">
-                    <label>Level</label>
-                    <label class = "text-muted">100</label>
-                  </div>
-                  <div class = "col-3">
-                    <label>Gender</label>
-                    <label class = "text-muted">Male</label>
-                  </div>
-                  <div class = "col-2">
-                    <label>Shiny</label>
-                    <label class = "text-muted">No</label>
-                  </div>
-                </div>
-                <div class = "row-blank"></div>
-                <div class = "row justify-content-between">
-                  <div class = "col-2">
-                    <label class = "bold">HP</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">ATK</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">DEF</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">SPA</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">SPD</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">SPE</label>
-                    <label>31</label>
-                  </div>
-                </div>
-              </div>
-          </div>
-        </div>
+              if (give_pkm.getShiny()) {
+                  give_shiny = "Yes";
+              }
+              if (receive_pkm.getShiny()) {
+                  receive_shiny = "Yes";
+              }
 
-        <div class="card">
-          <div class = "row">
-            <div class = "col-3">
-              <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "img-create">
-            </div>
-              <div class = "col-card-stats">
-                <div class = "row justify-content-between">
-                  <div class = "col-6">
-                    <label class = "big bold">Bulbasaur</label>
-                  </div>
-                  <div class = "col-6">
-                    <label>Owner</label>
-                    <label class = "text-muted">Juamedi</label>
-                  </div>
-                </div>
-                <div class = "row-blank"></div>
-                <div class = "row justify-content-between">
-                  <div class = "col-4">
-                    <label>Nature</label>
-                    <label class = "text-muted">Adamant</label>
-                  </div>
-                  <div class = "col-3">
-                    <label>Level</label>
-                    <label class = "text-muted">100</label>
-                  </div>
-                  <div class = "col-3">
-                    <label>Gender</label>
-                    <label class = "text-muted">Male</label>
-                  </div>
-                  <div class = "col-2">
-                    <label>Shiny</label>
-                    <label class = "text-muted">No</label>
-                  </div>
-                </div>
-                <div class = "row-blank"></div>
-                <div class = "row justify-content-between">
-                  <div class = "col-2">
-                    <label class = "bold">HP</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">ATK</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">DEF</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">SPA</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">SPD</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">SPE</label>
-                    <label>31</label>
-                  </div>
-                </div>
-              </div>
-          </div>
-        </div>
+              if (receive_pkm.getName() != null) {
+                  receive_img = "https://play.pokemonshowdown.com/sprites/bwani/" + receive_pkm.getName().toLowerCase() + ".gif";
+                  receive_name = receive_pkm.getName();
+              }
+              
+              if (receive_pkm.getAbility() != null) {
+                  receive_ability = receive_pkm.getAbility();
+              }
 
-        <div class="card">
-          <div class = "row">
-            <div class = "col-3">
-              <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "img-create">
-            </div>
-              <div class = "col-card-stats">
-                <div class = "row justify-content-between">
-                  <div class = "col-6">
-                    <label class = "big bold">Bulbasaur</label>
-                  </div>
-                  <div class = "col-6">
-                    <label>Owner</label>
-                    <label class = "text-muted">Juamedi</label>
-                  </div>
-                </div>
-                <div class = "row-blank"></div>
-                <div class = "row justify-content-between">
-                  <div class = "col-4">
-                    <label>Nature</label>
-                    <label class = "text-muted">Adamant</label>
-                  </div>
-                  <div class = "col-3">
-                    <label>Level</label>
-                    <label class = "text-muted">100</label>
-                  </div>
-                  <div class = "col-3">
-                    <label>Gender</label>
-                    <label class = "text-muted">Male</label>
-                  </div>
-                  <div class = "col-2">
-                    <label>Shiny</label>
-                    <label class = "text-muted">No</label>
-                  </div>
-                </div>
-                <div class = "row-blank"></div>
-                <div class = "row justify-content-between">
-                  <div class = "col-2">
-                    <label class = "bold">HP</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">ATK</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">DEF</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">SPA</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">SPD</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">SPE</label>
-                    <label>31</label>
-                  </div>
-                </div>
-              </div>
-          </div>
-        </div>
+              if (receive_pkm.getNature() != null) {
+                  receive_nature = receive_pkm.getNature();
+              }
 
-        <div class="card">
-          <div class = "row">
-            <div class = "col-3">
-              <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "img-create">
-            </div>
-              <div class = "col-card-stats">
-                <div class = "row justify-content-between">
-                  <div class = "col-6">
-                    <label class = "big bold">Bulbasaur</label>
-                  </div>
-                  <div class = "col-6">
-                    <label>Owner</label>
-                    <label class = "text-muted">Juamedi</label>
-                  </div>
-                </div>
-                <div class = "row-blank"></div>
-                <div class = "row justify-content-between">
-                  <div class = "col-4">
-                    <label>Nature</label>
-                    <label class = "text-muted">Adamant</label>
-                  </div>
+              if (receive_pkm.getGender() != null) {
+                  receive_gender = receive_pkm.getGender();
+              }
+
+              if (receive_pkm.getLvl() != 0) {
+                  receive_lvl = "" + receive_pkm.getLvl();
+              }
+          %>
+        <div class="card flex">
+            <div class = "row justify-content-center">
+              <div class = "col-5">
+                <div class = "row">
                   <div class = "col-3">
-                    <label>Level</label>
-                    <label class = "text-muted">100</label>
+                    <img src="<%="https://play.pokemonshowdown.com/sprites/bwani/" + give_pkm.getName().toLowerCase() + ".gif"%>" alt="Avatar" class = "card-img">
                   </div>
-                  <div class = "col-3">
-                    <label>Gender</label>
-                    <label class = "text-muted">Male</label>
-                  </div>
-                  <div class = "col-2">
-                    <label>Shiny</label>
-                    <label class = "text-muted">No</label>
-                  </div>
-                </div>
-                <div class = "row-blank"></div>
-                <div class = "row justify-content-between">
-                  <div class = "col-2">
-                    <label class = "bold">HP</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">ATK</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">DEF</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">SPA</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">SPD</label>
-                    <label>31</label>
-                  </div>
-                  <div class = "col-2">
-                    <label class = "bold">SPE</label>
-                    <label>31</label>
+                  <div class = "col-card-stats">
+                    <div class = "row justify-content-between">
+                      <div class = "col-4">
+                        <label class = "big bold"><%=give_pkm.getName()%></label>
+                      </div>
+                      <div class = "col-6">
+                        <label>Owner</label>
+                        <label class = "text-muted"><%=trade.getGiveUsername()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label>Level</label>
+                        <label class = "text-muted"><%=give_pkm.getLvl()%></label>
+                      </div>
+                    </div>
+                    <div class = "row-blank"></div>
+                    <div class = "row justify-content-between">
+                      <div class = "col-4">
+                        <label>Nature</label>
+                        <label class = "text-muted"><%=give_pkm.getNature()%></label>
+                      </div>
+                        <div class = "col-3">
+                          <label>Ability</label>
+                          <label class = "text-muted"><%=give_pkm.getAbility()%></label>
+                        </div>
+                      <div class = "col-3">
+                        <label>Gender</label>
+                        <label class = "text-muted"><%=give_pkm.getGender()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label>Shiny</label>
+                        <label class = "text-muted"><%=give_shiny%></label>
+                      </div>
+                    </div>
+                    <div class = "row-blank"></div>
+                    <div class = "row justify-content-between">
+                      <div class = "col-2">
+                        <label class = "bold">HP</label>
+                        <label><%=give_pkm.getIVHP()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">ATK</label>
+                        <label><%=give_pkm.getIVATK()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">DEF</label>
+                        <label><%=give_pkm.getIVDEF()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">SPA</label>
+                        <label><%=give_pkm.getIVSPA()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">SPD</label>
+                        <label><%=give_pkm.getIVSPD()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">SPE</label>
+                        <label><%=give_pkm.getIVSPE()%></label>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
+              <div class = "col-1">
+                <div class = "row justify-content-center">
+                  <img src = "https://raw.githubusercontent.com/juamedi/SSW/main/arrow.png" alt="Avatar" class = "card-img">
+                </div>
+              </div>
+              <div class = "col-5">
+                <div class = "row">
+                  <div class = "col-3">
+                    <img src="<%=receive_img%>" alt="Avatar" class = "card-img">
+                  </div>
+                  <div class = "col-card-stats">
+                    <div class = "row justify-content-between">
+                      <div class = "col-4">
+                        <label class = "big bold"><%=receive_name%></label>
+                      </div>
+                      <div class = "col-6">
+                        <label> </label>
+                      </div>
+                      <div class = "col-2">
+                        <label>Level</label>
+                        <label class = "text-muted"><%=receive_lvl%></label>
+                      </div>
+                    </div>
+                    <div class = "row-blank"></div>
+                    <div class = "row justify-content-between">
+                      <div class = "col-4">
+                        <label>Nature</label>
+                        <label class = "text-muted"><%=receive_nature%></label>
+                      </div>
+                      <div class = "col-3">
+                        <label>Ability</label>
+                        <label class = "text-muted"><%=receive_ability%></label>
+                      </div>
+                      <div class = "col-3">
+                        <label>Gender</label>
+                        <label class = "text-muted"><%=receive_gender%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label>Shiny</label>
+                        <label class = "text-muted"><%=receive_shiny%></label>
+                      </div>
+                    </div>
+                    <div class = "row-blank"></div>
+                    <div class = "row justify-content-between">
+                      <div class = "col-2">
+                        <label class = "bold">HP</label>
+                        <label><%=receive_pkm.getIVHP()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">ATK</label>
+                        <label><%=receive_pkm.getIVATK()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">DEF</label>
+                        <label><%=receive_pkm.getIVDEF()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">SPA</label>
+                        <label><%=receive_pkm.getIVSPA()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">SPD</label>
+                        <label><%=receive_pkm.getIVSPD()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">SPE</label>
+                        <label><%=receive_pkm.getIVSPE()%></label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        <%
+            }
+        %>
       </div>
     </div>
     </div>
@@ -505,870 +334,223 @@
       <div class = "panel-fluid-profile row">
         <div class= "col-offers">      
           <div class = "row-card-received">
-            <div class="card flex">
-              <div class = "row justify-content-between">
-                <div class = "col-5">
-                  <div class = "row">
-                    <div class = "col-3">
-                      <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "card-img">
-                    </div>
-                    <div class = "col-card-stats">
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label class = "big bold">Bulbasaur</label>
-                        </div>
-                        <div class = "col-6">
-                          <label>Owner</label>
-                          <label class = "text-muted">Goba</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Level</label>
-                          <label class = "text-muted">100</label>
-                        </div>
-                      </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label>Nature</label>
-                          <label class = "text-muted">Adamant</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Ability</label>
-                          <label class = "text-muted">Overgrow</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Gender</label>
-                          <label class = "text-muted">Male</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Shiny</label>
-                          <label class = "text-muted">No</label>
-                        </div>
-                      </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-2">
-                          <label class = "bold">HP</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">ATK</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">DEF</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPA</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPD</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPE</label>
-                          <label>31</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class = "col-5">
-                  <div class = "row">
-                    <div class = "col-3">
-                      <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "card-img">
-                    </div>
-                    <div class = "col-card-stats">
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label class = "big bold">Bulbasaur</label>
-                        </div>
-                        <div class = "col-6">
-                          <label>Owner</label>
-                          <label class = "text-muted">Goba</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Level</label>
-                          <label class = "text-muted">100</label>
-                        </div>
-                      </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label>Nature</label>
-                          <label class = "text-muted">Adamant</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Ability</label>
-                          <label class = "text-muted">Overgrow</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Gender</label>
-                          <label class = "text-muted">Male</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Shiny</label>
-                          <label class = "text-muted">No</label>
-                        </div>
-                      </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-2">
-                          <label class = "bold">HP</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">ATK</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">DEF</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPA</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPD</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPE</label>
-                          <label>31</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class = "col-2">
-                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/accepted.png" id = "boton-aceptar" />
-                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/denied.png" id = "boton-rechazar"id = "boton-rechazar"/>
-                </div>
-              </div>    
+          <%
+            if (size == 0) {
+          %>
+          <div class="card flex" style = "height: 200px">
+            <div class = "row" style = "height: 100%">
+              <div class = "col-12 text-align-center">
+                <label class = "big bold" style = "align-self: center">No se ha encontrado ningun intercambio con esas características</label>
+              </div>
             </div>
+          </div>
+          <%
+            }
+          %>
+          <%
+            for (int i = 0; i < list_offer.size(); i++) {
+              String give_shiny = "Any";
+              String receive_shiny = "Any";
+              String receive_img = "https://raw.githubusercontent.com/juamedi/SSW/main/unknown_pokemon.png";
+              String receive_name = "Any";
+              String receive_ability = "Any";
+              String receive_nature = "Any";
+              String receive_gender = "Any";
+              String receive_lvl = "Any";
+
+              Trade t = new Trade();
+              Trade trade = new Trade();
+              Offer offer = new Offer();
+              Pokemon give_pkm = new Pokemon();
+              Pokemon receive_pkm = new Pokemon();
+
+              offer = list_offer.get(i);
+
+              for (int j = 0; j < size; j++) {
+                t = list_trade.get(j);
+                if (t.getTradeId() == offer.getTradeId()) {
+                    trade = list_trade.get(j);
+                }
+              }
+
+              give_pkm = trade.getGivePkm();
+              receive_pkm = offer.getPkm();
+
+              if (give_pkm.getShiny()) {
+                  give_shiny = "Yes";
+              }
+              if (receive_pkm.getShiny()) {
+                  receive_shiny = "Yes";
+              }
+
+              if (receive_pkm.getName() != null) {
+                  receive_img = "https://play.pokemonshowdown.com/sprites/bwani/" + receive_pkm.getName().toLowerCase() + ".gif";
+                  receive_name = receive_pkm.getName();
+              }
+              
+              if (receive_pkm.getAbility() != null) {
+                  receive_ability = receive_pkm.getAbility();
+              }
+
+              if (receive_pkm.getNature() != null) {
+                  receive_nature = receive_pkm.getNature();
+              }
+
+              if (receive_pkm.getGender() != null) {
+                  receive_gender = receive_pkm.getGender();
+              }
+
+              if (receive_pkm.getLvl() != 0) {
+                  receive_lvl = "" + receive_pkm.getLvl();
+              }
+          %>
             <div class="card flex">
               <div class = "row justify-content-between">
                 <div class = "col-5">
-                  <div class = "row">
-                    <div class = "col-3">
-                      <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "card-img">
-                    </div>
-                    <div class = "col-card-stats">
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label class = "big bold">Bulbasaur</label>
-                        </div>
-                        <div class = "col-6">
-                          <label>Owner</label>
-                          <label class = "text-muted">Goba</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Level</label>
-                          <label class = "text-muted">100</label>
-                        </div>
+                <div class = "row">
+                  <div class = "col-3">
+                    <img src="<%="https://play.pokemonshowdown.com/sprites/bwani/" + give_pkm.getName().toLowerCase() + ".gif"%>" alt="Avatar" class = "card-img">
+                  </div>
+                  <div class = "col-card-stats">
+                    <div class = "row justify-content-between">
+                      <div class = "col-4">
+                        <label class = "big bold"><%=give_pkm.getName()%></label>
                       </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label>Nature</label>
-                          <label class = "text-muted">Adamant</label>
-                        </div>
+                      <div class = "col-6">
+                        <label>Owner</label>
+                        <label class = "text-muted"><%=trade.getGiveUsername()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label>Level</label>
+                        <label class = "text-muted"><%=give_pkm.getLvl()%></label>
+                      </div>
+                    </div>
+                    <div class = "row-blank"></div>
+                    <div class = "row justify-content-between">
+                      <div class = "col-4">
+                        <label>Nature</label>
+                        <label class = "text-muted"><%=give_pkm.getNature()%></label>
+                      </div>
                         <div class = "col-3">
                           <label>Ability</label>
-                          <label class = "text-muted">Overgrow</label>
+                          <label class = "text-muted"><%=give_pkm.getAbility()%></label>
                         </div>
-                        <div class = "col-3">
-                          <label>Gender</label>
-                          <label class = "text-muted">Male</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Shiny</label>
-                          <label class = "text-muted">No</label>
-                        </div>
+                      <div class = "col-3">
+                        <label>Gender</label>
+                        <label class = "text-muted"><%=give_pkm.getGender()%></label>
                       </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-2">
-                          <label class = "bold">HP</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">ATK</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">DEF</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPA</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPD</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPE</label>
-                          <label>31</label>
-                        </div>
+                      <div class = "col-2">
+                        <label>Shiny</label>
+                        <label class = "text-muted"><%=give_shiny%></label>
+                      </div>
+                    </div>
+                    <div class = "row-blank"></div>
+                    <div class = "row justify-content-between">
+                      <div class = "col-2">
+                        <label class = "bold">HP</label>
+                        <label><%=give_pkm.getIVHP()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">ATK</label>
+                        <label><%=give_pkm.getIVATK()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">DEF</label>
+                        <label><%=give_pkm.getIVDEF()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">SPA</label>
+                        <label><%=give_pkm.getIVSPA()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">SPD</label>
+                        <label><%=give_pkm.getIVSPD()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">SPE</label>
+                        <label><%=give_pkm.getIVSPE()%></label>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
                 <div class = "col-5">
-                  <div class = "row">
-                    <div class = "col-3">
-                      <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "card-img">
+                <div class = "row">
+                  <div class = "col-3">
+                    <img src="<%=receive_img%>" alt="Avatar" class = "card-img">
+                  </div>
+                  <div class = "col-card-stats">
+                    <div class = "row justify-content-between">
+                      <div class = "col-4">
+                        <label class = "big bold"><%=receive_name%></label>
+                      </div>
+                      <div class = "col-6">
+                        <label>Owner</label>
+                        <label class = "text-muted"><%=offer.getUsername()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label>Level</label>
+                        <label class = "text-muted"><%=receive_lvl%></label>
+                      </div>
                     </div>
-                    <div class = "col-card-stats">
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label class = "big bold">Bulbasaur</label>
-                        </div>
-                        <div class = "col-6">
-                          <label>Owner</label>
-                          <label class = "text-muted">Goba</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Level</label>
-                          <label class = "text-muted">100</label>
-                        </div>
+                    <div class = "row-blank"></div>
+                    <div class = "row justify-content-between">
+                      <div class = "col-4">
+                        <label>Nature</label>
+                        <label class = "text-muted"><%=receive_nature%></label>
                       </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label>Nature</label>
-                          <label class = "text-muted">Adamant</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Ability</label>
-                          <label class = "text-muted">Overgrow</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Gender</label>
-                          <label class = "text-muted">Male</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Shiny</label>
-                          <label class = "text-muted">No</label>
-                        </div>
+                      <div class = "col-3">
+                        <label>Ability</label>
+                        <label class = "text-muted"><%=receive_ability%></label>
                       </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-2">
-                          <label class = "bold">HP</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">ATK</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">DEF</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPA</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPD</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPE</label>
-                          <label>31</label>
-                        </div>
+                      <div class = "col-3">
+                        <label>Gender</label>
+                        <label class = "text-muted"><%=receive_gender%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label>Shiny</label>
+                        <label class = "text-muted"><%=receive_shiny%></label>
+                      </div>
+                    </div>
+                    <div class = "row-blank"></div>
+                    <div class = "row justify-content-between">
+                      <div class = "col-2">
+                        <label class = "bold">HP</label>
+                        <label><%=receive_pkm.getIVHP()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">ATK</label>
+                        <label><%=receive_pkm.getIVATK()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">DEF</label>
+                        <label><%=receive_pkm.getIVDEF()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">SPA</label>
+                        <label><%=receive_pkm.getIVSPA()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">SPD</label>
+                        <label><%=receive_pkm.getIVSPD()%></label>
+                      </div>
+                      <div class = "col-2">
+                        <label class = "bold">SPE</label>
+                        <label><%=receive_pkm.getIVSPE()%></label>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
                 <div class = "col-2">
                   <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/accepted.png" id = "boton-aceptar"/>
                   <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/denied.png" id = "boton-rechazar"/>
                 </div>
               </div>    
             </div>
-            <div class="card flex">
-              <div class = "row justify-content-between">
-                <div class = "col-5">
-                  <div class = "row">
-                    <div class = "col-3">
-                      <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "card-img">
-                    </div>
-                    <div class = "col-card-stats">
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label class = "big bold">Bulbasaur</label>
-                        </div>
-                        <div class = "col-6">
-                          <label>Owner</label>
-                          <label class = "text-muted">Goba</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Level</label>
-                          <label class = "text-muted">100</label>
-                        </div>
-                      </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label>Nature</label>
-                          <label class = "text-muted">Adamant</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Ability</label>
-                          <label class = "text-muted">Overgrow</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Gender</label>
-                          <label class = "text-muted">Male</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Shiny</label>
-                          <label class = "text-muted">No</label>
-                        </div>
-                      </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-2">
-                          <label class = "bold">HP</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">ATK</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">DEF</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPA</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPD</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPE</label>
-                          <label>31</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class = "col-5">
-                  <div class = "row">
-                    <div class = "col-3">
-                      <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "card-img">
-                    </div>
-                    <div class = "col-card-stats">
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label class = "big bold">Bulbasaur</label>
-                        </div>
-                        <div class = "col-6">
-                          <label>Owner</label>
-                          <label class = "text-muted">Goba</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Level</label>
-                          <label class = "text-muted">100</label>
-                        </div>
-                      </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label>Nature</label>
-                          <label class = "text-muted">Adamant</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Ability</label>
-                          <label class = "text-muted">Overgrow</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Gender</label>
-                          <label class = "text-muted">Male</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Shiny</label>
-                          <label class = "text-muted">No</label>
-                        </div>
-                      </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-2">
-                          <label class = "bold">HP</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">ATK</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">DEF</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPA</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPD</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPE</label>
-                          <label>31</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class = "col-2">
-                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/accepted.png" id = "boton-aceptar"/>
-                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/denied.png" id = "boton-rechazar"/>
-                </div>
-              </div>    
-            </div>
-            <div class="card flex">
-              <div class = "row justify-content-between">
-                <div class = "col-5">
-                  <div class = "row">
-                    <div class = "col-3">
-                      <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "card-img">
-                    </div>
-                    <div class = "col-card-stats">
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label class = "big bold">Bulbasaur</label>
-                        </div>
-                        <div class = "col-6">
-                          <label>Owner</label>
-                          <label class = "text-muted">Goba</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Level</label>
-                          <label class = "text-muted">100</label>
-                        </div>
-                      </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label>Nature</label>
-                          <label class = "text-muted">Adamant</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Ability</label>
-                          <label class = "text-muted">Overgrow</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Gender</label>
-                          <label class = "text-muted">Male</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Shiny</label>
-                          <label class = "text-muted">No</label>
-                        </div>
-                      </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-2">
-                          <label class = "bold">HP</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">ATK</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">DEF</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPA</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPD</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPE</label>
-                          <label>31</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class = "col-5">
-                  <div class = "row">
-                    <div class = "col-3">
-                      <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "card-img">
-                    </div>
-                    <div class = "col-card-stats">
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label class = "big bold">Bulbasaur</label>
-                        </div>
-                        <div class = "col-6">
-                          <label>Owner</label>
-                          <label class = "text-muted">Goba</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Level</label>
-                          <label class = "text-muted">100</label>
-                        </div>
-                      </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label>Nature</label>
-                          <label class = "text-muted">Adamant</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Ability</label>
-                          <label class = "text-muted">Overgrow</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Gender</label>
-                          <label class = "text-muted">Male</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Shiny</label>
-                          <label class = "text-muted">No</label>
-                        </div>
-                      </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-2">
-                          <label class = "bold">HP</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">ATK</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">DEF</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPA</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPD</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPE</label>
-                          <label>31</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class = "col-2">
-                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/accepted.png" id = "boton-aceptar"/>
-                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/denied.png" id = "boton-rechazar"/>
-                </div>
-              </div>    
-            </div>
-            <div class="card flex">
-              <div class = "row justify-content-between">
-                <div class = "col-5">
-                  <div class = "row">
-                    <div class = "col-3">
-                      <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "card-img">
-                    </div>
-                    <div class = "col-card-stats">
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label class = "big bold">Bulbasaur</label>
-                        </div>
-                        <div class = "col-6">
-                          <label>Owner</label>
-                          <label class = "text-muted">Goba</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Level</label>
-                          <label class = "text-muted">100</label>
-                        </div>
-                      </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label>Nature</label>
-                          <label class = "text-muted">Adamant</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Ability</label>
-                          <label class = "text-muted">Overgrow</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Gender</label>
-                          <label class = "text-muted">Male</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Shiny</label>
-                          <label class = "text-muted">No</label>
-                        </div>
-                      </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-2">
-                          <label class = "bold">HP</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">ATK</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">DEF</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPA</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPD</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPE</label>
-                          <label>31</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class = "col-5">
-                  <div class = "row">
-                    <div class = "col-3">
-                      <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "card-img">
-                    </div>
-                    <div class = "col-card-stats">
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label class = "big bold">Bulbasaur</label>
-                        </div>
-                        <div class = "col-6">
-                          <label>Owner</label>
-                          <label class = "text-muted">Goba</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Level</label>
-                          <label class = "text-muted">100</label>
-                        </div>
-                      </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label>Nature</label>
-                          <label class = "text-muted">Adamant</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Ability</label>
-                          <label class = "text-muted">Overgrow</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Gender</label>
-                          <label class = "text-muted">Male</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Shiny</label>
-                          <label class = "text-muted">No</label>
-                        </div>
-                      </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-2">
-                          <label class = "bold">HP</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">ATK</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">DEF</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPA</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPD</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPE</label>
-                          <label>31</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class = "col-2">
-                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/accepted.png" id = "boton-aceptar"/>
-                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/denied.png" id = "boton-rechazar"/>
-                </div>
-              </div>    
-            </div>
-            <div class="card flex">
-              <div class = "row justify-content-between">
-                <div class = "col-5">
-                  <div class = "row">
-                    <div class = "col-3">
-                      <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "card-img">
-                    </div>
-                    <div class = "col-card-stats">
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label class = "big bold">Bulbasaur</label>
-                        </div>
-                        <div class = "col-6">
-                          <label>Owner</label>
-                          <label class = "text-muted">Goba</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Level</label>
-                          <label class = "text-muted">100</label>
-                        </div>
-                      </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label>Nature</label>
-                          <label class = "text-muted">Adamant</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Ability</label>
-                          <label class = "text-muted">Overgrow</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Gender</label>
-                          <label class = "text-muted">Male</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Shiny</label>
-                          <label class = "text-muted">No</label>
-                        </div>
-                      </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-2">
-                          <label class = "bold">HP</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">ATK</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">DEF</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPA</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPD</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPE</label>
-                          <label>31</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class = "col-5">
-                  <div class = "row">
-                    <div class = "col-3">
-                      <img src="https://raw.githubusercontent.com/juamedi/SSW/main/Bulbasaur.png" alt="Avatar" class = "card-img">
-                    </div>
-                    <div class = "col-card-stats">
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label class = "big bold">Bulbasaur</label>
-                        </div>
-                        <div class = "col-6">
-                          <label>Owner</label>
-                          <label class = "text-muted">Goba</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Level</label>
-                          <label class = "text-muted">100</label>
-                        </div>
-                      </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-4">
-                          <label>Nature</label>
-                          <label class = "text-muted">Adamant</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Ability</label>
-                          <label class = "text-muted">Overgrow</label>
-                        </div>
-                        <div class = "col-3">
-                          <label>Gender</label>
-                          <label class = "text-muted">Male</label>
-                        </div>
-                        <div class = "col-2">
-                          <label>Shiny</label>
-                          <label class = "text-muted">No</label>
-                        </div>
-                      </div>
-                      <div class = "row-blank"></div>
-                      <div class = "row justify-content-between">
-                        <div class = "col-2">
-                          <label class = "bold">HP</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">ATK</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">DEF</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPA</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPD</label>
-                          <label>31</label>
-                        </div>
-                        <div class = "col-2">
-                          <label class = "bold">SPE</label>
-                          <label>31</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class = "col-2">
-                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/accepted.png" id = "boton-aceptar"/>
-                  <input class = "trade-input" type="image" src="https://raw.githubusercontent.com/juamedi/SSW/main/denied.png" id = "boton-rechazar"/>
-                </div>
-              </div>    
-            </div>
+        <%
+            }
+        %>
           </div>
         </div>
       </div>
