@@ -15,10 +15,7 @@ public class Trade implements java.io.Serializable {
     private int receive_user_id;
     private String give_username;
     private String receive_username;
-    private String give_review;
-    private String receive_review;
-    private int give_review_stars;
-    private int receive_review_stars;
+    private String offer_estado;
     private Pokemon give_pkm;
     private Pokemon receive_pkm;
     
@@ -74,36 +71,12 @@ public class Trade implements java.io.Serializable {
         this.receive_username = receive_username;
     }
     
-    public String getGiveReview() {
-        return give_review;
+    public String getOfferEstado() {
+        return offer_estado;
     }
     
-    public void setGiveReview(String give_review) {
-        this.give_review = give_review;
-    }
-    
-    public int getGiveReviewStars() {
-        return give_review_stars;
-    }
-    
-    public void setGiveReviewStars(int give_review_stars) {
-        this.give_review_stars = give_review_stars;
-    }
-    
-    public String getReceiveReview() {
-        return receive_review;
-    }
-    
-    public void setReceiveReview(String receive_review) {
-        this.receive_review = receive_review;
-    }
-    
-    public int getReceiveReviewStars() {
-        return receive_review_stars;
-    }
-    
-    public void setReceiveReviewStars(int receive_review_stars) {
-        this.receive_review_stars = receive_review_stars;
+    public void setOfferEstado(String offer_estado) {
+        this.offer_estado = offer_estado;
     }
     
     public Pokemon getGivePkm() {

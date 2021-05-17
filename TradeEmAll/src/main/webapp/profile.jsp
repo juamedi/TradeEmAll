@@ -67,7 +67,17 @@
     <div id="Info" class="tabcontent">
       <div class="tab">
         <button class="tablinks bold big" onclick="openTab(event, 'Info')" id="defaultOpen">Info</button>
+        <%
+            if (list_offer.size() != 0) {
+        %>
+        <button class="tablinks bold big" onclick="openTab(event, 'Offers received')" style = "color: #D42727">Offers received (new)</button>
+        <%
+            } else {
+        %>
         <button class="tablinks bold big" onclick="openTab(event, 'Offers received')">Offers received</button>
+        <%
+            }
+        %>
         <button class="tablinks bold big" onclick="openTab(event, 'History')">History</button>
         <button class="tablinks bold big" onclick="openTab(event, 'Your Offers')">Your Offers</button>
       </div>
@@ -84,7 +94,6 @@
             <input readonly="True" value="<%=username + " #" + id%>"></input> 
         </div>
         <div class = "col-4 py">    
-          <a class="boton-white" href="#">Change</a>
         </div>
       </div>
       <div class="row py justify-content-between">
@@ -103,7 +112,6 @@
           <input type="password" readonly="True" value=<%=password%>></input> 
         </div>
         <div class = "col-4 py">    
-          <a class="boton-white" href="#">Change</a>
         </div>
       </div>
      
@@ -329,7 +337,17 @@
       
       <div class="tab">
         <button class="tablinks bold big" onclick="openTab(event, 'Info')" id="defaultOpen">Info</button>
+        <%
+            if (list_offer.size() != 0) {
+        %>
+        <button class="tablinks bold big" onclick="openTab(event, 'Offers received')" style = "color: #D42727">Offers received (new)</button>
+        <%
+            } else {
+        %>
         <button class="tablinks bold big" onclick="openTab(event, 'Offers received')">Offers received</button>
+        <%
+            }
+        %>
         <button class="tablinks bold big" onclick="openTab(event, 'History')">History</button>
         <button class="tablinks bold big" onclick="openTab(event, 'Your Offers')">Your Offers</button>
       </div>
@@ -576,7 +594,17 @@
   <div id="History" class="tabcontent">
     <div class="tab">
         <button class="tablinks bold big" onclick="openTab(event, 'Info')" id="defaultOpen">Info</button>
+        <%
+            if (list_offer.size() != 0) {
+        %>
+        <button class="tablinks bold big" onclick="openTab(event, 'Offers received')" style = "color: #D42727">Offers received (new)</button>
+        <%
+            } else {
+        %>
         <button class="tablinks bold big" onclick="openTab(event, 'Offers received')">Offers received</button>
+        <%
+            }
+        %>
         <button class="tablinks bold big" onclick="openTab(event, 'History')">History</button>
         <button class="tablinks bold big" onclick="openTab(event, 'Your Offers')">Your Offers</button>
       </div>
@@ -802,7 +830,17 @@
     <div id="Your Offers" class="tabcontent">
       <div class="tab">
           <button class="tablinks bold big" onclick="openTab(event, 'Info')" id="defaultOpen">Info</button>
-          <button class="tablinks bold big" onclick="openTab(event, 'Offers received')">Offers received</button>
+        <%
+            if (list_offer.size() != 0) {
+        %>
+        <button class="tablinks bold big" onclick="openTab(event, 'Offers received')" style = "color: #D42727">Offers received (new)</button>
+        <%
+            } else {
+        %>
+        <button class="tablinks bold big" onclick="openTab(event, 'Offers received')">Offers received</button>
+        <%
+            }
+        %>
           <button class="tablinks bold big" onclick="openTab(event, 'History')">History</button>
           <button class="tablinks bold big" onclick="openTab(event, 'Your Offers')">Your Offers</button>
       </div>
@@ -835,6 +873,7 @@
               String receive_nature = "Any";
               String receive_gender = "Any";
               String receive_lvl = "Any";
+              String offer_estado = "";
 
               Trade trade = new Trade();
               Pokemon give_pkm = new Pokemon();
@@ -843,6 +882,14 @@
               trade = active_trade.get(i);
               give_pkm = trade.getGivePkm();
               receive_pkm = trade.getReceivePkm();
+
+              if (trade.getOfferEstado().equals("Accepted")) {
+                offer_estado = "style =  \"background-color: rgb(105, 184, 115)\"";
+              }
+
+              if (trade.getOfferEstado().equals("Rejected")) {
+                offer_estado = "style =  \"background-color: rgb(214, 110, 110)\"";
+              }
 
               if (give_pkm.getShiny()) {
                   give_shiny = "Yes";
@@ -872,7 +919,7 @@
                   receive_lvl = "" + receive_pkm.getLvl();
               }
           %>
-        <div class="card flex">
+        <div class="card flex" <%=offer_estado%>>
             <div class = "row justify-content-center">
               <div class = "col-5">
                 <div class = "row">
