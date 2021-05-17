@@ -21,7 +21,7 @@
   <body>
     <div class="background-image">
       <div class= "header">
-        <a href="index.jsp"><img src='https://raw.githubusercontent.com/juamedi/SSW/main/tradeemall.png' alt= "Trade Em All Logo"></a>
+        <a><img src='https://raw.githubusercontent.com/juamedi/SSW/main/tradeemall.png' alt= "Trade Em All Logo"></a>
       </div>
       <form class = "panel" action = "LoginServlet" method = "post">
         <fieldset>
