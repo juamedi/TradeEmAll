@@ -18,7 +18,6 @@
     User user = (User) session.getAttribute("user");
     int id = user.getId();
     String username = user.getUsername();
-    String password = user.getPassword();
     String email = user.getEmail();
     String pfp = user.getProfilePicture();
 
@@ -102,16 +101,6 @@
         </div>
         <div class = "col-9 py">    
           <label><%=email%></label> 
-        </div>
-      </div>
-      <div class="row py">
-        <div class = "col-3 py">
-          <label class = "bold">Password:</label>
-        </div>
-        <div class = "col-4 py">    
-          <input type="password" readonly="True" value=<%=password%>></input> 
-        </div>
-        <div class = "col-4 py">    
         </div>
       </div>
      

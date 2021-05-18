@@ -15,7 +15,6 @@
 <%
     User user = (User) session.getAttribute("user");
     String username = user.getUsername();
-    String password = user.getPassword();
     String email = user.getEmail();
     String pfp = user.getProfilePicture();
 %>
