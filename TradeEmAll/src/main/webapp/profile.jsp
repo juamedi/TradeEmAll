@@ -747,7 +747,17 @@
               </div>
               <div class = "col-1">
                 <div class = "row justify-content-center">
+                <%
+                  if (trade.getGiveUsername().equals(username)) {
+                %>
                   <img src = "https://raw.githubusercontent.com/juamedi/SSW/main/arrow.png" alt="Avatar" class = "card-img">
+                <%
+                  } else {
+                %>
+                  <img src = "https://raw.githubusercontent.com/juamedi/SSW/main/arrow-reverse.png" alt="Avatar" class = "card-img">
+                <%
+                    }
+                %>
                 </div>
               </div>
               <div class = "col-5">
@@ -991,7 +1001,7 @@
               </div>
               <div class = "col-1">
                 <div class = "row justify-content-center">
-                  <img src = "https://raw.githubusercontent.com/juamedi/SSW/main/arrow.png" alt="Avatar" class = "card-img">
+                  <img src = "https://raw.githubusercontent.com/juamedi/SSW/main/arrow-reverse.png" alt="Avatar" class = "card-img">
                 </div>
               </div>
               <div class = "col-5">
